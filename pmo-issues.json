@@ -1,0 +1,1180 @@
+{
+  "issues": [
+    {
+      "key": "MPSP-375",
+      "summary": "AI 기반 네이버 자율매칭 고도화",
+      "status": "MPSR 이관",
+      "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-04-23",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-374",
+      "summary": "카페24 연동 개발 요청",
+      "status": "오픈",
+      "assignee": "강현(Hyun Kang)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-04-21",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-373",
+      "summary": "11번가 E쿠폰 직연동 전환",
+      "status": "종료",
+      "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-04-07",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-372",
+      "summary": "[PCS] 카드 추가할인 채널 확대 요청",
+      "status": "오픈",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-04-06",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-371",
+      "summary": "육군본부 법인 고객 전용 시스템 개발",
+      "status": "진행 중",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-03-25",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-370",
+      "summary": "BO 상품직권처리관리 메뉴 개선 요청",
+      "status": "오픈",
+      "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-03-23",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-369",
+      "summary": "3월 밤짝쿠폰 페이지 수정 요건",
+      "status": "종료",
+      "assignee": "양다현(Dahyun Yang)/전시서비스기획팀/11ST",
+      "created": "2026-03-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-368",
+      "summary": "[그랜드십일절_과제상정] [가칭] LMS 패쇄형 특가 마켓",
+      "status": "종료",
+      "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-03-15",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-367",
+      "summary": "해외직구 Cat. 가송장 페널티 적용",
+      "status": "오픈",
+      "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST",
+      "created": "2026-03-06",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-366",
+      "summary": "PET 전문관 신설을 위한 가입 프로세스 구축",
+      "status": "오픈",
+      "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST",
+      "created": "2026-02-27",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-365",
+      "summary": "11Pay 가맹점회원 KYC 재수행 정책 시행을 위한 기획 및 개발 요청",
+      "status": "오픈",
+      "assignee": "한정은(Jungeun Han)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-25",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-364",
+      "summary": "[주문] 주문서→주문완료 전환 퍼널 상시 개선",
+      "status": "오픈",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-24",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-363",
+      "summary": "[26년 과제 검토 대상] [광고] 광고 품질 강화_광고 후보군 조정",
+      "status": "오픈",
+      "assignee": "박은주(Eunju Park)/광고기획팀/11ST",
+      "created": "2026-02-19",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-362",
+      "summary": "[26년 광고과제] 마케터 활동성 대시보드 신설(광고 Admin)",
+      "status": "오픈",
+      "assignee": "박성희(Sunghee Park)/광고기획팀/11ST",
+      "created": "2026-02-19",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-361",
+      "summary": "[26년 광고과제] 입찰가 설정 기능 고도화",
+      "status": "오픈",
+      "assignee": "이다영(Dayoung Lee)/광고기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-360",
+      "summary": "[26년 광고과제]DSP 광고주 보고서 성능 개선",
+      "status": "종료",
+      "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-359",
+      "summary": "광고 지면 효율화 - 지면 validation",
+      "status": "종료",
+      "assignee": "강수림(Surim Kang)/광고기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-358",
+      "summary": "홈탭 '최근 본 상품' 영역 내아마존 상품 노출 포함 요청 건",
+      "status": "종료",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-357",
+      "summary": "판매방해 고객 관리 기능 신설",
+      "status": "오픈",
+      "assignee": "지화연(Hwayeon Ji)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-356",
+      "summary": "[26년 광고 과제]포커스클릭 확장소재 로직 개선",
+      "status": "종료",
+      "assignee": "강수림(Surim Kang)/광고기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-355",
+      "summary": "[11키티즈] DAU 회복 및 인앱광고 수익 구조 고도화",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-354",
+      "summary": "OK캐쉬백 쇼핑스탬프 실시간 연동 개발 적용 요청",
+      "status": "종료",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-353",
+      "summary": "CMP 확대(롱테일 커버리지 확대)",
+      "status": "오픈",
+      "assignee": "황교준(Kyojun Hwang)/검색/추천서비스기획팀/11ST",
+      "created": "2026-02-10",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-352",
+      "summary": "[26년 과제 검토대상] 11번가 풀필먼트 연합 구축",
+      "status": "과제 홀딩",
+      "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST",
+      "created": "2026-02-10",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-351",
+      "summary": "[그랜드십일절_과제상정] 예약구매 진행의 건",
+      "status": "종료",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-09",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-350",
+      "summary": "SO 프리미엄관 신청 메뉴내 '뷰티플러스' 서비스 신청 TOOL 추가",
+      "status": "종료",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-06",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-349",
+      "summary": "[여행] 숙박페스타 연박 쿠폰 개발 검토 요청 건",
+      "status": "종료",
+      "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-348",
+      "summary": "[11번가플러스] 쿠폰 혜택 계정발급 전환 및 신규 혜택 추가",
+      "status": "종료",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-04",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-347",
+      "summary": "OK캐시백 제휴사코드 추가에 따른 Partner Office admin 생성 요청 건",
+      "status": "종료",
+      "assignee": "이아란(Arhan Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-02-03",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-346",
+      "summary": "[로스리더_상품응모] 개발 요청의 건",
+      "status": "종료",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-30",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-345",
+      "summary": "[26년 과제 검토대상] 통합 PDP 전환",
+      "status": "오픈",
+      "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-30",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-344",
+      "summary": "[26년 과제 검토대상] PDP 구매서랍 플로우 개선",
+      "status": "오픈",
+      "assignee": "채미자(Mija Chae)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-30",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-343",
+      "summary": "[26년 과제 검토대상] PDP BTF - 카테고리 상품군에 맞는 추천 확대",
+      "status": "오픈",
+      "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-30",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-342",
+      "summary": "[상품관리] 상품등록 > 상품복사 UX 개선 요청",
+      "status": "오픈",
+      "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-29",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-341",
+      "summary": "[26년 과제 검토대상] + T-Day 상용화를 위한 T멤버십_서브탭 고도화_추가 요청",
+      "status": "종료",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2026-01-29",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-340",
+      "summary": "DP발행 구조 개선",
+      "status": "오픈",
+      "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST",
+      "created": "2026-01-29",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-339",
+      "summary": "[26년 과제 검토대상] [DP할인] 효율화",
+      "status": "오픈",
+      "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST",
+      "created": "2026-01-29",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-338",
+      "summary": "좋은 상품 풀 구축",
+      "status": "오픈",
+      "assignee": "장정태(Jungtae Jang)/Backend서비스담당/11ST",
+      "created": "2026-01-29",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-337",
+      "summary": "AI흥정 시스템 도입",
+      "status": "과제 홀딩",
+      "assignee": "곽원림(Wonlim Kwak)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-29",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-336",
+      "summary": "셀러 CRM 구축 및 확장",
+      "status": "오픈",
+      "assignee": "이민기(Minki Lee)/셀러플라이휠기획팀/11ST",
+      "created": "2026-01-28",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-335",
+      "summary": "[26년 과제 검토대상] + T멤버십 서비스 제공 범위 확대 (T공식대리점 연동)",
+      "status": "종료",
+      "assignee": "권규완(Kyuwan Kwon)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-28",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-334",
+      "summary": "[로스리더_선착순쿠폰] 개발의 요청의 건",
+      "status": "종료",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-28",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-333",
+      "summary": "황금알모으기 서비스 연동 개발",
+      "status": "종료",
+      "assignee": "마진성(Jinsung Ma)/전시개발담당/11ST",
+      "created": "2026-01-28",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-332",
+      "summary": "쿠팡 셀러 11번가 상품연동",
+      "status": "오픈",
+      "assignee": "이민기(Minki Lee)/셀러플라이휠기획팀/11ST",
+      "created": "2026-01-28",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-331",
+      "summary": "BO 쿠폰할인 구조 개선 - MD할인등록 효율화",
+      "status": "오픈",
+      "assignee": "이민기(Minki Lee)/셀러플라이휠기획팀/11ST",
+      "created": "2026-01-27",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-330",
+      "summary": "최대할인가 노출 영역 확대",
+      "status": "진행 중",
+      "assignee": "권규완(Kyuwan Kwon)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-27",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-329",
+      "summary": "[26년 과제 검토 대상] 슈팅배송 새벽배송 도입",
+      "status": "과제 진행",
+      "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-24",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-328",
+      "summary": "[상품관리] 상품등록 효율화 및 어시스턴트",
+      "status": "오픈",
+      "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-21",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-327",
+      "summary": "[26년 과제 검토대상] PDP ATF 구매결정 정보 강화 UI/UX 개편",
+      "status": "오픈",
+      "assignee": "채미자(Mija Chae)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-21",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-326",
+      "summary": "[26년 과제 검토 대상] 쇼킹딜 제안가 로직 개선 및 상품경쟁력 강화",
+      "status": "진행 중",
+      "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-15",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-325",
+      "summary": "[26년 과제 검토대상] 11pay 계좌이체 결제수단 분리 노출",
+      "status": "종료",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-15",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-324",
+      "summary": "[LIVE11] CJ 라이브 기획방송 전용 타입 생성 및 Live11 운영 체계 반영",
+      "status": "종료",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2026-01-14",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-323",
+      "summary": "[11번가플러스] 슈팅배송 도착보상제",
+      "status": "종료",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-14",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-322",
+      "summary": "[11번가플러스] 슈팅배송 무료 반품/무료 교환",
+      "status": "종료",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-14",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-321",
+      "summary": "[26년 과제 검토대상] AI 멀티채널 CS 고도화",
+      "status": "오픈",
+      "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-14",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-320",
+      "summary": "[26년 과제 검토대상] AI 기반 Fulfillment Slotting Engine 구축",
+      "status": "오픈",
+      "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-14",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-319",
+      "summary": "[26년 과제 검토대상] 상품 정보 자동 인식을 통한 데이터 자산화",
+      "status": "과제 진행",
+      "assignee": "송유영(Youyoung Song)/10x TF/11ST",
+      "created": "2026-01-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-318",
+      "summary": "[26년 과제 검토대상] AI기반 카탈로그 운영업무 자동화",
+      "status": "진행 중",
+      "assignee": "송시은(SiEun Song)/상품/배송경험서비스기획팀/11ST",
+      "created": "2026-01-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-317",
+      "summary": "[26년 과제 검토대상] 네이버원부와 11번가 카탈로그간 매핑 시스템 구축",
+      "status": "종료",
+      "assignee": "김하니(Hani Kim)/10x TF/11ST",
+      "created": "2026-01-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-316",
+      "summary": "[26년 과제 검토대상] 최저가현황 대시보드 구축",
+      "status": "오픈",
+      "assignee": "김하니(Hani Kim)/10x TF/11ST",
+      "created": "2026-01-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-315",
+      "summary": "[26년 과제 검토대상] 카탈로그 통합 매핑테이블 구축",
+      "status": "종료",
+      "assignee": "김하니(Hani Kim)/10x TF/11ST",
+      "created": "2026-01-13",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-314",
+      "summary": "[LIVE11] 홈탭 노출 영역 개선 / 노출로직 재수립 / PIP 확대",
+      "status": "종료",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2026-01-12",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-313",
+      "summary": "OCB 시너지과제 별 랜딩 형태 개발 요청의 건",
+      "status": "오픈",
+      "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST",
+      "created": "2026-01-09",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-312",
+      "summary": "LIVE11 참여 고객 대상 맞춤형 11PAY 포인트 지급 기능 개발",
+      "status": "오픈",
+      "assignee": "한정은(Jungeun Han)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2026-01-06",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-311",
+      "summary": "[26년 과제 검토대상] AI 큐레이터",
+      "status": "종료",
+      "assignee": "이기훈(Kihoon Lee)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-31",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-310",
+      "summary": "[26년 과제 검토대상] 국민행복카드 바우처 사용 가맹점 추진",
+      "status": "과제 진행",
+      "assignee": "한정은(Jungeun Han)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-31",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-309",
+      "summary": "[26년 과제 검토대상] 25년 해커톤 대상 '그냥말해' 팀",
+      "status": "종료",
+      "assignee": "이기훈(Kihoon Lee)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-29",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-308",
+      "summary": "[26년 과제] 리뷰 신뢰도 강화",
+      "status": "오픈",
+      "assignee": "윤혜미(Hyemi Yoon)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-23",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-307",
+      "summary": "[26년 과제] 판매자 펀딩형 리뷰",
+      "status": "오픈",
+      "assignee": "윤혜미(Hyemi Yoon)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-23",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-306",
+      "summary": "[26년 과제] 리뷰 허브 페이지 구축",
+      "status": "오픈",
+      "assignee": "윤혜미(Hyemi Yoon)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-23",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-305",
+      "summary": "ICT 패밀리 통합동의 변경",
+      "status": "종료",
+      "assignee": "이아란(Arhan Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-19",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-304",
+      "summary": "[26년 과제 검토대상] 브랜드 구조 개선",
+      "status": "오픈",
+      "assignee": "김하니(Hani Kim)/10x TF/11ST",
+      "created": "2025-12-18",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-303",
+      "summary": "[26년 과제 검토대상] 딜전용PDP 구축",
+      "status": "종료",
+      "assignee": "채미자(Mija Chae)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-302",
+      "summary": "[26년 과제 검토대상] PDP BuyBox 고도화",
+      "status": "종료",
+      "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-301",
+      "summary": "[26년 과제 검토대상] 리스팅퀄리티 스코어링 적용",
+      "status": "오픈",
+      "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-300",
+      "summary": "[26년 과제 검토대상] AI 쇼호스트 도입을 위한 AI Tool 시스템 연동 개발",
+      "status": "종료",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-299",
+      "summary": "[26년 과제 검토대상] 상품명 정제를 위한 브랜드 추천/어뷰징 필터링 강화",
+      "status": "오픈",
+      "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-298",
+      "summary": "[26년 과제 검토대상] 오매칭 판단 로직 고도화",
+      "status": "오픈",
+      "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-297",
+      "summary": "[26년 과제 검토대상] 카탈로그 자동 생성/매칭, 중복병합 로직 개선",
+      "status": "오픈",
+      "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-296",
+      "summary": "[26년 과제 검토대상] [DP할인] 적용 채널 확대",
+      "status": "종료",
+      "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-295",
+      "summary": "[26년 과제 검토대상] 카탈로그 생성 제안 기능 구현",
+      "status": "오픈",
+      "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-294",
+      "summary": "[26년 과제 검토대상] 카탈로그 미매칭 상품의 매칭 추천",
+      "status": "오픈",
+      "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-293",
+      "summary": "[26년 과제 검토대상] [광고]전시입찰광고/리스팅광고 내재화",
+      "status": "오픈",
+      "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-292",
+      "summary": "[26년 과제 검토대상] [광고] 광고 전환 추적 개선(ROAS) 고도화",
+      "status": "오픈",
+      "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-291",
+      "summary": "[26년 과제 검토대상] 트렌드패션 무료반품 & 무료교환 서비스 개발",
+      "status": "종료",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-290",
+      "summary": "[26년 과제 검토대상] 카테고리 특성에 맞는 뷰타입 설정",
+      "status": "오픈",
+      "assignee": "임민정(Minjung Lim)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-289",
+      "summary": "[26년 과제 검토대상] PC 페이지 개편",
+      "status": "종료",
+      "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-288",
+      "summary": "[26년 과제 검토대상] 유휴 공간을 활용한 신규 브랜딩 광고 도입",
+      "status": "오픈",
+      "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-287",
+      "summary": "[26년 과제 검토대상] 상품 이미지 동영상 재생 기능 도입",
+      "status": "오픈",
+      "assignee": "조혜빈(Haebin Jo)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-286",
+      "summary": "[26년 과제 검토대상] 검색 AI Assistant 도입",
+      "status": "오픈",
+      "assignee": "이기훈(Kihoon Lee)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-285",
+      "summary": "[26년 과제 검토대상] 컬렉션 추천 확장",
+      "status": "종료",
+      "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-17",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-284",
+      "summary": "[26년 과제 검토대상] [PCS] 네이버 요약 EP 스케줄 변경 대응",
+      "status": "오픈",
+      "assignee": "양응모(Eungmo Yang)/전략기획/데이터분석팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-283",
+      "summary": "[26년 과제 검토대상] TAB검색 Fade-out",
+      "status": "오픈",
+      "assignee": "조혜빈(Haebin Jo)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-282",
+      "summary": "[26년 과제 검토대상] 검색 필터 사용성 개선",
+      "status": "종료",
+      "assignee": "조혜빈(Haebin Jo)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-281",
+      "summary": "[26년 과제 검토대상] R2OD 활용 확대",
+      "status": "오픈",
+      "assignee": "송하(Ha Song)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-280",
+      "summary": "[26년 과제 검토대상] QNLU 도입 (반응형 검색)",
+      "status": "오픈",
+      "assignee": "황교준(Kyojun Hwang)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-279",
+      "summary": "[26년 과제 검토대상] 검색 동의어 사전 정제 및 고도화",
+      "status": "종료",
+      "assignee": "임민정(Minjung Lim)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-278",
+      "summary": "[26년 과제 검토대상] 검색로직 개선 프로세스 구축",
+      "status": "종료",
+      "assignee": "임민정(Minjung Lim)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-277",
+      "summary": "[26년 과제 검토대상] 검색 유도장치 개선 및 영역 확장",
+      "status": "오픈",
+      "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-276",
+      "summary": "[26년 과제 검토대상] 검색페이지 쿠폰/포인트 제공의 강화",
+      "status": "오픈",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-275",
+      "summary": "[26년 과제 검토대상] 온라인최저가 노출 확장",
+      "status": "종료",
+      "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-274",
+      "summary": "[26년 과제 검토대상] 셀러 영입 자동화​",
+      "status": "오픈",
+      "assignee": "오희진(Heejin Oh)/10x TF/11ST",
+      "created": "2025-12-16",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-273",
+      "summary": "[26년 과제 검토대상] 최대할인가(Max) 표기 → 할인혜택 계산 방식으로 개선",
+      "status": "종료",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-15",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-272",
+      "summary": "[26년 과제 검토대상] 셀러 성장 관리 프로그램 도입 (광고주 혜택 시스템)",
+      "status": "오픈",
+      "assignee": "박자연(Jayoun Park)/광고기획팀/11ST",
+      "created": "2025-12-15",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-271",
+      "summary": "[26년 과제 검토대상] [광고]AI캠페인 목적형 광고 등록 도입",
+      "status": "종료",
+      "assignee": "정희연(Heeyeon Jeong)/광고기획팀/11ST",
+      "created": "2025-12-15",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-270",
+      "summary": "[26년 과제 검토대상] 광고 전용 즉시할인쿠폰(MO) 조건 강화",
+      "status": "오픈",
+      "assignee": "정희연(Heeyeon Jeong)/광고기획팀/11ST",
+      "created": "2025-12-15",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-269",
+      "summary": "[26년 과제 검토대상] [SKP 시너지] 11번가 딜커머스 상품 OCB앱 전시 API 연동 개발 요청의 건",
+      "status": "종료",
+      "assignee": "권규완(Kyuwan Kwon)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-14",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-268",
+      "summary": "[26년 과제 검토대상] [광고]셀러 광고 참여율 증대를 위한 SO 광고 메시징 확대",
+      "status": "오픈",
+      "assignee": "박태영(Taeyoung Park)/광고기획팀/11ST",
+      "created": "2025-12-12",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-267",
+      "summary": "[26년 과제 검토대상] 온라인최저가 상품 대상 확대",
+      "status": "오픈",
+      "assignee": "오희진(Heejin Oh)/10x TF/11ST",
+      "created": "2025-12-12",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-266",
+      "summary": "[26년 과제 검토대상] PDP AI 요약 모듈 구축을 통한 상품 이해도 및 구매전환율 개선",
+      "status": "오픈",
+      "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-12",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-265",
+      "summary": "[26년 과제 검토대상]통합 알림센터 구축",
+      "status": "오픈",
+      "assignee": "이윤주(Yoonjoo Lee)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-12",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-263",
+      "summary": "[26년 과제 검토대상] 쿠폰함 UX 개선",
+      "status": "오픈",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-12",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-262",
+      "summary": "[26년 과제 검토대상] LIVE 방송 운영 효율화 및 기능 고도화 개발",
+      "status": "종료",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-11",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-261",
+      "summary": "[26년 과제 검토대상] 물류 출고량 기반 자동 우선노출 엔진 구축",
+      "status": "오픈",
+      "assignee": "강현(Hyun Kang)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-11",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-260",
+      "summary": "[26년 과제 검토대상] 라이브 본방송 이후 재방송 날짜 지정 및 자동 재방송출 기능",
+      "status": "진행 중",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-10",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-259",
+      "summary": "[26년 과제 검토대상] 스타필드 입점",
+      "status": "종료",
+      "assignee": "장미라(Mira Chang)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-09",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-258",
+      "summary": "[26년 과제 검토대상] 빗썸 제휴 비트코인 지급 연동",
+      "status": "과제 진행",
+      "assignee": "장미라(Mira Chang)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-09",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-257",
+      "summary": "[26년 과제 검토대상] 주문서 내 11번가플러스 자동매칭 기능 도입",
+      "status": "종료",
+      "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-09",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-256",
+      "summary": "[26년 과제 검토대상] CC Fade out",
+      "status": "오픈",
+      "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-08",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-255",
+      "summary": "[26년 과제 검토대상] 라이브 방송 AI 자동 클리핑 및 숏폼 전시기능",
+      "status": "종료",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-254",
+      "summary": "[26년 과제 검토 대상] 패션셀렉션확대_대형제휴(아울렛,홈쇼핑)상품 셀렉션 확대",
+      "status": "종료",
+      "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-253",
+      "summary": "[26년 과제 검토대상] 패션뷰티 크로스보더(Cross-border) 프로젝트",
+      "status": "종료",
+      "assignee": "송치원(Chiwon Song)/구매자활동성기획팀/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-252",
+      "summary": "[26년 과제 검토대상] CJ 풀필먼트 크로스셀링",
+      "status": "디자인 진행 중",
+      "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-251",
+      "summary": "[26년 과제 검토 대상] 뷰티플러스고객 거래 활성화_ 상품등록정보, CRM타겟팅,고객데이터기반 반응형 페이지",
+      "status": "종료",
+      "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-250",
+      "summary": "[26년 과제 검토대상] 패션뷰티탭>AI를 활용한 개인화 추천 고도화",
+      "status": "과제 홀딩",
+      "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-249",
+      "summary": "[26년 과제 검토대상] 셀러위탁 Onboarding 자동화 (API 연동)",
+      "status": "진행 중",
+      "assignee": "김민지(Minji Kim)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-248",
+      "summary": "[26년 과제 검토대상] 마트플러스 전문관 활성화(11번가 플러스 연계 및 광고 확대)",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-05",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-247",
+      "summary": "[26년 과제 검토대상] 홈탭> 홈탭 내 개인화 추천 광고 신설",
+      "status": "오픈",
+      "assignee": "임지연(Jiyeon Lim)/전시서비스기획팀/11ST",
+      "created": "2025-12-03",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-246",
+      "summary": "[26년 과제 검토대상] [전시] 플러스 쇼핑 신설 (비관리 셀러 인큐베이팅 프로그램)",
+      "status": "종료",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-245",
+      "summary": "[26년 과제 검토대상] 고객 탐색 히스토리 및 카탈로그 기반 추천 서비스 구축",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-244",
+      "summary": "[26년 과제 검토대상] 홈탭>검색 QC 부스팅",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-243",
+      "summary": "[26년 과제 검토대상] [전시] 홈탭 > 다이나믹 딜 구조 적용",
+      "status": "진행 중",
+      "assignee": "박기훈(Kihoon Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-242",
+      "summary": "[26년 과제 검토대상]\t고객 참여형 콘텐츠 생성 및 셀러 광고 프로세스 구축",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-241",
+      "summary": "[26년 과제 검토대상][전시]고객 행동 기반  타겟팅 팝업 신설",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-240",
+      "summary": "[26년 과제 검토대상] + T-Day 상용화를 위한 T멤버십_서브탭 고도화",
+      "status": "오픈",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-239",
+      "summary": "[26년 과제 검토대상] 베스트탭 개편(모바일/PC)",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-238",
+      "summary": "[26년 과제 검토 대상] 머니백 상용화",
+      "status": "과제 홀딩",
+      "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-237",
+      "summary": "[26년 과제 검토대상] 홈탭> 포커스클릭 광고 상품 효율 및 광고 신청 프로세스 개선",
+      "status": "오픈",
+      "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-236",
+      "summary": "[26년 과제 검토대상] + 기획전 자동화 및 운영 효율화",
+      "status": "오픈",
+      "assignee": "박원미(Wonmi Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-235",
+      "summary": "[26년 과제 검토대상] PC 홈 현행화 및 고도화",
+      "status": "오픈",
+      "assignee": "양다현(Dahyun Yang)/전시서비스기획팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-234",
+      "summary": "[26년 과제 검토대상] + 디자인 시스템 고도화",
+      "status": "오픈",
+      "assignee": "이예준(Yejoon Lee)/프로덕트디자인팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-233",
+      "summary": "[26년 과제 검토대상] + 프로모션 기획전 자동화",
+      "status": "오픈",
+      "assignee": "조성용(SungYong Cho)/프로모션디자인팀/11ST",
+      "created": "2025-12-02",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-232",
+      "summary": "[26년 과제 검토대상] + 메인 UI 개편",
+      "status": "종료",
+      "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-01",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-231",
+      "summary": "Seller API Key 유효기간 설정 요청",
+      "status": "진행 중",
+      "assignee": "안세혁(Sehyuk An)/상품/배송경험서비스기획팀/11ST",
+      "created": "2025-12-01",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-230",
+      "summary": "[26년 과제 검토대상] 쇼킹딜 모바일/PC 페이지 개편",
+      "status": "오픈",
+      "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST",
+      "created": "2025-12-01",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-229",
+      "summary": "[26년 과제 검토대상] 기획전 내 마트 CPS 기능 도입",
+      "status": "종료",
+      "assignee": "박원미(Wonmi Park)/전시서비스기획팀/11ST",
+      "created": "2025-12-01",
+      "duedate": ""
+    },
+    {
+      "key": "MPSP-228",
+      "summary": "[26년 과제 검토대상] 디지털 온누리상품권 서비스 도입",
+      "status": "오픈",
+      "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST",
+      "created": "2025-12-01",
+      "duedate": ""
+    }
+  ]
+}
