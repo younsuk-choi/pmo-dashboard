@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMO ì ì¬ ê³¼ì ê´ë¦¬ ìì¤í v3</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dk:#0F2544;--bm:#1E4080;--bl:#2563EB;--blt:#DBEAFE;--bpa:#EFF6FF;
+  --g9:#111827;--g7:#374151;--g5:#6B7280;--g3:#D1D5DB;--g1:#F9FAFB;--wh:#FFFFFF;
+  --ok:#065F46;--okb:#D1FAE5;--rd:#991B1B;--rdb:#FEE2E2;--am:#92400E;--amb:#FEF3C7;--pu:#5B21B6;--pub:#EDE9FE;
+  --font:'Noto Sans KR',sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+body{font-family:var(--font);background:#ECF0F5;color:var(--g9);font-size:13px}
+.nav{background:var(--dk);display:flex;align-items:stretch;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.nav-brand{padding:12px 20px;font-size:14px;font-weight:700;color:#fff;border-right:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.nav-tabs{display:flex;flex:1;overflow-x:auto}.nav-tabs::-webkit-scrollbar{display:none}
+.tab{padding:0 16px;font-size:12px;font-weight:500;color:rgba(255,255,255,.55);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:var(--font)}
+.tab:hover{color:#fff;background:rgba(255,255,255,.06)}.tab.on{color:#fff;border-bottom-color:#60A5FA}
+.nav-right{padding:0 16px;display:flex;align-items:center;font-size:11px;color:rgba(255,255,255,.4);white-space:nowrap}
+.page{display:none;padding:18px 22px;max-width:1400px;margin:0 auto}.page.on{display:block}
+.pg-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.pg-bar{width:4px;height:22px;background:var(--bl);border-radius:2px;flex-shrink:0}
+.pg-title{font-size:16px;font-weight:700;color:var(--dk)}.pg-sub{font-size:12px;color:var(--g5);margin-left:2px}
+.kpi-row{display:grid;gap:10px;margin-bottom:18px}
+.kpi{background:var(--wh);border:1px solid var(--g3);border-radius:8px;padding:14px 16px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi.c-bl::before{background:var(--bl)}.kpi.c-ok::before{background:#22C55E}
+.kpi.c-rd::before{background:#EF4444}.kpi.c-am::before{background:#F59E0B}.kpi.c-pu::before{background:#8B5CF6}
+.kpi-lbl{font-size:10px;font-weight:600;color:var(--g5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.kpi-val{font-size:26px;font-weight:700;font-family:var(--mono);line-height:1}
+.kpi-val.c-bl{color:var(--bl)}.kpi-val.c-ok{color:#16A34A}.kpi-val.c-rd{color:#DC2626}.kpi-val.c-am{color:#D97706}.kpi-val.c-pu{color:#7C3AED}
+.kpi-sub{font-size:11px;color:var(--g5);margin-top:3px}
+.card{background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.card-hdr{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--g3);background:var(--g1)}
+.card-title{font-size:13px;font-weight:700;color:var(--dk);flex:1}.card-body{padding:14px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;white-space:nowrap}
+.b-ok{background:var(--okb);color:var(--ok)}.b-rd{background:var(--rdb);color:var(--rd)}
+.b-am{background:var(--amb);color:var(--am)}.b-pu{background:var(--pub);color:var(--pu)}
+.b-bl{background:var(--blt);color:#1D4ED8}.b-gray{background:#F3F4F6;color:var(--g5)}
+.b-flag{background:var(--rdb);color:var(--rd)}.b-core{background:var(--dk);color:#fff}.b-mgmt{background:var(--blt);color:#1E40AF}
+.b-kpi-ok{background:var(--okb);color:var(--ok);font-size:9px}.b-kpi-no{background:var(--rdb);color:var(--rd);font-size:9px}.b-kpi-part{background:var(--amb);color:var(--am);font-size:9px}
+.toolbar{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--g3);background:var(--g1);flex-wrap:wrap}
+.toolbar-title{font-size:13px;font-weight:700;color:var(--dk);flex:1;min-width:120px}
+select,input[type=text],input[type=date],textarea{font-family:var(--font);font-size:11px;padding:5px 8px;border:1px solid var(--g3);border-radius:5px;background:var(--wh);color:var(--g7);outline:none}
+select:focus,input:focus,textarea:focus{border-color:var(--bl)}
+.btn{font-family:var(--font);font-size:11px;font-weight:600;padding:5px 12px;border-radius:5px;border:1px solid transparent;cursor:pointer;transition:all .15s}
+.btn-pr{background:var(--bl);color:#fff;border-color:var(--bl)}.btn-pr:hover{background:#1D4ED8}
+.btn-out{background:var(--wh);color:var(--bl);border-color:var(--bl)}.btn-out:hover{background:var(--bpa)}
+.btn-sm{padding:3px 10px;font-size:10px}.btn-rd{background:var(--rdb);color:var(--rd);border-color:var(--rd)}
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead tr{background:var(--dk)}
+thead th{padding:8px 10px;text-align:left;font-size:10px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.3px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.08)}
+thead th:last-child{border-right:none}
+tbody tr{border-bottom:1px solid var(--g3);transition:background .1s}
+tbody tr:hover{background:var(--bpa)}.tbody tr:last-child{border-bottom:none}
+td{padding:8px 10px;vertical-align:middle;font-size:11px;border-right:1px solid var(--g3)}
+td:last-child{border-right:none}.td-key{font-family:var(--mono);font-size:11px;color:var(--bl);font-weight:500}
+.td-name{font-weight:600;color:var(--g9)}.td-sub{font-size:10px;color:var(--g5)}
+.flow-wrap{display:flex;align-items:flex-start;gap:0;padding:20px 0}
+.flow-step{flex:1;text-align:center;position:relative}
+.flow-step:not(:last-child)::after{content:'â';position:absolute;right:-14px;top:28px;font-size:20px;color:var(--g3);font-weight:300}
+.f-num{width:40px;height:40px;border-radius:50%;background:var(--bl);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.f-box{border:2px solid var(--bl);border-radius:8px;padding:10px 6px;background:var(--bpa);min-height:70px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.f-name{font-size:12px;font-weight:700;color:var(--dk)}.f-who{font-size:10px;color:var(--g5);line-height:1.4}
+.pri-card{background:var(--wh);border:1px solid var(--g3);border-radius:8px;padding:14px}
+.pri-card-title{font-size:12px;font-weight:700;color:var(--dk);margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--blt)}
+.pri-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--g3)}
+.pri-item:last-child{border-bottom:none}
+.pri-rank{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--g5);min-width:20px}
+.pri-name{flex:1;font-size:11px;color:var(--g7)}
+.pri-bar-wrap{display:flex;align-items:center;gap:6px;min-width:90px}
+.pri-bar{height:6px;border-radius:3px;background:var(--g3);flex:1;overflow:hidden}
+.pri-fill{height:100%;border-radius:3px}
+.pri-score{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--bl);min-width:32px;text-align:right}
+.tl-months-hdr{display:flex;margin-left:160px;margin-bottom:4px}
+.tl-month{flex:1;font-size:10px;font-weight:600;color:var(--g5);text-align:center;padding:4px 0;background:var(--g1);border-right:1px solid var(--g3)}
+.tl-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.tl-lbl{width:152px;flex-shrink:0;font-size:11px;color:var(--g7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right;padding-right:8px}
+.tl-track{flex:1;height:28px;position:relative}
+.tl-bg{height:8px;background:var(--g3);border-radius:4px;position:absolute;top:10px;left:0;right:0}
+.tl-bar{position:absolute;height:8px;border-radius:4px;top:10px}
+.tl-dot{position:absolute;width:12px;height:12px;border-radius:50%;top:8px;transform:translateX(-50%);border:2px solid #fff;box-shadow:0 0 0 1.5px currentColor}
+.tl-issue{position:absolute;top:0;font-size:9px;font-weight:600;white-space:nowrap;padding:1px 5px;border-radius:3px;transform:translateX(-50%)}
+.cal-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
+.cal-month{background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden}
+.cal-month-hdr{background:var(--dk);color:#fff;padding:8px 12px;font-size:12px;font-weight:700}
+.cal-item{padding:6px 10px;border-bottom:1px solid var(--g3);font-size:11px}
+.cal-item:last-child{border-bottom:none}
+.cal-key{font-family:var(--mono);font-size:10px;color:var(--bl)}.cal-name{color:var(--g7);line-height:1.3}
+.rpt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.rpt-card{background:var(--wh);border:1px solid var(--g3);border-radius:8px;padding:14px}
+.rpt-title{font-size:12px;font-weight:700;color:var(--dk);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.rpt-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0}
+.mng-table{width:100%;border-collapse:collapse}
+.mng-table td{padding:5px 8px;border-bottom:1px solid var(--g3);font-size:11px}
+.mng-table tr:last-child td{border-bottom:none}
+.mng-table .m-lbl{color:var(--g5);width:30%}.mng-table .m-val{font-family:var(--mono);font-weight:600}
+.mng-table .up{color:#16A34A}.mng-table .dn{color:#DC2626}
+.wk-section{background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.wk-date-hdr{background:var(--dk);color:#fff;padding:10px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.wk-body{padding:0 14px 10px}
+.wk-group{border-left:4px solid var(--bl);margin:10px 0;border-radius:0 6px 6px 0}
+.wk-group-hdr{background:var(--bpa);padding:6px 12px;font-size:11px;font-weight:700;color:var(--dk)}
+.wk-item{padding:8px 12px;border-bottom:1px solid var(--g3);display:grid;grid-template-columns:1fr 180px;gap:8px;align-items:start;background:var(--wh)}
+.wk-item:last-child{border-bottom:none}
+.wk-content{font-size:11px;color:var(--g7);line-height:1.6}.wk-content b{color:var(--g9)}
+.wk-fu-wrap{display:flex;flex-direction:column;gap:4px}
+.wk-fu{font-size:10px;color:var(--g5);line-height:1.5}
+.wk-fu-input{font-size:10px;padding:4px 6px;width:100%;border:1px dashed var(--g3);border-radius:4px;background:var(--g1);resize:none;font-family:var(--font)}
+.wk-fu-input:focus{border-color:var(--bl);background:var(--bpa)}
+.wk-mpsp{font-family:var(--mono);font-size:10px;color:var(--bl)}
+.wk-input-row{display:grid;grid-template-columns:120px 130px 1fr 120px;gap:8px;align-items:start;margin-bottom:8px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--wh);border-radius:12px;padding:24px;width:640px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-title{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--blt)}
+.form-row{margin-bottom:12px}.form-label{font-size:11px;font-weight:600;color:var(--g7);margin-bottom:4px;display:block}
+.form-row input,.form-row select,.form-row textarea{width:100%;font-size:12px;padding:7px 10px;border-radius:6px}
+.form-row textarea{height:60px;resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.info-box{background:var(--bpa);border:1px solid var(--blt);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:11px;color:var(--g7);line-height:1.7}
+.info-box b{color:var(--dk)}.info-box .info-title{font-size:12px;font-weight:700;color:var(--bl);margin-bottom:6px}
+.kpi-warn{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--rdb);border-radius:4px;font-size:10px;color:var(--rd);font-weight:600}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand"><span class="nav-dot"></span>PMO ì ì¬ ê³¼ì ê´ë¦¬</div>
+  <div class="nav-tabs">
+    <button class="tab on"  onclick="go('process',this)">ì´ì íë¡ì¸ì¤</button>
+    <button class="tab"     onclick="go('tasks',this)">ê³¼ì  íí©</button>
+    <button class="tab"     onclick="go('priority',this)">ì°ì ìì ê´ë¦¬</button>
+    <button class="tab"     onclick="go('schedule',this)">ì¤í ì¼ì </button>
+    <button class="tab"     onclick="go('report',this)">ë°ì´í° ë¦¬í¬í</button>
+    <button class="tab"     onclick="go('weekly',this)">Bi-weekly</button>
+  </div>
+  <div class="nav-right">íë¡í íì v3 Â· 2026 ìë°ê¸°</div>
+</nav>
+
+
+<!-- ââââ ì´ì íë¡ì¸ì¤ ââââ -->
+<div class="page on" id="pg-process">
+  <div class="pg-hdr"><div class="pg-bar"></div><div class="pg-title">ì´ì íë¡ì¸ì¤</div><div class="pg-sub">5ë¨ê³ íë¡ì¸ì¤ Â· Bi-weekly ê¸°ì¤ ì´ì</div></div>
+
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px">
+    <div class="kpi c-bl"><div class="kpi-lbl">ì ì²´ ì§í ê³¼ì </div><div class="kpi-val c-bl">87</div><div class="kpi-sub">ê±´ Â· íµì¬ 32 / ê´ë¦¬ 55</div></div>
+    <div class="kpi c-ok"><div class="kpi-lbl">ì ì ì§í</div><div class="kpi-val c-ok">70</div><div class="kpi-sub">ê±´ (80%)</div></div>
+    <div class="kpi c-rd"><div class="kpi-lbl">Red Flag</div><div class="kpi-val c-rd">5</div><div class="kpi-sub">ê±´ Â· ì¦ì ì¡°ì  íì</div></div>
+    <div class="kpi c-am"><div class="kpi-lbl">KPI ë¯¸ì¤ì </div><div class="kpi-val c-am">6</div><div class="kpi-sub">ê±´ Â· 2Q ë³´ì ìì </div></div>
+    <div class="kpi c-pu"><div class="kpi-lbl">ì´ë² ë¬ ì¤í</div><div class="kpi-val c-pu">12</div><div class="kpi-sub">ê±´ Â· ìì </div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <div class="card-title">5ë¨ê³ ì´ì íë¡ì¸ì¤ <span style="font-size:10px;color:var(--g5);font-weight:400">(í¥í ë³ê²½ ê°ë¥ Â· ì°¸ì¡°ì©)</span></div>
+      <button class="btn btn-out btn-sm" onclick="openProcessEdit()">íë¡ì¸ì¤ í¸ì§</button>
+    </div>
+    <div class="card-body">
+      <div class="flow-wrap" id="flow-wrap">
+        <div class="flow-step"><div class="f-num">1</div><div class="f-box"><div class="f-name" id="f1-name">MPSP ìì ì ì¶</div><div class="f-who" id="f1-who">ìì²­ ë¶ì ë´ë¹ì</div></div></div>
+        <div class="flow-step"><div class="f-num">2</div><div class="f-box"><div class="f-name" id="f2-name">ê³¼ì ë¶ë¥Â·ì°ì ìì</div><div class="f-who" id="f2-who">ìë¹ì¤ê¸°í ë´ë¹ë³ ìë¹ì¤ê¸°íê·¸ë£¹ì¥</div></div></div>
+        <div class="flow-step"><div class="f-num">3</div><div class="f-box"><div class="f-name" id="f3-name">ì¤í</div><div class="f-who" id="f3-who">ê¸°íÂ·ëìì¸Â·ê°ë°</div></div></div>
+        <div class="flow-step"><div class="f-num">4</div><div class="f-box"><div class="f-name" id="f4-name">ì´ìì¡°ì </div><div class="f-who" id="f4-who">ì¡°ì§ë³ ê·¸ë£¹ì¥ (Red Flag Fast-Track)</div></div></div>
+        <div class="flow-step"><div class="f-num">5</div><div class="f-box"><div class="f-name" id="f5-name">ê³µì /ê°ì </div><div class="f-who" id="f5-who">Bi-weekly ê° ê·¸ë£¹ë³ ì´ì íí°ë§</div></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+        <div style="padding:10px 14px;background:var(--bpa);border-radius:6px;border-left:3px solid var(--bl)"><div style="font-size:12px;font-weight:700;color:var(--dk);margin-bottom:4px">ê³¼ì ë¶ë¥ ì°ì ìì</div><div style="font-size:11px;color:var(--g5);line-height:1.6">MPSPë³ ìë¹ì¤ê¸°íê·¸ë£¹ ë´ë¹ë³ ë°°ì  â ì ì²´ ë¦¬ë íì ë¨ì¶ ë° ìì¬ê²°ì  ìë í¥ì<br>ê¸°í/ê°ë° ëë©ì¸ ìì­ë³ ì¤ìëÂ·ì°ì ìì ìë¦½ â í¨ì¨ì  ë¦¬ìì¤ ê´ë¦¬</div></div>
+        <div style="padding:10px 14px;background:var(--bpa);border-radius:6px;border-left:3px solid var(--bl)"><div style="font-size:12px;font-weight:700;color:var(--dk);margin-bottom:4px">Bi-weekly ì´ì</div><div style="font-size:11px;color:var(--g5);line-height:1.6">ê° ê·¸ë£¹ë³ ì´ì 1ì°¨ íí°ë§ ë° ì£¼ê° ìì  ë¤ / ìì¬ê²°ì  íììê±´ ì¬ì  ì ë¦¬ë¡ íì í¨ì¨ì± í¥ì<br>ì°ì ìì ì¶©ë ë° ì¥ê¸°ê³¼ì  ì¡°ì  Â· Red Flag ë°ì ì Fast-Track ì¡°ì§ë³ ê·¸ë£¹ì¥ ì´ì ì¡°ì </div></div>
+        <div style="padding:10px 14px;background:var(--bpa);border-radius:6px;border-left:3px solid var(--bl)"><div style="font-size:12px;font-weight:700;color:var(--dk);margin-bottom:4px">ë°ì´í° ê¸°ë° ì±ê³¼ ì¸¡ì </div><div style="font-size:11px;color:var(--g5);line-height:1.6">ê³¼ì  ì¤í í íµì¬ ì§íë¥¼ ê³µì íì¬ í¬ëªì± íë³´<br>ìë³ ë¬ì±ë¥  ì¶ì´ ê´ë¦¬ â ì ê²íì ê³¼ì  Fast-Track ìì¬ê²°ì </div></div>
+        <div style="padding:10px 14px;background:var(--rdb);border-radius:6px;border-left:3px solid var(--rd)"><div style="font-size:12px;font-weight:700;color:var(--rd);margin-bottom:4px">ì´ë² ì£¼ ìì¬ê²°ì  íì (Red Flag 5ê±´)</div><div style="font-size:11px;color:var(--rd);line-height:1.7">ê³¼ì ëª CCC ë¬ì±ë¥  31% â ëª©í ì¡°ì  íì<br>ê³¼ì ëª DDD DAU 9% â ì§ì ì¬ë¶ ê²°ì <br>ê³¼ì ëª GGG sCVR â¼13% â ë°©í¥ ì í ê²í </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ââââ ê³¼ì  íí© ââââ -->
+<div class="page" id="pg-tasks">
+  <div class="pg-hdr"><div class="pg-bar"></div><div class="pg-title">ê³¼ì  íí©</div><div class="pg-sub">íµì¬/ê´ë¦¬ êµ¬ë¶ Â· MPSP í´ë¦­ ì Jira ì´ë Â· í¸ì§Â·ë³ê²½ì´ë ¥ ê´ë¦¬</div></div>
+
+  <div class="info-box">
+    <b>MPSP ë§í¬:</b> ìë íìì MPSP ë²í¸ë¥¼ í´ë¦­íë©´ ì¤ì  Jira ì´ìë¡ ì´ëí©ëë¤. (Jira ì£¼ìë¥¼ ì¤ì  ì¬ë´ ì£¼ìë¡ ë³ê²½ íì)<br>
+    <b>í¸ì§:</b> í¸ì§ ë²í¼ í´ë¦­ â ëª¨ë  í­ëª©(ê³¼ì ëªÂ·ë´ë¹ìÂ·ì¤íì¼Â·KPIÂ·ì´ì ë±) ìì  ê°ë¥ â ì ì¥ ì ë³ê²½ì´ë ¥ì ìë ê¸°ë¡ë©ëë¤.<br>
+    <b>ì ëì§í ë¯¸ìë ¥ ì:</b> KPI ë¯¸ì¤ì ì¼ë¡ íìë©ëë¤. ì°ì ìì ì ì ì°ì ì´ ë¶ê°íë¯ë¡ ë°ëì ìë ¥ì´ íìí©ëë¤.
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <div class="toolbar-title">ì ì²´ ê³¼ì  ëª©ë¡</div>
+      <select id="f-type" onchange="filterTasks()"><option value="">íµì¬+ê´ë¦¬</option><option value="íµì¬">íµì¬</option><option value="ê´ë¦¬">ê´ë¦¬</option></select>
+      <select id="f-domain" onchange="filterTasks()"><option value="">ì ì²´ ëë©ì¸</option><option>ìì</option><option>ì ëµ</option><option>ìë¹ì¤ê¸°í</option><option>ë°ì´í°</option><option>íë«í¼</option></select>
+      <select id="f-status" onchange="filterTasks()"><option value="">ì ì²´ ìí</option><option>ì§íì¤</option><option>ì¤íìë£</option><option>ê²í ì¤</option><option>ì¤ë¨</option></select>
+      <select id="f-kpi" onchange="filterTasks()"><option value="">KPI ì ì²´</option><option value="ì¤ì ">KPI ì¤ì </option><option value="ë¯¸ì¤ì ">KPI ë¯¸ì¤ì </option></select>
+      <select id="f-flag" onchange="filterTasks()"><option value="">ì ì²´</option><option value="Y">Red Flag</option></select>
+      <input type="text" id="f-search" placeholder="ê³¼ì ëªÂ·MPSP ê²ì..." onkeyup="filterTasks()" style="width:140px">
+      <button class="btn btn-pr btn-sm" onclick="openModal('new')">+ ì ê· ë±ë¡</button>
+    </div>
+    <div class="tbl-scroll">
+    <table>
+      <thead><tr>
+        <th>êµ¬ë¶</th><th>MPSP</th><th>ê³¼ì ëª</th><th>ë°ìë¶ì</th><th>ì¤íë¶ì</th>
+        <th>ê¸°íë´ë¹</th><th>ê°ë°ë´ë¹</th><th>ì¤í ìì ì¼</th><th>ìí</th>
+        <th>ì ëì§í</th><th>ë°ì´í° ë¦¬í¬í</th><th>Red Flag</th><th>ì´ìì¬í­</th><th>í¸ì§</th>
+      </tr></thead>
+      <tbody id="task-tbody">
+<!-- rows are rendered from embedded pmo-issues.json -->
+</tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ë³ê²½ì´ë ¥ -->
+  <div class="card" id="hist-panel" style="display:none">
+    <div class="card-hdr">
+      <div class="card-title" id="hist-title">ë³ê²½ì´ë ¥</div>
+      <button class="btn btn-out btn-sm" onclick="document.getElementById('hist-panel').style.display='none'">ë«ê¸°</button>
+    </div>
+    <div class="card-body" id="hist-body"></div>
+  </div>
+</div>
+
+
+<!-- ââââ ì°ì ìì ê´ë¦¬ ââââ -->
+<div class="page" id="pg-priority">
+  <div class="pg-hdr"><div class="pg-bar"></div><div class="pg-title">ì°ì ìì ê´ë¦¬</div><div class="pg-sub">ì ëì§í ìë ¥ ì¬ë¶ì ë°ë¼ ì ì ì°ì  ê°ë¥ ì¬ë¶ê° ë¬ë¼ì§ëë¤</div></div>
+
+  <div class="info-box">
+    <div class="info-title">ì ëì§íì ì°ì ìì ì ìì ê´ê³</div>
+    <b>ì ëì§íê° ìì ë:</b> GMV ìí¥(ëª©í ê±°ëì¡ ê·ëª¨) + Revenue ê¸°ì¬(ììµ ëª©í) + í¨ì¨ì±(ì ê° ëª©í) 3ê°ì§ ê¸°ì¤ì¼ë¡ ì ì ê³ì° â ìë ìì ì°ì <br>
+    <b>ì ëì§íê° ìê±°ë ìì¹ê° ìì ë:</b> ì ì ì°ì  ë¶ê° â ì°ì ìì ëª©ë¡ìì ì ì¸ â Bi-weekly ë KPI ìë ¥ ìì²­ ìê±´ì¼ë¡ ìì <br>
+    <b>íµì¬ ìì¹:</b> ì ìë¥¼ ë§¤ê¸°ë ¤ë©´ "ëª©í ìì¹"ê° ìì´ì¼ í©ëë¤. ì) "CVR ê°ì "(ìì¹ ìì) â ì°ì ìì ì°ì  ë¶ê° / "CVR +2.5%"(ìì¹ ìì) â ì°ì  ê°ë¥
+  </div>
+
+  <!-- KPI ë¯¸ìë ¥ ê²½ê³  -->
+  <div class="card">
+    <div class="card-hdr"><div class="card-title" style="color:var(--rd)">â  ì ëì§í ë¯¸ìë ¥ ê³¼ì  â ì°ì ìì ì°ì  ë¶ê°</div></div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="kpi-warn">MPSP-011 Â· ê³¼ì ëª DDD Â· ì ëì§í ìì â KPI ìë ¥ ìì²­ íì</div>
+        <div class="kpi-warn">MPSP-031 Â· ê³¼ì ëª EEE Â· ëª©í ìì¹ ìì â ìì¹ ìë ¥ í ì ì ì°ì  ê°ë¥</div>
+        <div class="kpi-warn">MPSP-055 Â· ê³¼ì ëª HHH Â· ì¤ë¨ ê³¼ì  â ì ì¸</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="pri-card">
+      <div class="pri-card-title">ê±°ëì¡(GMV) + ììµ(Revenue) íµí© ìì <span style="font-weight:400;font-size:10px;color:var(--g5)">(KPI ìì¹ ìë ¥ ê³¼ì ë§)</span></div>
+      <div class="pri-item"><span class="pri-rank">1</span><span class="pri-name">ê³¼ì ëª AAA</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:95%;background:var(--bl)"></div></div></div><span class="pri-score">56.7</span><span class="badge b-ok" style="margin-left:6px">S</span></div>
+      <div class="pri-item"><span class="pri-rank">2</span><span class="pri-name">ê³¼ì ëª BBB</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:84%;background:var(--bl)"></div></div></div><span class="pri-score">50.4</span><span class="badge b-ok" style="margin-left:6px">S</span></div>
+      <div class="pri-item"><span class="pri-rank">3</span><span class="pri-name">ê³¼ì ëª FFF</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:65%;background:var(--bl)"></div></div></div><span class="pri-score">39.2</span><span class="badge b-bl" style="margin-left:6px">A</span></div>
+      <div class="pri-item"><span class="pri-rank">4</span><span class="pri-name">ê³¼ì ëª GGG</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:63%;background:var(--bl)"></div></div></div><span class="pri-score">37.8</span><span class="badge b-bl" style="margin-left:6px">A</span></div>
+      <div class="pri-item"><span class="pri-rank">â</span><span class="pri-name" style="color:var(--rd)">ê³¼ì ëª CCC (Red Flag)</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:30%;background:#EF4444"></div></div></div><span class="pri-score" style="color:#DC2626">18.0</span><span class="badge b-gray" style="margin-left:6px">C</span></div>
+      <div style="margin-top:10px;padding:8px;background:var(--amb);border-radius:6px;font-size:10px;color:var(--am)">ê³¼ì ëª DDD Â· EEE: KPI ìì¹ ë¯¸ìë ¥ â ì ì ì°ì  ì ì¸. Bi-weekly ë KPI ìë ¥ ìì²­ ìì .</div>
+    </div>
+    <div class="pri-card">
+      <div class="pri-card-title">í¨ì¨ì±(ë¹ì©ì ê°) ê´ì  ìì</div>
+      <div class="pri-item"><span class="pri-rank">1</span><span class="pri-name">ê³¼ì ëª FFF</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:100%;background:#22C55E"></div></div></div><span class="pri-score" style="color:#16A34A">39.2</span></div>
+      <div class="pri-item"><span class="pri-rank">2</span><span class="pri-name">ê³¼ì ëª GGG</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:80%;background:#22C55E"></div></div></div><span class="pri-score" style="color:#16A34A">37.8</span></div>
+      <div class="pri-item"><span class="pri-rank">3</span><span class="pri-name">ê³¼ì ëª AAA</span><div class="pri-bar-wrap"><div class="pri-bar"><div class="pri-fill" style="width:70%;background:#22C55E"></div></div></div><span class="pri-score" style="color:#16A34A">28.0</span></div>
+      <div style="margin-top:10px;padding:8px;background:var(--bpa);border-radius:6px;font-size:10px;color:var(--g5)">
+        <b style="color:var(--dk)">Bi-weekly íì©:</b> ì´ ììë¥¼ ê¸°ë°ì¼ë¡ ê°ë° ë¦¬ìì¤ ì§ì¤ ê³¼ì  ê²°ì . ì ì ë®ì ê³¼ì ë Hold ëë Drop ê·¼ê±°ë¡ íì©.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ââââ ì¤í ì¼ì  ââââ -->
+<div class="page" id="pg-schedule">
+  <div class="pg-hdr"><div class="pg-bar"></div><div class="pg-title">ì¤í ì¼ì </div><div class="pg-sub">ìë³ ì¤í íí© Â· ê°ë° ê¸°ê° Â· ì´ì íì</div></div>
+
+  <div class="info-box">
+    <b>Red Flag íì ê¸°ì¤:</b> ì¤í ì´í ëª©í ëë¹ ë¬ì±ë¥ ì´ ê¸°ì¤ ì´íì´ê±°ë, ë°©í¥ ì íì´ íìí ê³¼ì ì íìë©ëë¤. ì´ì ë´ì©ì í¨ê» íì¸íì¸ì.<br>
+    <b>ê°ë° ê¸°ê°:</b> íìë¼ì¸ìì ë§ë ê¸¸ì´ë¡ ì ì²´ ê¸°ê°ì íì¸í  ì ììµëë¤. ì§§ì ê³¼ì ë ë¹ ë¥¸ ìë£, ê¸´ ê³¼ì ë ë¦¬ìì¤ ì§ì¤ ê´ë¦¬ê° íìí©ëë¤.
+  </div>
+
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">2026ë ìë°ê¸° â ìë³ ì¤í ê³¼ì </div></div>
+    <div class="card-body">
+      <div class="cal-grid">
+        <div class="cal-month"><div class="cal-month-hdr">1ì (ìë£)</div>
+          <div class="cal-item"><div class="cal-key">MPSP-220</div><div class="cal-name">ê³¼ì ëª III</div><span class="badge b-ok" style="margin-top:3px">ìë£</span></div>
+        </div>
+        <div class="cal-month"><div class="cal-month-hdr">2ì (ìë£)</div>
+          <div class="cal-item"><div class="cal-key">MPSP-365</div><div class="cal-name">ê³¼ì ëª JJJ</div><span class="badge b-ok" style="margin-top:3px">ìë£</span></div>
+        </div>
+        <div class="cal-month"><div class="cal-month-hdr">3ì (ìë£)</div>
+          <div class="cal-item"><div class="cal-key">MPSP-349</div><div class="cal-name">ê³¼ì ëª KKK</div><span class="badge b-ok" style="margin-top:3px">ìë£</span></div>
+          <div class="cal-item"><div class="cal-key">MPSP-014</div><div class="cal-name">ê³¼ì ëª FFF</div><span class="badge b-ok" style="margin-top:3px">ìë£</span></div>
+        </div>
+        <div class="cal-month"><div class="cal-month-hdr" style="background:#1E4080">4ì (ì§íì¤)</div>
+          <div class="cal-item"><div class="cal-key">MPSP-228</div><div class="cal-name">ê³¼ì ëª LLL</div><span class="badge b-bl" style="margin-top:3px">ì§íì¤</span></div>
+          <div class="cal-item"><div class="cal-key">MPSP-009</div><div class="cal-name">ê³¼ì ëª BBB</div><span class="badge b-rd" style="margin-top:3px">ð© ì§ì°</span><div style="font-size:9px;color:var(--rd);margin-top:2px">ë¬ì±ë¥  31% â ëª©í ì¡°ì  ê²í </div></div>
+        </div>
+        <div class="cal-month"><div class="cal-month-hdr" style="background:#1E4080">5ì (ìì )</div>
+          <div class="cal-item"><div class="cal-key">MPSP-022</div><div class="cal-name">ê³¼ì ëª AAA</div><span class="badge b-bl" style="margin-top:3px">ì§íì¤</span></div>
+          <div class="cal-item"><div class="cal-key">MPSP-043</div><div class="cal-name">ê³¼ì ëª GGG</div><span class="badge b-bl" style="margin-top:3px">ì§íì¤</span></div>
+        </div>
+        <div class="cal-month"><div class="cal-month-hdr" style="background:#374151">6ì (ìì )</div>
+          <div class="cal-item"><div class="cal-key">MPSP-031</div><div class="cal-name">ê³¼ì ëª EEE</div><span class="badge b-gray" style="margin-top:3px">ê²í ì¤</span><div style="font-size:9px;color:var(--am);margin-top:2px">ë´ë¹ì ë¯¸ë°°ì </div></div>
+          <div class="cal-item"><div class="cal-key">MPSP-011</div><div class="cal-name">ê³¼ì ëª DDD</div><span class="badge b-bl" style="margin-top:3px">ì§íì¤</span><div style="font-size:9px;color:var(--rd);margin-top:2px">KPI ë¯¸ì¤ì </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">ê°ë° ê¸°ê° íìë¼ì¸ (2026. 1ì~6ì) â ë§ë ê¸¸ì´ = ê°ë° ê¸°ê°</div></div>
+    <div class="card-body">
+      <div class="tl-months-hdr"><div class="tl-month">1ì</div><div class="tl-month">2ì</div><div class="tl-month">3ì</div><div class="tl-month">4ì</div><div class="tl-month">5ì</div><div class="tl-month">6ì</div></div>
+      <div style="position:relative">
+        <div style="position:absolute;top:0;bottom:0;left:160px;right:0;display:flex;pointer-events:none">
+          <div style="flex:1;border-right:1px dashed var(--g3)"></div><div style="flex:1;border-right:1px dashed var(--g3)"></div>
+          <div style="flex:1;border-right:1px dashed var(--g3)"></div><div style="flex:1;border-right:1px dashed var(--g3)"></div>
+          <div style="flex:1;border-right:1px dashed var(--g3)"></div><div style="flex:1"></div>
+        </div>
+        <!-- ìë£ -->
+        <div class="tl-row"><div class="tl-lbl">ê³¼ì ëª III</div><div class="tl-track"><div class="tl-bg"></div><div class="tl-bar" style="left:0;width:14%;background:var(--okb);border:1.5px solid #22C55E"></div><div class="tl-dot" style="left:14%;color:#22C55E;background:#22C55E"></div></div><span style="font-size:10px;color:var(--g5);white-space:nowrap;margin-left:8px">1ì ìë£ Â· 1ê°ì</span></div>
+        <div class="tl-row"><div class="tl-lbl">ê³¼ì ëª KKK</div><div class="tl-track"><div class="tl-bg"></div><div class="tl-bar" style="left:14%;width:21%;background:var(--okb);border:1.5px solid #22C55E"></div><div class="tl-dot" style="left:35%;color:#22C55E;background:#22C55E"></div></div><span style="font-size:10px;color:var(--g5);white-space:nowrap;margin-left:8px">3ì ìë£ Â· 1.5ê°ì</span></div>
+        <div class="tl-row"><div class="tl-lbl">ê³¼ì ëª FFF</div><div class="tl-track"><div class="tl-bg"></div><div class="tl-bar" style="left:0%;width:35%;background:var(--okb);border:1.5px solid #22C55E"></div><div class="tl-dot" style="left:35%;color:#22C55E;background:#22C55E"></div></div><span style="font-size:10px;color:var(--g5);white-space:nowrap;margin-left:8px">3ì ìë£ Â· 2ê°ì</span></div>
+        <!-- ì§íì¤ -->
+        <div class="tl-row"><div class="tl-lbl">ê³¼ì ëª AAA</div><div class="tl-track"><div class="tl-bg"></div><div class="tl-bar" style="left:14%;width:58%;background:var(--blt);border:1.5px solid var(--bl)"></div><div class="tl-dot" style="left:72%;color:var(--bl);background:var(--bl)"></div></div><span style="font-size:10px;color:var(--g5);white-space:nowrap;margin-left:8px">5ì ìì  Â· 3ê°ì</span></div>
+        <div class="tl-row"><div class="tl-lbl">ê³¼ì ëª GGG</div><div class="tl-track"><div class="tl-bg"></div><div class="tl-bar" style="left:28%;width:52%;background:var(--blt);border:1.5px solid var(--bl)"></div><div class="tl-dot" style="left:80%;color:var(--bl);background:var(--bl)"></div></div><span style="font-size:10px;color:var(--g5);white-space:nowrap;margin-left:8px">5ì ìì  Â· 2.5ê°ì</span></div>
+        <div class="tl-row"><div class="tl-lbl">ê³¼ì ëª EEE</div><div class="tl-track"><div class="tl-bg"></div><div class="tl-bar" style="left:35%;width:55%;background:var(--amb);border:1.5px dashed #F59E0B"></div><div class="tl-dot" style="left:90%;color:#F59E0B;background:#F59E0B"></div></div><span style="font-size:10px;color:var(--am);white-space:nowrap;margin-left:8px">6ì ê²í ì¤ Â· ë´ë¹ì ë¯¸ë°°ì </span></div>
+        <!-- Red Flag -->
+        <div class="tl-row">
+          <div class="tl-lbl" style="color:var(--rd)">ê³¼ì ëª BBB ð©</div>
+          <div class="tl-track">
+            <div class="tl-bg"></div>
+            <div class="tl-bar" style="left:0%;width:55%;background:var(--rdb);border:1.5px solid #EF4444"></div>
+            <div class="tl-dot" style="left:55%;color:#EF4444;background:#EF4444"></div>
+            <div class="tl-issue" style="left:28%;background:var(--rdb);color:var(--rd);top:-1px">ë¬ì±ë¥  31% â ëª©í ì¡°ì  íì</div>
+          </div>
+          <span style="font-size:10px;color:var(--rd);white-space:nowrap;margin-left:8px">4ì ì¤í í ì´ì</span>
+        </div>
+        <div class="tl-row">
+          <div class="tl-lbl" style="color:var(--rd)">ê³¼ì ëª CCC ð©</div>
+          <div class="tl-track">
+            <div class="tl-bg"></div>
+            <div class="tl-bar" style="left:0%;width:35%;background:var(--rdb);border:1.5px solid #EF4444"></div>
+            <div class="tl-dot" style="left:35%;color:#EF4444;background:#EF4444"></div>
+            <div class="tl-issue" style="left:17%;background:var(--rdb);color:var(--rd);top:-1px">DAU 9% â ì§ì ì¬ë¶ ê²°ì  íì</div>
+          </div>
+          <span style="font-size:10px;color:var(--rd);white-space:nowrap;margin-left:8px">3ì ì¤í í ì´ì</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:14px;font-size:11px;color:var(--g5);flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:14px;height:6px;background:var(--okb);border:1.5px solid #22C55E;border-radius:2px"></span>ì¤í ìë£</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:14px;height:6px;background:var(--blt);border:1.5px solid var(--bl);border-radius:2px"></span>ì§íì¤</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:14px;height:6px;background:var(--amb);border:1.5px dashed #F59E0B;border-radius:2px"></span>ê²í ì¤</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:14px;height:6px;background:var(--rdb);border:1.5px solid #EF4444;border-radius:2px"></span>Red Flag (ì¤í í ì´ì)</span>
+        <span style="color:var(--g5)">â = ì¤íì¼ Â· ë§ë ê¸¸ì´ = ê°ë° ê¸°ê°</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ââââ ë°ì´í° ë¦¬í¬í ââââ -->
+<div class="page" id="pg-report">
+  <div class="pg-hdr"><div class="pg-bar"></div><div class="pg-title">ë°ì´í° ë¦¬í¬í</div><div class="pg-sub">ì ì²´ ê³¼ì  ë¦¬í¬í Â· ìë³ ë¬ì±ë¥  ì¶ì´ Â· ì ê²íì ê³¼ì  ê´ë¦¬</div></div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
+    <div class="kpi c-ok"><div class="kpi-lbl">ëª©í ë¬ì± ê³¼ì </div><div class="kpi-val c-ok">22</div><div class="kpi-sub">ê±´ (71%)</div></div>
+    <div class="kpi c-rd"><div class="kpi-lbl">ì ê² íì</div><div class="kpi-val c-rd">7</div><div class="kpi-sub">ê±´ Â· ì§ì ëª¨ëí°ë§</div></div>
+    <div class="kpi c-am"><div class="kpi-lbl">KPI ë¯¸ì¤ì </div><div class="kpi-val c-am">6</div><div class="kpi-sub">ê±´ Â· ìë ¥ ìì²­ ì¤</div></div>
+    <div class="kpi c-bl"><div class="kpi-lbl">ì ì²´ ì¤í ê³¼ì </div><div class="kpi-val c-bl">31</div><div class="kpi-sub">ê±´ Â· 1~3ì ê¸°ì¤</div></div>
+  </div>
+
+  <!-- ì ì²´ ê³¼ì  ë¦¬í¬í íì´ë¸ -->
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">ì ì²´ ê³¼ì  ë¦¬í¬í íí© â ìë³ ë¬ì±ë¥  ì¶ì´</div></div>
+    <div class="tbl-scroll">
+    <table>
+      <thead><tr>
+        <th>MPSP</th><th>ê³¼ì ëª</th><th>êµ¬ë¶</th><th>ì ëëª©í</th>
+        <th>1ì</th><th>2ì</th><th>3ì</th><th>4ì</th><th>5ì</th><th>6ì</th>
+        <th>ë¬ì±ë¥ </th><th>ìí</th><th>ë¦¬í¬í</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-key">MPSP-022</td><td class="td-name">ê³¼ì ëª AAA</td><td><span class="badge b-core">íµì¬</span></td>
+          <td style="font-size:10px">CVR +2.5%</td>
+          <td style="font-size:10px;color:var(--g5)">â</td><td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--g7)">+1.8%</td>
+          <td style="font-size:10px;font-weight:600;color:#16A34A">+2.5%</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:11px;font-weight:600;color:#16A34A">ë¬ì±</td>
+          <td><span class="badge b-ok">ì ì</span></td>
+          <td><a href="#" style="font-size:10px;color:var(--bl)">ë§í¬</a></td>
+        </tr>
+        <tr>
+          <td class="td-key">MPSP-009</td><td class="td-name">ê³¼ì ëª BBB</td><td><span class="badge b-core">íµì¬</span></td>
+          <td style="font-size:10px">ì 130ìµ</td>
+          <td style="font-size:10px;color:var(--g5)">â</td><td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--rd)">40ìµ (31%)</td>
+          <td style="font-size:10px;color:var(--rd)">45ìµ (35%)</td>
+          <td style="font-size:10px;color:var(--g5)">ì¸¡ì ì¤</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:11px;font-weight:600;color:var(--rd)">31%</td>
+          <td><span class="badge b-rd">ëª©íì¡°ì </span></td>
+          <td><a href="#" style="font-size:10px;color:var(--bl)">ë§í¬</a></td>
+        </tr>
+        <tr>
+          <td class="td-key">MPSP-017</td><td class="td-name">ê³¼ì ëª CCC</td><td><span class="badge b-core">íµì¬</span></td>
+          <td style="font-size:10px">DAU 50,000ëª</td>
+          <td style="font-size:10px;color:var(--g5)">â</td><td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--rd)">4,642ëª (9%)</td>
+          <td style="font-size:10px;color:var(--rd)">5,100ëª (10%)</td>
+          <td style="font-size:10px;color:var(--g5)">ì¸¡ì ì¤</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:11px;font-weight:600;color:var(--rd)">9%</td>
+          <td><span class="badge b-rd">ìì¬ê²°ì </span></td>
+          <td><a href="#" style="font-size:10px;color:var(--bl)">ë§í¬</a></td>
+        </tr>
+        <tr>
+          <td class="td-key">MPSP-011</td><td class="td-name">ê³¼ì ëª DDD</td><td><span class="badge b-core">íµì¬</span></td>
+          <td style="font-size:10px;color:var(--g5)">KPI ë¯¸ì¤ì </td>
+          <td colspan="6" style="font-size:10px;color:var(--g5);text-align:center">ì ëëª©í ë¯¸ìë ¥ â ë¬ì±ë¥  ì¸¡ì  ë¶ê°</td>
+          <td style="font-size:11px;color:var(--g5)">â</td>
+          <td><span class="badge b-gray">ìë ¥ìì²­</span></td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+        </tr>
+        <tr>
+          <td class="td-key">MPSP-014</td><td class="td-name">ê³¼ì ëª FFF</td><td><span class="badge b-mgmt">ê´ë¦¬</span></td>
+          <td style="font-size:10px">ìëíì¨ 90%</td>
+          <td style="font-size:10px;color:var(--g5)">â</td><td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--g7)">91%</td>
+          <td style="font-size:10px;font-weight:600;color:#16A34A">92%</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:11px;font-weight:600;color:#16A34A">ë¬ì±</td>
+          <td><span class="badge b-ok">ì ì</span></td>
+          <td><a href="#" style="font-size:10px;color:var(--bl)">ë§í¬</a></td>
+        </tr>
+        <tr>
+          <td class="td-key">MPSP-043</td><td class="td-name">ê³¼ì ëª GGG</td><td><span class="badge b-mgmt">ê´ë¦¬</span></td>
+          <td style="font-size:10px">ì²ë¦¬ìê° 30% ë¨ì¶</td>
+          <td style="font-size:10px;color:var(--g5)">â</td><td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:10px;color:var(--am)">15% ë¨ì¶</td>
+          <td style="font-size:10px;color:var(--g5)">ì¸¡ì ì¤</td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+          <td style="font-size:11px;font-weight:600;color:var(--am)">50%</td>
+          <td><span class="badge b-am">ëª¨ëí°ë§</span></td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+        </tr>
+        <tr>
+          <td class="td-key">MPSP-031</td><td class="td-name">ê³¼ì ëª EEE</td><td><span class="badge b-mgmt">ê´ë¦¬</span></td>
+          <td style="font-size:10px;color:var(--g5)">ìì¹ ë¯¸ìë ¥</td>
+          <td colspan="6" style="font-size:10px;color:var(--g5);text-align:center">ëª©í ìì¹ ìì â ë¬ì±ë¥  ì¸¡ì  ë¶ê° Â· ë´ë¹ì ë¯¸ë°°ì </td>
+          <td style="font-size:11px;color:var(--g5)">â</td>
+          <td><span class="badge b-gray">ìë ¥ìì²­</span></td>
+          <td style="font-size:10px;color:var(--g5)">â</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="rpt-grid">
+    <div class="rpt-card">
+      <div class="rpt-title"><div class="rpt-icon" style="background:var(--bl)">â</div>1ë¶ê¸° ì£¼ì ì±ê³¼</div>
+      <table class="mng-table">
+        <tbody>
+          <tr><td class="m-lbl">ê²ì PCê°í¸ qCTR</td><td class="m-val up">+11.5%p</td></tr>
+          <tr><td class="m-lbl">11pay ì í ì ì ì¨</td><td class="m-val up">8.62% â 9.05%</td></tr>
+          <tr><td class="m-lbl">DSP ìëµìë</td><td class="m-val up">1,000ms â 50ms</td></tr>
+          <tr><td class="m-lbl">AIìº íì¸ ë§¤ì¶ë¹ì¤</td><td class="m-val up">3ì 25.7% (+55.9%)</td></tr>
+          <tr><td class="m-lbl">ííë¨¼í¸ ë°íì²ë¦¬</td><td class="m-val up">91h â 74h (-23%)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rpt-card">
+      <div class="rpt-title"><div class="rpt-icon" style="background:#7C3AED">%</div>ëë©ì¸ë³ KPI ë¬ì±ë¥ </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>ìë¹ì¤ê¸°í</span><span style="font-family:var(--mono);font-weight:700;color:var(--bl)">81%</span></div><div style="height:8px;background:var(--g3);border-radius:4px;overflow:hidden"><div style="height:100%;width:81%;background:var(--bl);border-radius:4px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>íë«í¼</span><span style="font-family:var(--mono);font-weight:700;color:var(--bl)">79%</span></div><div style="height:8px;background:var(--g3);border-radius:4px;overflow:hidden"><div style="height:100%;width:79%;background:var(--bl);border-radius:4px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>ìì</span><span style="font-family:var(--mono);font-weight:700;color:var(--bl)">72%</span></div><div style="height:8px;background:var(--g3);border-radius:4px;overflow:hidden"><div style="height:100%;width:72%;background:var(--bl);border-radius:4px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>ì ëµ</span><span style="font-family:var(--mono);font-weight:700;color:var(--bl)">64%</span></div><div style="height:8px;background:var(--g3);border-radius:4px;overflow:hidden"><div style="height:100%;width:64%;background:var(--bl);border-radius:4px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>ë°ì´í°</span><span style="font-family:var(--mono);font-weight:700;color:#F59E0B">58%</span></div><div style="height:8px;background:var(--g3);border-radius:4px;overflow:hidden"><div style="height:100%;width:58%;background:#F59E0B;border-radius:4px"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ââââ Bi-weekly ââââ -->
+<div class="page" id="pg-weekly">
+  <div class="pg-hdr"><div class="pg-bar"></div><div class="pg-title">Bi-weekly íìë¡</div><div class="pg-sub">í´ë¦­ì¼ë¡ ì ê¸°/í¼ì¹ê¸° Â· F/U ì§ì  ìë ¥ Â· ì ê· ìê±´ ì¶ê°</div></div>
+
+  <div class="info-box">
+    <b>íì¤í ë¦¬ ê´ë¦¬:</b> ìë ë ì§ í¤ëë¥¼ í´ë¦­íë©´ í´ë¹ íìë¡ì ì ê±°ë í¼ì¹  ì ììµëë¤. ì¤í¬ë¡¤íë©´ ì´ì  íìë¡ì ëª¨ë íì¸í  ì ììµëë¤.<br>
+    <b>F/U ìë ¥:</b> ê° ìê±´ ì¤ë¥¸ìª½ F/U ì¹¸ì í´ë¦­í´ì ì§ì  ìë ¥íì¸ì. ìë ¥ í ì ì¥ì ë³ëë¡ íìíì§ ììµëë¤ (íì´ì§ ìë¡ê³ ì¹¨ ì ê¹ì§ ì ì§).<br>
+    <b>ì ê· ìê±´:</b> ìë¨ ìë ¥ì°½ìì ê·¸ë£¹Â·ì íÂ·ë´ì©Â·MPSPÂ·F/Uë¥¼ ìë ¥ í ì¶ê° ë²í¼ì ëë¥´ë©´ ìµì  ë ì§ë¡ ë±ë¡ë©ëë¤.
+  </div>
+
+  <!-- ì ê· ìë ¥ -->
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">ì ê· ìê±´ ì¶ê°</div><button class="btn btn-pr btn-sm" onclick="addWeeklyItem()">+ ì¶ê°</button></div>
+    <div class="card-body">
+      <div class="wk-input-row">
+        <select id="wi-group"><option>ì ëµê·¸ë£¹</option><option>ììê·¸ë£¹</option><option>ìë¹ì¤ê¸°íê·¸ë£¹</option><option>ê°ë°ê·¸ë£¹</option><option>ì ê·ê³¼ì </option><option>ê¸°í</option></select>
+        <select id="wi-type"><option>ê³µì /ì´ìì¬í­</option><option>ì ê·ê³¼ì </option><option>ì£¼ìê³µì ì¬í­</option><option>ìì¬ê²°ì íì</option></select>
+        <textarea id="wi-content" placeholder="ë´ì© ìë ¥..." style="resize:none;height:34px;font-size:11px"></textarea>
+        <input type="text" id="wi-mpsp" placeholder="MPSP-XXX (ì í)">
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <label style="font-size:11px;color:var(--g5)">F/U ì¬í­:</label>
+        <input type="text" id="wi-fu" placeholder="íì¸ ë° F/U ì¬í­" style="flex:1">
+        <input type="date" id="wi-date" style="width:130px">
+      </div>
+    </div>
+  </div>
+
+  <!-- ì ê· ì¶ê° ìì­ -->
+  <div id="weekly-added"></div>
+
+  <!-- 3/11 íì -->
+  <div class="wk-section">
+    <div class="wk-date-hdr" onclick="toggleWk('wk-311')">
+      <span>â¼ 2026. 3. 11 (í) â Bi-weekly PMO íì</span>
+      <span style="margin-left:auto;font-size:11px;opacity:.7">ì ëµÂ·ììÂ·ìë¹ì¤ê¸°íÂ·ê°ë°ê·¸ë£¹</span>
+    </div>
+    <div class="wk-body" id="wk-311">
+      <div class="wk-group">
+        <div class="wk-group-hdr">ê³µì /ì´ìì¬í­ [ì ëµê·¸ë£¹]</div>
+        <div class="wk-item">
+          <div><div class="wk-mpsp">MPSP-220</div><div class="wk-content"><b>Të©¤ë²ì­ íë¡ëª¨ì í ì¸/ìµëíë ê¸°ë¥ê°ì  ê³¼ì  ì¤í ì¼ì  Fix íì</b><br>Â· ê°ë° ìë£ ì¼ì  (3/26) â QA (ë¯¸ì )<br>Â· ì ì¬ ìí´ë¦¬ ì 4ì ì­ì¼ì (4/1~11) ê¸°ê° ì¤ í´ë¹ ì¬ì© íì¬ íìíì¬, ì¤í ì¼ì  ìµì¢ íì¸ ìì²­</div></div>
+          <div class="wk-fu-wrap"><div class="wk-fu">ê°ë°ì¤(~3/26), QA(íìì¤), 4ìì¤ì ìì©ë°°í¬(ìì)</div><textarea class="wk-fu-input" placeholder="F/U ì¶ê° ìë ¥...">ì ì²´ ì¼ì  ìµì¢ íì  ì, ë¨ì¶ ê°ë¥ ì¬ë¶ ë¤ì íë² ì²´í¬ ìì </textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-mpsp">MPSP-228</div><div class="wk-content"><b>ëì§í¸ ì¨ëë¦¬ìíê¶ ìë¹ì¤ ëì</b><br>Â· ì¤í 7ìë¡ ìì ëì´ ìì¼ë, 6/1~6/11 ë§í¸íì¤íì ë§ì¶° ê°ë° ê°ë¥í ì§ ê²í  ìì²­</div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥...">ìì ë¦¬ë·° (3/25. w.ê¸°í/ê°ë°)</textarea></div>
+        </div>
+      </div>
+      <div class="wk-group">
+        <div class="wk-group-hdr">ê³µì /ì´ìì¬í­ [ììê·¸ë£¹]</div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>ì íìí ê³ì¢ì´ì²´ íë¡ëª¨ì: 4.1~5.30</b><br>Â· ì´ë²¤í¸ ê°ë°ê±´, íìì MPSPë±ë¡ ìì </div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥...">4/1 ì´ë²¤í¸ ì¤í ê°ë¥ì¼ë¡ ì ë° ì¼ì  ì ë¦¬ ìë£</textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-mpsp">MPSP-349</div><div class="wk-content"><b>ì¬íÂ·ìë°íì¤í ì°ë° ì¿ í° ê°ë° ê²í  ìì²­ ê±´</b><br>Â· ìì£¼ íë³´íì¬ 4/8 ì¤í ìì </div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥...">ê°ë°ì¤, ê°ë°ë¦¬ë·°/QAìì (3/18~)</textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-content">ë¹ì¸ ê´ë ¨ ì¼ì  íì¸</div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥...">ë¹ì¸ ì¸¡ íì 4ìì´ë¶í° ê°ë¥ íì¸. ì ì²´ ì¼ì  ë ìë ë¼ ì ììì§ ìíµ ê³ì ìì </textarea></div>
+        </div>
+      </div>
+      <div class="wk-group">
+        <div class="wk-group-hdr">ì ê·ê³¼ì </div>
+        <div class="wk-item">
+          <div><div class="wk-mpsp">MPSP-367</div><div class="wk-content">[ê³ ê°ì¼í°ì´ì/ê°ì í] í´ì¸ì§êµ¬ Cat. ê°ì¡ì¥ í¨ëí° ì ì©<br><span style="color:var(--g5)">â³ íë°ê¸° [ê³ ì¦ê²½ ìê° ìì  ë¤]</span></div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-mpsp">MPSP-366</div><div class="wk-content">[í¸ì±í] PET ì ë¬¸ê´ ì ì¤ì ìí ê°ì íë¡ì¸ì¤ êµ¬ì¶<br><span style="color:var(--g5)">â³ íë°ê¸° (ìë°ê¸° ëª©í: Petì ë³´ë¥¼ ë°ì ì ìë êµ¬ì¡°ì¤ê³)</span></div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-mpsp">MPSP-365</div><div class="wk-content">[ë²ë¬´í] 11Pay ê°ë§¹ì íì KYC ì¬ìí ì ì± ìíì ìí ê¸°í ë° ê°ë° ìì²­</div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+      </div>
+      <div class="wk-group">
+        <div class="wk-group-hdr">ì£¼ì ê³µì ì¬í­ [ìë¹ì¤ê¸°íê·¸ë£¹]</div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>ê·¸ëëì­ì¼ì  ê³¼ì  ì·¨í© ë° ê´ë¦¬ ë¼ìíì</b></div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>1ì~3ì ì¤í & íµì¬ê³¼ì ëì ê·¸ë£¹ë³ ë°ì´í°ë¦¬í¬í í­ëª© ê²í  (~3/25)</b></div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>AIìë¹ì¤íì TF ê´ë ¨</b><br>â³ Agentic AI ì í´ê´ë ¨ íì¤í¬ ë¼ììì </div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥...">ë³ë ê³¼ì í ìì </textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>íµì¬ê³¼ì ìì¤ ì ëì§í ë¯¸ê¸°ìê³¼ì  ìë°ì´í¸ íì</b></div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+      </div>
+      <div class="wk-group">
+        <div class="wk-group-hdr">ê³µì /ì´ìì¬í­ [ê°ë°ê·¸ë£¹]</div>
+        <div class="wk-item">
+          <div><div class="wk-content">ì¬ì  ì·¨í©ìì²­_í¹ì´ì¬í­ ìì</div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+      </div>
+      <div class="wk-group" style="border-left-color:var(--g3)">
+        <div class="wk-group-hdr" style="background:var(--g1);color:var(--g5)">ê¸°í</div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>íë°ê¸° ì§íê³¼ì ë ë³ë ì·¨í©ê¸°ê° ê³µì§ìì </b><br>â³ ê°ì¼ì : 5ì ê·¸ëëì­ì¼ì  ì´í</div></div>
+          <div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U ìë ¥..."></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ì´ì  íì ìì (2/25) -->
+  <div class="wk-section">
+    <div class="wk-date-hdr" onclick="toggleWk('wk-225')" style="background:#374151">
+      <span>â¶ 2026. 2. 25 (í) â Bi-weekly PMO íì (í´ë¦­í´ì í¼ì¹ê¸°)</span>
+      <span style="margin-left:auto;font-size:11px;opacity:.7">ì´ì  íìë¡</span>
+    </div>
+    <div class="wk-body" id="wk-225" style="display:none">
+      <div class="wk-group">
+        <div class="wk-group-hdr">ì£¼ì ê³µì ì¬í­ [ìë¹ì¤ê¸°íê·¸ë£¹]</div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>1ë¶ê¸° íµì¬ê³¼ì  ì§ííí© ê³µì </b><br>Â· ì´ 31ê° ê³¼ì  ì¤ 22ê° ì ì ì§í ì¤<br>Â· KPI ë¯¸ì¤ì  ê³¼ì  6ê° â ë´ë¹ì ìë ¥ ìì²­</div></div>
+          <div class="wk-fu-wrap"><div class="wk-fu">ìë£ â ë´ë¹ìë³ ê°ë³ ìì²­ ë°ì¡</div><textarea class="wk-fu-input" placeholder="ì¶ê° F/U..."></textarea></div>
+        </div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>ê³¼ì ëª CCC (í©ê¸ìëª¨ì¼ê¸°) íí© ê³µì </b><br>Â· 2ì DAU íê·  3,800ëª â ëª©í ëë¹ 8%</div></div>
+          <div class="wk-fu-wrap"><div class="wk-fu">3ì ë§ ìì¬ê²°ì  ìì </div><textarea class="wk-fu-input" placeholder="ì¶ê° F/U..."></textarea></div>
+        </div>
+      </div>
+      <div class="wk-group">
+        <div class="wk-group-hdr">ê³µì /ì´ìì¬í­ [ììê·¸ë£¹]</div>
+        <div class="wk-item">
+          <div><div class="wk-mpsp">MPSP-009</div><div class="wk-content"><b>ê³¼ì ëª BBB (CJë¼ì´ë¸) 2ì ë§¤ì¶ íí©</b><br>Â· 2ì ëì  35ìµ / 6ì ëª©í 130ìµ â ë¬ì±ë¥  27%</div></div>
+          <div class="wk-fu-wrap"><div class="wk-fu">3ì ì¤ ëª©í ì¬ê²í  ìì </div><textarea class="wk-fu-input" placeholder="ì¶ê° F/U..."></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ì´ì  íì (2/11) -->
+  <div class="wk-section">
+    <div class="wk-date-hdr" onclick="toggleWk('wk-211')" style="background:#374151">
+      <span>â¶ 2026. 2. 11 (í) â Bi-weekly PMO íì (í´ë¦­í´ì í¼ì¹ê¸°)</span>
+      <span style="margin-left:auto;font-size:11px;opacity:.7">ì´ì  íìë¡</span>
+    </div>
+    <div class="wk-body" id="wk-211" style="display:none">
+      <div class="wk-group">
+        <div class="wk-group-hdr">1ë¶ê¸° í¥ì¤í â íµì¬ê³¼ì  íì </div>
+        <div class="wk-item">
+          <div><div class="wk-content"><b>2026ë 1ë¶ê¸° íµì¬ê³¼ì  32ê±´ íì  ë° ê³µì </b><br>Â· ëë©ì¸ë³ ì°ì ìì ë°°ì  ìë£<br>Â· KPI ì¤ì  ê¸°ì¤ ê°ì´ë ë°°í¬</div></div>
+          <div class="wk-fu-wrap"><div class="wk-fu">ìë£</div><textarea class="wk-fu-input" placeholder="ì¶ê° F/U..."></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL: ê³¼ì  í¸ì§ (ì ì²´ í­ëª©) -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">ê³¼ì  ë±ë¡ / í¸ì§</div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">êµ¬ë¶</label><select id="m-type"><option>íµì¬</option><option>ê´ë¦¬</option></select></div>
+      <div class="form-row"><label class="form-label">MPSP ë²í¸</label><input type="text" id="m-mpsp" placeholder="MPSP-XXX"></div>
+    </div>
+    <div class="form-row"><label class="form-label">ê³¼ì ëª</label><input type="text" id="m-name" placeholder="ê³¼ì ëª ìë ¥"></div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">ë°ìë¶ì</label><select id="m-from"><option>ë§ì¼íí</option><option>í¸ì±í</option><option>ì ëµê¸°íí</option><option>ë¼ì´ë¸ì»¤ë¨¸ì¤í</option><option>ë°ì´í°ë¶ìí</option><option>ë²ë¬´í</option><option>ê³ ê°ì¼í°ì´ìí</option></select></div>
+      <div class="form-row"><label class="form-label">ì¤íë¶ì</label><select id="m-to"><option>ë°±ìëìë¹ì¤</option><option>ì ììë¹ì¤ê¸°íí</option><option>ë°±ìëìë¹ì¤ / ì ììë¹ì¤ê¸°íí</option><option>ì¸íë¼í</option></select></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">ê¸°íë´ë¹ì</label><input type="text" id="m-plan" placeholder="ì´ë¦"></div>
+      <div class="form-row"><label class="form-label">ê°ë°ë´ë¹ì</label><input type="text" id="m-dev" placeholder="ì´ë¦"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">ì¤í ìì ì¼</label><input type="date" id="m-date" value="2026-06-30"></div>
+      <div class="form-row"><label class="form-label">ìí</label><select id="m-status"><option>ì§íì¤</option><option>ì¤íìë£</option><option>ê²í ì¤</option><option>ì¤ë¨</option></select></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">ì ëì§í (KPIëª)</label><input type="text" id="m-kpi" placeholder="ì: CVR, DAU, ì²ë¦¬ìê° ë±"></div>
+      <div class="form-row"><label class="form-label">ëª©í ìì¹ <span style="color:var(--rd)">*íì</span></label><input type="text" id="m-kpi-val" placeholder="ì: +2.5%, 50,000ëª, 30% ë¨ì¶"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">ë² ì´ì¤ë¼ì¸ ìì¹</label><input type="text" id="m-base" placeholder="íì¬ê° (ì: íì¬ CVR 2.1%)"></div>
+      <div class="form-row"><label class="form-label">ë°ì´í° ë¦¬í¬í ë§í¬</label><input type="text" id="m-link" placeholder="https://..."></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">Red Flag</label><select id="m-flag"><option value="">ìì</option><option value="Y">ð© Red Flag</option></select></div>
+      <div class="form-row"><label class="form-label">ì´ìì¬í­</label><input type="text" id="m-issue" placeholder="ì´ì ë´ì©"></div>
+    </div>
+    <div class="form-row"><label class="form-label">ë³ê²½ ë©ëª¨ <span style="color:var(--g5);font-weight:400">(ì´ë ¥ ìë ê¸°ë¡)</span></label><textarea id="m-memo" placeholder="ë³ê²½ ì´ì  ëë ìë°ì´í¸ ë´ì©ì ê°ëµí ê¸°ë¡íì¸ì. ì ì¥ ì ë³ê²½ì´ë ¥ì ë ì§ì í¨ê» ê¸°ë¡ë©ëë¤."></textarea></div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closeModal()">ì·¨ì</button>
+      <button class="btn btn-pr" onclick="saveModal()">ì ì¥ ë° ì´ë ¥ ê¸°ë¡</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: íë¡ì¸ì¤ í¸ì§ -->
+<div class="modal-overlay" id="proc-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">ì´ì íë¡ì¸ì¤ í¸ì§</div>
+    <div style="font-size:11px;color:var(--g5);margin-bottom:14px">ê° ë¨ê³ì ì´ë¦ê³¼ ë´ë¹ìë¥¼ ìì íì¸ì. ì ì¥íë©´ ì¦ì ë°ìë©ëë¤.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div class="form-row"><label class="form-label">1ë¨ê³ ì´ë¦</label><input type="text" id="e-f1n" value="MPSP ìì ì ì¶"></div>
+      <div class="form-row"><label class="form-label">1ë¨ê³ ë´ë¹</label><input type="text" id="e-f1w" value="ìì²­ ë¶ì ë´ë¹ì"></div>
+      <div class="form-row"><label class="form-label">2ë¨ê³ ì´ë¦</label><input type="text" id="e-f2n" value="ê³¼ì ë¶ë¥Â·ì°ì ìì"></div>
+      <div class="form-row"><label class="form-label">2ë¨ê³ ë´ë¹</label><input type="text" id="e-f2w" value="ìë¹ì¤ê¸°í ë´ë¹ë³ ìë¹ì¤ê¸°íê·¸ë£¹ì¥"></div>
+      <div class="form-row"><label class="form-label">3ë¨ê³ ì´ë¦</label><input type="text" id="e-f3n" value="ì¤í"></div>
+      <div class="form-row"><label class="form-label">3ë¨ê³ ë´ë¹</label><input type="text" id="e-f3w" value="ê¸°íÂ·ëìì¸Â·ê°ë°"></div>
+      <div class="form-row"><label class="form-label">4ë¨ê³ ì´ë¦</label><input type="text" id="e-f4n" value="ì´ìì¡°ì "></div>
+      <div class="form-row"><label class="form-label">4ë¨ê³ ë´ë¹</label><input type="text" id="e-f4w" value="ì¡°ì§ë³ ê·¸ë£¹ì¥ (Red Flag Fast-Track)"></div>
+      <div class="form-row"><label class="form-label">5ë¨ê³ ì´ë¦</label><input type="text" id="e-f5n" value="ê³µì /ê°ì "></div>
+      <div class="form-row"><label class="form-label">5ë¨ê³ ë´ë¹</label><input type="text" id="e-f5w" value="Bi-weekly ê° ê·¸ë£¹ë³ ì´ì íí°ë§"></div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closeProcModal()">ì·¨ì</button>
+      <button class="btn btn-pr" onclick="saveProcModal()">ì ì¥</button>
+    </div>
+  </div>
+</div>
+
+<script id="pmo-data" type="application/json">{"issues": [{"key": "MPSP-375", "summary": "AI 기반 네이버 자율매칭 고도화", "status": "MPSR 이관", "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST", "created": "2026-04-23", "duedate": ""}, {"key": "MPSP-374", "summary": "카페24 연동 개발 요청", "status": "오픈", "assignee": "강현(Hyun Kang)/상품/배송경험서비스기획팀/11ST", "created": "2026-04-21", "duedate": ""}, {"key": "MPSP-373", "summary": "11번가 E쿠폰 직연동 전환", "status": "종료", "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-04-07", "duedate": ""}, {"key": "MPSP-372", "summary": "[PCS] 카드 추가할인 채널 확대 요청", "status": "오픈", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-04-06", "duedate": ""}, {"key": "MPSP-371", "summary": "육군본부 법인 고객 전용 시스템 개발", "status": "진행 중", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-03-25", "duedate": ""}, {"key": "MPSP-370", "summary": "BO 상품직권처리관리 메뉴 개선 요청", "status": "오픈", "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST", "created": "2026-03-23", "duedate": ""}, {"key": "MPSP-369", "summary": "3월 밤짝쿠폰 페이지 수정 요건", "status": "종료", "assignee": "양다현(Dahyun Yang)/전시서비스기획팀/11ST", "created": "2026-03-16", "duedate": ""}, {"key": "MPSP-368", "summary": "[그랜드십일절_과제상정] [가칭] LMS 패쇄형 특가 마켓", "status": "종료", "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST", "created": "2026-03-15", "duedate": ""}, {"key": "MPSP-367", "summary": "해외직구 Cat. 가송장 페널티 적용", "status": "오픈", "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST", "created": "2026-03-06", "duedate": ""}, {"key": "MPSP-366", "summary": "PET 전문관 신설을 위한 가입 프로세스 구축", "status": "오픈", "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST", "created": "2026-02-27", "duedate": ""}, {"key": "MPSP-365", "summary": "11Pay 가맹점회원 KYC 재수행 정책 시행을 위한 기획 및 개발 요청", "status": "오픈", "assignee": "한정은(Jungeun Han)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-25", "duedate": ""}, {"key": "MPSP-364", "summary": "[주문] 주문서→주문완료 전환 퍼널 상시 개선", "status": "오픈", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-24", "duedate": ""}, {"key": "MPSP-363", "summary": "[26년 과제 검토 대상] [광고] 광고 품질 강화_광고 후보군 조정", "status": "오픈", "assignee": "박은주(Eunju Park)/광고기획팀/11ST", "created": "2026-02-19", "duedate": ""}, {"key": "MPSP-362", "summary": "[26년 광고과제] 마케터 활동성 대시보드 신설(광고 Admin)", "status": "오픈", "assignee": "박성희(Sunghee Park)/광고기획팀/11ST", "created": "2026-02-19", "duedate": ""}, {"key": "MPSP-361", "summary": "[26년 광고과제] 입찰가 설정 기능 고도화", "status": "오픈", "assignee": "이다영(Dayoung Lee)/광고기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-360", "summary": "[26년 광고과제]DSP 광고주 보고서 성능 개선", "status": "종료", "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-359", "summary": "광고 지면 효율화 - 지면 validation", "status": "종료", "assignee": "강수림(Surim Kang)/광고기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-358", "summary": "홈탭 '최근 본 상품' 영역 내아마존 상품 노출 포함 요청 건", "status": "종료", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-357", "summary": "판매방해 고객 관리 기능 신설", "status": "오픈", "assignee": "지화연(Hwayeon Ji)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-356", "summary": "[26년 광고 과제]포커스클릭 확장소재 로직 개선", "status": "종료", "assignee": "강수림(Surim Kang)/광고기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-355", "summary": "[11키티즈] DAU 회복 및 인앱광고 수익 구조 고도화", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-354", "summary": "OK캐쉬백 쇼핑스탬프 실시간 연동 개발 적용 요청", "status": "종료", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-13", "duedate": ""}, {"key": "MPSP-353", "summary": "CMP 확대(롱테일 커버리지 확대)", "status": "오픈", "assignee": "황교준(Kyojun Hwang)/검색/추천서비스기획팀/11ST", "created": "2026-02-10", "duedate": ""}, {"key": "MPSP-352", "summary": "[26년 과제 검토대상] 11번가 풀필먼트 연합 구축", "status": "과제 홀딩", "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST", "created": "2026-02-10", "duedate": ""}, {"key": "MPSP-351", "summary": "[그랜드십일절_과제상정] 예약구매 진행의 건", "status": "종료", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-09", "duedate": ""}, {"key": "MPSP-350", "summary": "SO 프리미엄관 신청 메뉴내 '뷰티플러스' 서비스 신청 TOOL 추가", "status": "종료", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-06", "duedate": ""}, {"key": "MPSP-349", "summary": "[여행] 숙박페스타 연박 쿠폰 개발 검토 요청 건", "status": "종료", "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-05", "duedate": ""}, {"key": "MPSP-348", "summary": "[11번가플러스] 쿠폰 혜택 계정발급 전환 및 신규 혜택 추가", "status": "종료", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-04", "duedate": ""}, {"key": "MPSP-347", "summary": "OK캐시백 제휴사코드 추가에 따른 Partner Office admin 생성 요청 건", "status": "종료", "assignee": "이아란(Arhan Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-02-03", "duedate": ""}, {"key": "MPSP-346", "summary": "[로스리더_상품응모] 개발 요청의 건", "status": "종료", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-30", "duedate": ""}, {"key": "MPSP-345", "summary": "[26년 과제 검토대상] 통합 PDP 전환", "status": "오픈", "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-30", "duedate": ""}, {"key": "MPSP-344", "summary": "[26년 과제 검토대상] PDP 구매서랍 플로우 개선", "status": "오픈", "assignee": "채미자(Mija Chae)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-30", "duedate": ""}, {"key": "MPSP-343", "summary": "[26년 과제 검토대상] PDP BTF - 카테고리 상품군에 맞는 추천 확대", "status": "오픈", "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-30", "duedate": ""}, {"key": "MPSP-342", "summary": "[상품관리] 상품등록 > 상품복사 UX 개선 요청", "status": "오픈", "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-29", "duedate": ""}, {"key": "MPSP-341", "summary": "[26년 과제 검토대상] + T-Day 상용화를 위한 T멤버십_서브탭 고도화_추가 요청", "status": "종료", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2026-01-29", "duedate": ""}, {"key": "MPSP-340", "summary": "DP발행 구조 개선", "status": "오픈", "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST", "created": "2026-01-29", "duedate": ""}, {"key": "MPSP-339", "summary": "[26년 과제 검토대상] [DP할인] 효율화", "status": "오픈", "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST", "created": "2026-01-29", "duedate": ""}, {"key": "MPSP-338", "summary": "좋은 상품 풀 구축", "status": "오픈", "assignee": "장정태(Jungtae Jang)/Backend서비스담당/11ST", "created": "2026-01-29", "duedate": ""}, {"key": "MPSP-337", "summary": "AI흥정 시스템 도입", "status": "과제 홀딩", "assignee": "곽원림(Wonlim Kwak)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-29", "duedate": ""}, {"key": "MPSP-336", "summary": "셀러 CRM 구축 및 확장", "status": "오픈", "assignee": "이민기(Minki Lee)/셀러플라이휠기획팀/11ST", "created": "2026-01-28", "duedate": ""}, {"key": "MPSP-335", "summary": "[26년 과제 검토대상] + T멤버십 서비스 제공 범위 확대 (T공식대리점 연동)", "status": "종료", "assignee": "권규완(Kyuwan Kwon)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-28", "duedate": ""}, {"key": "MPSP-334", "summary": "[로스리더_선착순쿠폰] 개발의 요청의 건", "status": "종료", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-28", "duedate": ""}, {"key": "MPSP-333", "summary": "황금알모으기 서비스 연동 개발", "status": "종료", "assignee": "마진성(Jinsung Ma)/전시개발담당/11ST", "created": "2026-01-28", "duedate": ""}, {"key": "MPSP-332", "summary": "쿠팡 셀러 11번가 상품연동", "status": "오픈", "assignee": "이민기(Minki Lee)/셀러플라이휠기획팀/11ST", "created": "2026-01-28", "duedate": ""}, {"key": "MPSP-331", "summary": "BO 쿠폰할인 구조 개선 - MD할인등록 효율화", "status": "오픈", "assignee": "이민기(Minki Lee)/셀러플라이휠기획팀/11ST", "created": "2026-01-27", "duedate": ""}, {"key": "MPSP-330", "summary": "최대할인가 노출 영역 확대", "status": "진행 중", "assignee": "권규완(Kyuwan Kwon)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-27", "duedate": ""}, {"key": "MPSP-329", "summary": "[26년 과제 검토 대상] 슈팅배송 새벽배송 도입", "status": "과제 진행", "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-24", "duedate": ""}, {"key": "MPSP-328", "summary": "[상품관리] 상품등록 효율화 및 어시스턴트", "status": "오픈", "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-21", "duedate": ""}, {"key": "MPSP-327", "summary": "[26년 과제 검토대상] PDP ATF 구매결정 정보 강화 UI/UX 개편", "status": "오픈", "assignee": "채미자(Mija Chae)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-21", "duedate": ""}, {"key": "MPSP-326", "summary": "[26년 과제 검토 대상] 쇼킹딜 제안가 로직 개선 및 상품경쟁력 강화", "status": "진행 중", "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-15", "duedate": ""}, {"key": "MPSP-325", "summary": "[26년 과제 검토대상] 11pay 계좌이체 결제수단 분리 노출", "status": "종료", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-15", "duedate": ""}, {"key": "MPSP-324", "summary": "[LIVE11] CJ 라이브 기획방송 전용 타입 생성 및 Live11 운영 체계 반영", "status": "종료", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2026-01-14", "duedate": ""}, {"key": "MPSP-323", "summary": "[11번가플러스] 슈팅배송 도착보상제", "status": "종료", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-14", "duedate": ""}, {"key": "MPSP-322", "summary": "[11번가플러스] 슈팅배송 무료 반품/무료 교환", "status": "종료", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-14", "duedate": ""}, {"key": "MPSP-321", "summary": "[26년 과제 검토대상] AI 멀티채널 CS 고도화", "status": "오픈", "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-14", "duedate": ""}, {"key": "MPSP-320", "summary": "[26년 과제 검토대상] AI 기반 Fulfillment Slotting Engine 구축", "status": "오픈", "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-14", "duedate": ""}, {"key": "MPSP-319", "summary": "[26년 과제 검토대상] 상품 정보 자동 인식을 통한 데이터 자산화", "status": "과제 진행", "assignee": "송유영(Youyoung Song)/10x TF/11ST", "created": "2026-01-13", "duedate": ""}, {"key": "MPSP-318", "summary": "[26년 과제 검토대상] AI기반 카탈로그 운영업무 자동화", "status": "진행 중", "assignee": "송시은(SiEun Song)/상품/배송경험서비스기획팀/11ST", "created": "2026-01-13", "duedate": ""}, {"key": "MPSP-317", "summary": "[26년 과제 검토대상] 네이버원부와 11번가 카탈로그간 매핑 시스템 구축", "status": "종료", "assignee": "김하니(Hani Kim)/10x TF/11ST", "created": "2026-01-13", "duedate": ""}, {"key": "MPSP-316", "summary": "[26년 과제 검토대상] 최저가현황 대시보드 구축", "status": "오픈", "assignee": "김하니(Hani Kim)/10x TF/11ST", "created": "2026-01-13", "duedate": ""}, {"key": "MPSP-315", "summary": "[26년 과제 검토대상] 카탈로그 통합 매핑테이블 구축", "status": "종료", "assignee": "김하니(Hani Kim)/10x TF/11ST", "created": "2026-01-13", "duedate": ""}, {"key": "MPSP-314", "summary": "[LIVE11] 홈탭 노출 영역 개선 / 노출로직 재수립 / PIP 확대", "status": "종료", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2026-01-12", "duedate": ""}, {"key": "MPSP-313", "summary": "OCB 시너지과제 별 랜딩 형태 개발 요청의 건", "status": "오픈", "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST", "created": "2026-01-09", "duedate": ""}, {"key": "MPSP-312", "summary": "LIVE11 참여 고객 대상 맞춤형 11PAY 포인트 지급 기능 개발", "status": "오픈", "assignee": "한정은(Jungeun Han)/회원/주문/Pay서비스기획팀/11ST", "created": "2026-01-06", "duedate": ""}, {"key": "MPSP-311", "summary": "[26년 과제 검토대상] AI 큐레이터", "status": "종료", "assignee": "이기훈(Kihoon Lee)/검색/추천서비스기획팀/11ST", "created": "2025-12-31", "duedate": ""}, {"key": "MPSP-310", "summary": "[26년 과제 검토대상] 국민행복카드 바우처 사용 가맹점 추진", "status": "과제 진행", "assignee": "한정은(Jungeun Han)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-31", "duedate": ""}, {"key": "MPSP-309", "summary": "[26년 과제 검토대상] 25년 해커톤 대상 '그냥말해' 팀", "status": "종료", "assignee": "이기훈(Kihoon Lee)/검색/추천서비스기획팀/11ST", "created": "2025-12-29", "duedate": ""}, {"key": "MPSP-308", "summary": "[26년 과제] 리뷰 신뢰도 강화", "status": "오픈", "assignee": "윤혜미(Hyemi Yoon)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-23", "duedate": ""}, {"key": "MPSP-307", "summary": "[26년 과제] 판매자 펀딩형 리뷰", "status": "오픈", "assignee": "윤혜미(Hyemi Yoon)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-23", "duedate": ""}, {"key": "MPSP-306", "summary": "[26년 과제] 리뷰 허브 페이지 구축", "status": "오픈", "assignee": "윤혜미(Hyemi Yoon)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-23", "duedate": ""}, {"key": "MPSP-305", "summary": "ICT 패밀리 통합동의 변경", "status": "종료", "assignee": "이아란(Arhan Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-19", "duedate": ""}, {"key": "MPSP-304", "summary": "[26년 과제 검토대상] 브랜드 구조 개선", "status": "오픈", "assignee": "김하니(Hani Kim)/10x TF/11ST", "created": "2025-12-18", "duedate": ""}, {"key": "MPSP-303", "summary": "[26년 과제 검토대상] 딜전용PDP 구축", "status": "종료", "assignee": "채미자(Mija Chae)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-302", "summary": "[26년 과제 검토대상] PDP BuyBox 고도화", "status": "종료", "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-301", "summary": "[26년 과제 검토대상] 리스팅퀄리티 스코어링 적용", "status": "오픈", "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-300", "summary": "[26년 과제 검토대상] AI 쇼호스트 도입을 위한 AI Tool 시스템 연동 개발", "status": "종료", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-299", "summary": "[26년 과제 검토대상] 상품명 정제를 위한 브랜드 추천/어뷰징 필터링 강화", "status": "오픈", "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-298", "summary": "[26년 과제 검토대상] 오매칭 판단 로직 고도화", "status": "오픈", "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-297", "summary": "[26년 과제 검토대상] 카탈로그 자동 생성/매칭, 중복병합 로직 개선", "status": "오픈", "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-296", "summary": "[26년 과제 검토대상] [DP할인] 적용 채널 확대", "status": "종료", "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-295", "summary": "[26년 과제 검토대상] 카탈로그 생성 제안 기능 구현", "status": "오픈", "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-294", "summary": "[26년 과제 검토대상] 카탈로그 미매칭 상품의 매칭 추천", "status": "오픈", "assignee": "최병훈(ByoungHoon Choi)/상품/카탈로그/배송/풀필먼트서비스담당/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-293", "summary": "[26년 과제 검토대상] [광고]전시입찰광고/리스팅광고 내재화", "status": "오픈", "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-292", "summary": "[26년 과제 검토대상] [광고] 광고 전환 추적 개선(ROAS) 고도화", "status": "오픈", "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-291", "summary": "[26년 과제 검토대상] 트렌드패션 무료반품 & 무료교환 서비스 개발", "status": "종료", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-290", "summary": "[26년 과제 검토대상] 카테고리 특성에 맞는 뷰타입 설정", "status": "오픈", "assignee": "임민정(Minjung Lim)/검색/추천서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-289", "summary": "[26년 과제 검토대상] PC 페이지 개편", "status": "종료", "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-288", "summary": "[26년 과제 검토대상] 유휴 공간을 활용한 신규 브랜딩 광고 도입", "status": "오픈", "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-287", "summary": "[26년 과제 검토대상] 상품 이미지 동영상 재생 기능 도입", "status": "오픈", "assignee": "조혜빈(Haebin Jo)/검색/추천서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-286", "summary": "[26년 과제 검토대상] 검색 AI Assistant 도입", "status": "오픈", "assignee": "이기훈(Kihoon Lee)/검색/추천서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-285", "summary": "[26년 과제 검토대상] 컬렉션 추천 확장", "status": "종료", "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST", "created": "2025-12-17", "duedate": ""}, {"key": "MPSP-284", "summary": "[26년 과제 검토대상] [PCS] 네이버 요약 EP 스케줄 변경 대응", "status": "오픈", "assignee": "양응모(Eungmo Yang)/전략기획/데이터분석팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-283", "summary": "[26년 과제 검토대상] TAB검색 Fade-out", "status": "오픈", "assignee": "조혜빈(Haebin Jo)/검색/추천서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-282", "summary": "[26년 과제 검토대상] 검색 필터 사용성 개선", "status": "종료", "assignee": "조혜빈(Haebin Jo)/검색/추천서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-281", "summary": "[26년 과제 검토대상] R2OD 활용 확대", "status": "오픈", "assignee": "송하(Ha Song)/검색/추천서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-280", "summary": "[26년 과제 검토대상] QNLU 도입 (반응형 검색)", "status": "오픈", "assignee": "황교준(Kyojun Hwang)/검색/추천서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-279", "summary": "[26년 과제 검토대상] 검색 동의어 사전 정제 및 고도화", "status": "종료", "assignee": "임민정(Minjung Lim)/검색/추천서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-278", "summary": "[26년 과제 검토대상] 검색로직 개선 프로세스 구축", "status": "종료", "assignee": "임민정(Minjung Lim)/검색/추천서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-277", "summary": "[26년 과제 검토대상] 검색 유도장치 개선 및 영역 확장", "status": "오픈", "assignee": "신애솔(Aesol Shin)/검색/추천서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-276", "summary": "[26년 과제 검토대상] 검색페이지 쿠폰/포인트 제공의 강화", "status": "오픈", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-275", "summary": "[26년 과제 검토대상] 온라인최저가 노출 확장", "status": "종료", "assignee": "천아림(Arim Cheon)/셀러플라이휠기획팀/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-274", "summary": "[26년 과제 검토대상] 셀러 영입 자동화​", "status": "오픈", "assignee": "오희진(Heejin Oh)/10x TF/11ST", "created": "2025-12-16", "duedate": ""}, {"key": "MPSP-273", "summary": "[26년 과제 검토대상] 최대할인가(Max) 표기 → 할인혜택 계산 방식으로 개선", "status": "종료", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-15", "duedate": ""}, {"key": "MPSP-272", "summary": "[26년 과제 검토대상] 셀러 성장 관리 프로그램 도입 (광고주 혜택 시스템)", "status": "오픈", "assignee": "박자연(Jayoun Park)/광고기획팀/11ST", "created": "2025-12-15", "duedate": ""}, {"key": "MPSP-271", "summary": "[26년 과제 검토대상] [광고]AI캠페인 목적형 광고 등록 도입", "status": "종료", "assignee": "정희연(Heeyeon Jeong)/광고기획팀/11ST", "created": "2025-12-15", "duedate": ""}, {"key": "MPSP-270", "summary": "[26년 과제 검토대상] 광고 전용 즉시할인쿠폰(MO) 조건 강화", "status": "오픈", "assignee": "정희연(Heeyeon Jeong)/광고기획팀/11ST", "created": "2025-12-15", "duedate": ""}, {"key": "MPSP-269", "summary": "[26년 과제 검토대상] [SKP 시너지] 11번가 딜커머스 상품 OCB앱 전시 API 연동 개발 요청의 건", "status": "종료", "assignee": "권규완(Kyuwan Kwon)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-14", "duedate": ""}, {"key": "MPSP-268", "summary": "[26년 과제 검토대상] [광고]셀러 광고 참여율 증대를 위한 SO 광고 메시징 확대", "status": "오픈", "assignee": "박태영(Taeyoung Park)/광고기획팀/11ST", "created": "2025-12-12", "duedate": ""}, {"key": "MPSP-267", "summary": "[26년 과제 검토대상] 온라인최저가 상품 대상 확대", "status": "오픈", "assignee": "오희진(Heejin Oh)/10x TF/11ST", "created": "2025-12-12", "duedate": ""}, {"key": "MPSP-266", "summary": "[26년 과제 검토대상] PDP AI 요약 모듈 구축을 통한 상품 이해도 및 구매전환율 개선", "status": "오픈", "assignee": "최지원(Jiwon Choi)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-12", "duedate": ""}, {"key": "MPSP-265", "summary": "[26년 과제 검토대상]통합 알림센터 구축", "status": "오픈", "assignee": "이윤주(Yoonjoo Lee)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-12", "duedate": ""}, {"key": "MPSP-263", "summary": "[26년 과제 검토대상] 쿠폰함 UX 개선", "status": "오픈", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-12", "duedate": ""}, {"key": "MPSP-262", "summary": "[26년 과제 검토대상] LIVE 방송 운영 효율화 및 기능 고도화 개발", "status": "종료", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2025-12-11", "duedate": ""}, {"key": "MPSP-261", "summary": "[26년 과제 검토대상] 물류 출고량 기반 자동 우선노출 엔진 구축", "status": "오픈", "assignee": "강현(Hyun Kang)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-11", "duedate": ""}, {"key": "MPSP-260", "summary": "[26년 과제 검토대상] 라이브 본방송 이후 재방송 날짜 지정 및 자동 재방송출 기능", "status": "진행 중", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2025-12-10", "duedate": ""}, {"key": "MPSP-259", "summary": "[26년 과제 검토대상] 스타필드 입점", "status": "종료", "assignee": "장미라(Mira Chang)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-09", "duedate": ""}, {"key": "MPSP-258", "summary": "[26년 과제 검토대상] 빗썸 제휴 비트코인 지급 연동", "status": "과제 진행", "assignee": "장미라(Mira Chang)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-09", "duedate": ""}, {"key": "MPSP-257", "summary": "[26년 과제 검토대상] 주문서 내 11번가플러스 자동매칭 기능 도입", "status": "종료", "assignee": "이채윤(Chaeyun Lee)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-09", "duedate": ""}, {"key": "MPSP-256", "summary": "[26년 과제 검토대상] CC Fade out", "status": "오픈", "assignee": "안슬기(Seulki An)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-08", "duedate": ""}, {"key": "MPSP-255", "summary": "[26년 과제 검토대상] 라이브 방송 AI 자동 클리핑 및 숏폼 전시기능", "status": "종료", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-254", "summary": "[26년 과제 검토 대상] 패션셀렉션확대_대형제휴(아울렛,홈쇼핑)상품 셀렉션 확대", "status": "종료", "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-253", "summary": "[26년 과제 검토대상] 패션뷰티 크로스보더(Cross-border) 프로젝트", "status": "종료", "assignee": "송치원(Chiwon Song)/구매자활동성기획팀/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-252", "summary": "[26년 과제 검토대상] CJ 풀필먼트 크로스셀링", "status": "디자인 진행 중", "assignee": "김수정(Soojeong Kim)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-251", "summary": "[26년 과제 검토 대상] 뷰티플러스고객 거래 활성화_ 상품등록정보, CRM타겟팅,고객데이터기반 반응형 페이지", "status": "종료", "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-250", "summary": "[26년 과제 검토대상] 패션뷰티탭>AI를 활용한 개인화 추천 고도화", "status": "과제 홀딩", "assignee": "최윤숙(Younsuk Choi)/서비스전략TF/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-249", "summary": "[26년 과제 검토대상] 셀러위탁 Onboarding 자동화 (API 연동)", "status": "진행 중", "assignee": "김민지(Minji Kim)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-248", "summary": "[26년 과제 검토대상] 마트플러스 전문관 활성화(11번가 플러스 연계 및 광고 확대)", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-05", "duedate": ""}, {"key": "MPSP-247", "summary": "[26년 과제 검토대상] 홈탭> 홈탭 내 개인화 추천 광고 신설", "status": "오픈", "assignee": "임지연(Jiyeon Lim)/전시서비스기획팀/11ST", "created": "2025-12-03", "duedate": ""}, {"key": "MPSP-246", "summary": "[26년 과제 검토대상] [전시] 플러스 쇼핑 신설 (비관리 셀러 인큐베이팅 프로그램)", "status": "종료", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-245", "summary": "[26년 과제 검토대상] 고객 탐색 히스토리 및 카탈로그 기반 추천 서비스 구축", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-244", "summary": "[26년 과제 검토대상] 홈탭>검색 QC 부스팅", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-243", "summary": "[26년 과제 검토대상] [전시] 홈탭 > 다이나믹 딜 구조 적용", "status": "진행 중", "assignee": "박기훈(Kihoon Park)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-242", "summary": "[26년 과제 검토대상]\t고객 참여형 콘텐츠 생성 및 셀러 광고 프로세스 구축", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-241", "summary": "[26년 과제 검토대상][전시]고객 행동 기반  타겟팅 팝업 신설", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-240", "summary": "[26년 과제 검토대상] + T-Day 상용화를 위한 T멤버십_서브탭 고도화", "status": "오픈", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-239", "summary": "[26년 과제 검토대상] 베스트탭 개편(모바일/PC)", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-238", "summary": "[26년 과제 검토 대상] 머니백 상용화", "status": "과제 홀딩", "assignee": "서유나(Yoona Seo)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-237", "summary": "[26년 과제 검토대상] 홈탭> 포커스클릭 광고 상품 효율 및 광고 신청 프로세스 개선", "status": "오픈", "assignee": "진종욱(Jongwook Jin)/광고기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-236", "summary": "[26년 과제 검토대상] + 기획전 자동화 및 운영 효율화", "status": "오픈", "assignee": "박원미(Wonmi Park)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-235", "summary": "[26년 과제 검토대상] PC 홈 현행화 및 고도화", "status": "오픈", "assignee": "양다현(Dahyun Yang)/전시서비스기획팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-234", "summary": "[26년 과제 검토대상] + 디자인 시스템 고도화", "status": "오픈", "assignee": "이예준(Yejoon Lee)/프로덕트디자인팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-233", "summary": "[26년 과제 검토대상] + 프로모션 기획전 자동화", "status": "오픈", "assignee": "조성용(SungYong Cho)/프로모션디자인팀/11ST", "created": "2025-12-02", "duedate": ""}, {"key": "MPSP-232", "summary": "[26년 과제 검토대상] + 메인 UI 개편", "status": "종료", "assignee": "박수인(Suin Park)/전시서비스기획팀/11ST", "created": "2025-12-01", "duedate": ""}, {"key": "MPSP-231", "summary": "Seller API Key 유효기간 설정 요청", "status": "진행 중", "assignee": "안세혁(Sehyuk An)/상품/배송경험서비스기획팀/11ST", "created": "2025-12-01", "duedate": ""}, {"key": "MPSP-230", "summary": "[26년 과제 검토대상] 쇼킹딜 모바일/PC 페이지 개편", "status": "오픈", "assignee": "김소현(Sohyun Kim)/전시서비스기획팀/11ST", "created": "2025-12-01", "duedate": ""}, {"key": "MPSP-229", "summary": "[26년 과제 검토대상] 기획전 내 마트 CPS 기능 도입", "status": "종료", "assignee": "박원미(Wonmi Park)/전시서비스기획팀/11ST", "created": "2025-12-01", "duedate": ""}, {"key": "MPSP-228", "summary": "[26년 과제 검토대상] 디지털 온누리상품권 서비스 도입", "status": "오픈", "assignee": "채지혜(Jihye Chae)/회원/주문/Pay서비스기획팀/11ST", "created": "2025-12-01", "duedate": ""}]}</script>
+<script>
+
+// === PMO 실데이터(내장 JSON) 렌더링: file:// 환경에서도 동작 ===
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function text(v){ return (v ?? '').toString(); }
+  function badgeForStatus(status){
+    if(!status) return 'b-gray';
+    if(status.includes('종료') || status.includes('완료')) return 'b-ok';
+    if(status.includes('진행')) return 'b-bl';
+    if(status.includes('홀딩') || status.includes('중단')) return 'b-gray';
+    return 'b-gray';
+  }
+
+  function renderTaskTable(issues){
+    var tbody = byId('task-tbody');
+    if(!tbody) return;
+    tbody.innerHTML = '';
+
+    issues.forEach(function(issue){
+      var tr = document.createElement('tr');
+      tr.dataset.type = '관리';
+      tr.dataset.domain = '기타';
+      tr.dataset.status = text(issue.status);
+      tr.dataset.flag = '';
+      tr.dataset.kpi = '미설정';
+
+      var key = text(issue.key);
+      var summary = text(issue.summary);
+      var status = text(issue.status) || '—';
+      var assigneeName = issue.assignee ? text(issue.assignee).split('/')[0] : '—';
+      var duedate = issue.duedate ? text(issue.duedate) : '—';
+
+      tr.innerHTML = ''
+        + '<td><span class="badge b-mgmt">관리</span></td>'
+        + '<td><a href="https://[JIRA주소]/browse/' + key + '" target="_blank" class="td-key" style="text-decoration:none">' + key + '</a></td>'
+        + '<td><span class="td-name">' + summary + '</span></td>'
+        + '<td>—</td>'
+        + '<td>—</td>'
+        + '<td>' + assigneeName + '</td>'
+        + '<td>—</td>'
+        + '<td class="mono">' + duedate + '</td>'
+        + '<td><span class="badge ' + badgeForStatus(status) + '">' + status + '</span></td>'
+        + '<td><span class="badge b-kpi-no">미설정</span></td>'
+        + '<td>—</td>'
+        + '<td style="text-align:center">—</td>'
+        + '<td style="font-size:10px;color:var(--g5)">—</td>'
+        + '<td><button class="btn btn-out btn-sm" onclick="openModal(\'edit\',this)">편집</button></td>';
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  try{
+    var raw = byId('pmo-data').textContent;
+    var data = JSON.parse(raw);
+    var issues = (data && data.issues) ? data.issues : [];
+    renderTaskTable(issues);
+  }catch(e){
+    console.error(e);
+    alert('PMO 데이터 파싱 실패');
+  }
+})();
+
+function go(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  el.classList.add('on');
+}
+
+function filterTasks() {
+  const type   = document.getElementById('f-type').value;
+  const domain = document.getElementById('f-domain').value;
+  const status = document.getElementById('f-status').value;
+  const kpi    = document.getElementById('f-kpi').value;
+  const flag   = document.getElementById('f-flag').value;
+  const search = document.getElementById('f-search').value.toLowerCase();
+  document.querySelectorAll('#task-tbody tr').forEach(tr => {
+    const ok = (!type   || tr.dataset.type   === type)
+            && (!domain || tr.dataset.domain === domain)
+            && (!status || tr.dataset.status === status)
+            && (!kpi    || tr.dataset.kpi    === kpi)
+            && (!flag   || tr.dataset.flag   === flag)
+            && (!search || tr.textContent.toLowerCase().includes(search));
+    tr.style.display = ok ? '' : 'none';
+  });
+}
+
+const histMap = {};
+
+function openModal(mode, btn) {
+  document.getElementById('modal-title').textContent = mode === 'new' ? 'ì ê· ê³¼ì  ë±ë¡' : 'ê³¼ì  í¸ì§ / ë³ê²½ì´ë ¥ ê¸°ë¡';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function saveModal() {
+  const memo = document.getElementById('m-memo').value.trim();
+  const mpsp = document.getElementById('m-mpsp').value.trim() || 'MPSP-NEW';
+  if (memo) {
+    const now = new Date().toLocaleString('ko-KR');
+    if (!histMap[mpsp]) histMap[mpsp] = [];
+    histMap[mpsp].push({ date: now, memo });
+  }
+  alert('ì ì¥ëììµëë¤.\nì¤ì  ì´ì ì Jira APIë¡ ìë ë°ìë©ëë¤.');
+  closeModal();
+}
+
+function openProcessEdit() { document.getElementById('proc-modal').classList.add('open'); }
+function closeProcModal()  { document.getElementById('proc-modal').classList.remove('open'); }
+function saveProcModal() {
+  ['f1','f2','f3','f4','f5'].forEach(f => {
+    document.getElementById(`${f}-name`).textContent = document.getElementById(`e-${f}n`).value;
+    document.getElementById(`${f}-who`).textContent  = document.getElementById(`e-${f}w`).value;
+  });
+  closeProcModal();
+  alert('íë¡ì¸ì¤ê° ìë°ì´í¸ëììµëë¤.');
+}
+
+function toggleWk(id) {
+  const el = document.getElementById(id);
+  const hdr = el.previousElementSibling;
+  if (el.style.display === 'none') {
+    el.style.display = 'block';
+    hdr.querySelector('span').textContent = hdr.querySelector('span').textContent.replace('â¶','â¼');
+  } else {
+    el.style.display = 'none';
+    hdr.querySelector('span').textContent = hdr.querySelector('span').textContent.replace('â¼','â¶');
+  }
+}
+
+function addWeeklyItem() {
+  const group   = document.getElementById('wi-group').value;
+  const type    = document.getElementById('wi-type').value;
+  const content = document.getElementById('wi-content').value.trim();
+  const mpsp    = document.getElementById('wi-mpsp').value.trim();
+  const fu      = document.getElementById('wi-fu').value.trim();
+  const dateVal = document.getElementById('wi-date').value;
+  if (!content) { alert('ë´ì©ì ìë ¥íì¸ì'); return; }
+  const dateStr = dateVal
+    ? new Date(dateVal).toLocaleDateString('ko-KR', {year:'numeric',month:'long',day:'numeric',weekday:'short'})
+    : new Date().toLocaleDateString('ko-KR', {year:'numeric',month:'long',day:'numeric',weekday:'short'});
+  const id = 'wk-added-' + Date.now();
+  const html = `<div class="wk-section">
+    <div class="wk-date-hdr" onclick="toggleWk('${id}')">
+      <span>â¼ ${dateStr} â ì¶ê° ìê±´ <span class="badge b-bl" style="margin-left:8px">ì ê·</span></span>
+    </div>
+    <div class="wk-body" id="${id}">
+      <div class="wk-group">
+        <div class="wk-group-hdr">${type} [${group}]</div>
+        <div class="wk-item">
+          <div>
+            ${mpsp ? `<div class="wk-mpsp">${mpsp}</div>` : ''}
+            <div class="wk-content">${content}</div>
+          </div>
+          <div class="wk-fu-wrap">
+            <div class="wk-fu">${fu || ''}</div>
+            <textarea class="wk-fu-input" placeholder="F/U ì¶ê° ìë ¥..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('weekly-added').insertAdjacentHTML('afterbegin', html);
+  document.getElementById('wi-content').value = '';
+  document.getElementById('wi-mpsp').value = '';
+  document.getElementById('wi-fu').value = '';
+}
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+</script>
+</body>
+</html>
