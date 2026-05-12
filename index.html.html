@@ -77,15 +77,18 @@ select:focus,input:focus,textarea:focus{border-color:var(--bl)}
 .btn-sm{padding:3px 9px;font-size:11px}
 .btn-danger{background:var(--wh);color:var(--rd);border:1px solid var(--rd)}.btn-danger:hover{background:var(--rdb)}
 
-/* TABLE - 세로 스크롤 */
-.tbl-wrap{overflow:auto;max-height:520px}
-.tbl-wrap::-webkit-scrollbar{width:5px;height:5px}
+/* TABLE */
+.tbl-wrap{overflow-x:auto;width:100%}
+.tbl-wrap::-webkit-scrollbar{height:5px}
 .tbl-wrap::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px}
-.tbl-wrap::-webkit-scrollbar-track{background:transparent}
-table{width:100%;border-collapse:collapse}
-thead{position:sticky;top:0;z-index:10}
+/* 테이블 헤더 고정 + tbody 스크롤 - 올바른 방식 */
+.tbl-outer{overflow-y:auto;max-height:450px;border:1px solid var(--g3)}
+.tbl-outer::-webkit-scrollbar{width:6px}
+.tbl-outer::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px}
+.tbl-outer::-webkit-scrollbar-track{background:var(--g1)}
+table{width:100%;border-collapse:collapse;min-width:900px}
 thead tr{background:var(--dk)}
-thead th{padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.3px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.08)}
+thead th{padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.3px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:5;background:var(--dk)}
 thead th:last-child{border-right:none}
 tbody tr{border-bottom:1px solid var(--g3);transition:background .1s}
 tbody tr:hover{background:var(--bpa)}
@@ -94,6 +97,7 @@ td:last-child{border-right:none}
 .td-key{font-family:var(--mono);font-size:11px;color:var(--bl);font-weight:500;white-space:nowrap}
 .td-name{font-weight:600;color:var(--g9)}
 .td-date{font-family:var(--mono);font-size:12px;white-space:nowrap}
+.btn-edit{white-space:nowrap}
 
 /* INFO BOX */
 .info-box{background:var(--bpa);border:1px solid var(--blt);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--g7);line-height:1.7}
@@ -142,15 +146,20 @@ td:last-child{border-right:none}
 /* ADJ 과제조정 - 스크롤 */
 .adj-card{background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:14px}
 .adj-hdr{padding:10px 16px;background:var(--dk);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:space-between}
-.adj-wrap{overflow-y:auto;max-height:420px}
+.adj-wrap{overflow-y:auto;max-height:300px}
 .adj-wrap::-webkit-scrollbar{width:5px}
 .adj-wrap::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px}
-.adj-item{padding:12px 16px;border-bottom:1px solid var(--g3);display:grid;grid-template-columns:130px 1fr 130px 130px;gap:10px;align-items:center}
-.adj-item:last-child{border-bottom:none}
-.adj-item:hover{background:var(--bpa)}
+/* adj-row - Bi-weekly 방식 */
+.adj-row{padding:12px 16px;border-bottom:1px solid var(--g3);display:flex;align-items:flex-start;gap:10px;position:relative;transition:background .1s}
+.adj-row:last-child{border-bottom:none}
+.adj-row:hover{background:var(--bpa)}
+.adj-row-left{flex:1;display:grid;grid-template-columns:120px 1fr 130px 1fr;gap:10px;align-items:start}
+.adj-row-btns{display:flex;flex-direction:column;gap:4px;flex-shrink:0;opacity:0;transition:opacity .15s}
+.adj-row:hover .adj-row-btns{opacity:1}
 .adj-key{font-family:var(--mono);font-size:11px;color:var(--bl)}
 .adj-name{font-size:13px;font-weight:600;color:var(--g9);margin-bottom:2px}
 .adj-reason{font-size:12px;color:var(--g5);line-height:1.4}
+.adj-memo{font-size:12px;color:var(--g7);line-height:1.5;padding:4px 8px;background:var(--g1);border-radius:4px;border:1px solid var(--g3)}
 
 /* 달성률 바 */
 .ach-bar{height:6px;border-radius:3px;background:var(--g3);overflow:hidden;margin-top:3px;width:80px}
@@ -165,8 +174,8 @@ td:last-child{border-right:none}
     <button class="tab on"  onclick="go('tasks',this)">과제 현황</button>
     <button class="tab"     onclick="go('report',this)">데이터 리포팅</button>
     <button class="tab"     onclick="go('weekly',this)">Bi-weekly</button>
-    <button class="tab"     onclick="go('process',this)">운영 프로세스</button>
     <button class="tab"     onclick="go('adjust',this)">과제 조정 관리</button>
+    <button class="tab"     onclick="go('process',this)">운영 프로세스</button>
   </div>
   <div class="nav-right">v5 · 2026 상반기</div>
 </nav>
@@ -236,6 +245,7 @@ td:last-child{border-right:none}
       <span id="task-count" style="font-size:11px;color:var(--g5);white-space:nowrap;min-width:40px"></span>
     </div>
     <div class="tbl-wrap">
+      <div class="tbl-outer">
       <table>
         <thead><tr>
           <th style="width:50px">구분</th>
@@ -249,7 +259,7 @@ td:last-child{border-right:none}
           <th style="width:70px">상태</th>
           <th style="width:140px">KPI / 목표</th>
           <th style="min-width:140px">이슈</th>
-          <th style="width:50px">편집</th>
+          <th style="width:55px">편집</th>
         </tr></thead>
         <tbody id="task-tbody">
           <tr data-type="핵심" data-domain="서비스기획" data-status="진행중" data-kpi="설정" data-flag="">
@@ -264,7 +274,7 @@ td:last-child{border-right:none}
             <td><span class="badge b-bl">진행중</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> CVR +2.5%</td>
             <td style="font-size:12px;color:var(--g5)">—</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
           <tr data-type="핵심" data-domain="영업" data-status="진행중" data-kpi="설정" data-flag="Y">
             <td><span class="badge b-core">핵심</span></td>
@@ -278,7 +288,7 @@ td:last-child{border-right:none}
             <td><span class="badge b-rd">지연</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 월 130억</td>
             <td style="font-size:12px;color:var(--rdm)">달성률 31% → 목표 조정 필요</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
           <tr data-type="핵심" data-domain="영업" data-status="진행중" data-kpi="설정" data-flag="Y">
             <td><span class="badge b-core">핵심</span></td>
@@ -292,7 +302,7 @@ td:last-child{border-right:none}
             <td><span class="badge b-rd">지연</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> DAU 5만명</td>
             <td style="font-size:12px;color:var(--rdm)">DAU 9% → 의사결정 필요</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
           <tr data-type="핵심" data-domain="전략" data-status="진행중" data-kpi="미설정" data-flag="">
             <td><span class="badge b-core">핵심</span></td>
@@ -306,7 +316,7 @@ td:last-child{border-right:none}
             <td><span class="badge b-bl">진행중</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-no">미설정</span></td>
             <td style="font-size:12px;color:var(--g5)">KPI 미입력 → 담당자 요청</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
           <tr data-type="관리" data-domain="데이터" data-status="검토중" data-kpi="미설정" data-flag="">
             <td><span class="badge b-mgmt">관리</span></td>
@@ -320,7 +330,7 @@ td:last-child{border-right:none}
             <td><span class="badge b-gray">검토중</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-no">미설정</span></td>
             <td style="font-size:12px;color:var(--g5)">담당자 미배정</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
           <tr data-type="관리" data-domain="서비스기획" data-status="오픈완료" data-kpi="설정" data-flag="">
             <td><span class="badge b-mgmt">관리</span></td>
@@ -334,7 +344,7 @@ td:last-child{border-right:none}
             <td><span class="badge b-ok">오픈완료</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 자동화 90%</td>
             <td style="font-size:12px;color:var(--g5)">성과 측정 중</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
           <tr data-type="관리" data-domain="서비스기획" data-status="진행중" data-kpi="설정" data-flag="">
             <td><span class="badge b-mgmt">관리</span></td>
@@ -348,7 +358,7 @@ td:last-child{border-right:none}
             <td><span class="badge b-bl">진행중</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 처리시간 -30%</td>
             <td style="font-size:12px;color:var(--g5)">—</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
           <tr data-type="관리" data-domain="서비스기획" data-status="중단" data-kpi="미설정" data-flag="">
             <td><span class="badge b-gray">관리</span></td>
@@ -362,10 +372,81 @@ td:last-child{border-right:none}
             <td><span class="badge b-gray">중단</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-no">미설정</span></td>
             <td style="font-size:12px;color:var(--g5)">4/14 운영 중단</td>
-            <td><button class="btn btn-out btn-sm" onclick="openEditModal(this)">편집</button></td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="핵심" data-domain="영업" data-status="진행중" data-kpi="설정" data-flag="">
+            <td><span class="badge b-core">핵심</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-060" target="_blank" class="td-key" style="text-decoration:none">MPSP-060</a></td>
+            <td class="td-name">과제명 III</td>
+            <td style="font-size:12px">마케팅팀</td>
+            <td style="font-size:12px">백엔드서비스</td>
+            <td style="font-size:12px">박OO</td>
+            <td style="font-size:12px">최OO</td>
+            <td class="td-date">26-07-15</td>
+            <td><span class="badge b-bl">진행중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 전환율 +3%</td>
+            <td style="font-size:12px;color:var(--g5)">—</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="관리" data-domain="데이터" data-status="진행중" data-kpi="설정" data-flag="">
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-061" target="_blank" class="td-key" style="text-decoration:none">MPSP-061</a></td>
+            <td class="td-name">과제명 JJJ</td>
+            <td style="font-size:12px">데이터팀</td>
+            <td style="font-size:12px">데이터분석팀</td>
+            <td style="font-size:12px">김OO</td>
+            <td style="font-size:12px">이OO</td>
+            <td class="td-date">26-07-31</td>
+            <td><span class="badge b-bl">진행중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> DAU +10%</td>
+            <td style="font-size:12px;color:var(--g5)">—</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="관리" data-domain="전략" data-status="검토중" data-kpi="미설정" data-flag="">
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-062" target="_blank" class="td-key" style="text-decoration:none">MPSP-062</a></td>
+            <td class="td-name">과제명 KKK</td>
+            <td style="font-size:12px">전략기획팀</td>
+            <td style="font-size:12px">전시서비스기획팀</td>
+            <td style="font-size:12px">정OO</td>
+            <td style="font-size:12px;color:var(--rdm)">미배정</td>
+            <td class="td-date">26-08-15</td>
+            <td><span class="badge b-gray">검토중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-no">미설정</span></td>
+            <td style="font-size:12px;color:var(--g5)">담당자 배정 필요</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="핵심" data-domain="서비스기획" data-status="진행중" data-kpi="설정" data-flag="">
+            <td><span class="badge b-core">핵심</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-063" target="_blank" class="td-key" style="text-decoration:none">MPSP-063</a></td>
+            <td class="td-name">과제명 LLL</td>
+            <td style="font-size:12px">편성팀</td>
+            <td style="font-size:12px">전시서비스기획팀</td>
+            <td style="font-size:12px">황OO</td>
+            <td style="font-size:12px">노OO</td>
+            <td class="td-date">26-06-20</td>
+            <td><span class="badge b-bl">진행중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 매출 +15%</td>
+            <td style="font-size:12px;color:var(--g5)">—</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="관리" data-domain="영업" data-status="오픈완료" data-kpi="설정" data-flag="">
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-064" target="_blank" class="td-key" style="text-decoration:none">MPSP-064</a></td>
+            <td class="td-name">과제명 MMM</td>
+            <td style="font-size:12px">마케팅팀</td>
+            <td style="font-size:12px">백엔드서비스</td>
+            <td style="font-size:12px">윤OO</td>
+            <td style="font-size:12px">강OO</td>
+            <td class="td-date">26-05-01</td>
+            <td><span class="badge b-ok">오픈완료</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 가입률 +5%</td>
+            <td style="font-size:12px;color:var(--g5)">성과 측정 중</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 </div>
@@ -411,6 +492,7 @@ td:last-child{border-right:none}
       <div class="card-title" id="rpt-title">전체 과제 리포팅</div>
     </div>
     <div class="tbl-wrap">
+      <div class="tbl-outer">
       <table>
         <thead><tr>
           <th style="width:90px">MPSP</th>
@@ -498,8 +580,53 @@ td:last-child{border-right:none}
             <td colspan="2" style="font-size:12px;color:var(--g5);text-align:center">목표 수치 없음 · 담당자 미배정</td>
             <td><span class="badge b-gray">입력요청</span></td>
           </tr>
+          <tr data-rpt="done">
+            <td class="td-key">MPSP-060</td>
+            <td class="td-name">과제명 III</td>
+            <td><span class="badge b-core">핵심</span></td>
+            <td style="font-size:12px">전환율 +3%</td>
+            <td style="font-size:12px;color:var(--ok);font-weight:600">+2.1% 달성 중</td>
+            <td>
+              <div style="font-size:12px;font-weight:700;color:var(--bl)">70%</div>
+              <div class="ach-bar"><div class="ach-fill" style="width:70%;background:var(--bl)"></div></div>
+            </td>
+            <td><span class="badge b-bl">모니터링</span></td>
+          </tr>
+          <tr data-rpt="done">
+            <td class="td-key">MPSP-061</td>
+            <td class="td-name">과제명 JJJ</td>
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td style="font-size:12px">DAU +10%</td>
+            <td style="font-size:12px;color:var(--ok);font-weight:600">+8% 달성 중</td>
+            <td>
+              <div style="font-size:12px;font-weight:700;color:var(--okm)">80%</div>
+              <div class="ach-bar"><div class="ach-fill" style="width:80%;background:var(--okm)"></div></div>
+            </td>
+            <td><span class="badge b-ok">달성</span></td>
+          </tr>
+          <tr data-rpt="nokpi">
+            <td class="td-key">MPSP-062</td>
+            <td class="td-name">과제명 KKK</td>
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td style="font-size:12px;color:var(--rd)">KPI 미설정</td>
+            <td colspan="2" style="font-size:12px;color:var(--g5);text-align:center">정량목표 미입력 → 측정 불가</td>
+            <td><span class="badge b-gray">입력요청</span></td>
+          </tr>
+          <tr data-rpt="done">
+            <td class="td-key">MPSP-064</td>
+            <td class="td-name">과제명 MMM</td>
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td style="font-size:12px">가입률 +5%</td>
+            <td style="font-size:12px;color:var(--ok);font-weight:600">+5.3% 달성</td>
+            <td>
+              <div style="font-size:12px;font-weight:700;color:var(--okm)">106%</div>
+              <div class="ach-bar"><div class="ach-fill" style="width:100%;background:var(--okm)"></div></div>
+            </td>
+            <td><span class="badge b-ok">달성</span></td>
+          </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 
@@ -707,9 +834,12 @@ td:last-child{border-right:none}
           <div style="font-size:13px;font-weight:700;color:var(--dk);margin-bottom:5px">데이터 기반 성과 측정</div>
           <div style="font-size:13px;color:var(--g5);line-height:1.7">과제 오픈 후 핵심 지표 공유 · 월별 달성률 추이 관리</div>
         </div>
-        <div style="padding:12px 14px;background:var(--rdb);border-radius:6px;border-left:3px solid var(--rdm)">
-          <div style="font-size:13px;font-weight:700;color:var(--rd);margin-bottom:5px">현재 의사결정 필요 (5건)</div>
-          <div style="font-size:13px;color:var(--g7);line-height:1.7">과제명 CCC 달성률 10% → 지속 여부 결정<br>과제명 BBB 달성률 31% → 목표 조정 필요</div>
+        <div style="padding:12px 14px;background:var(--bpa);border-radius:6px;border-left:3px solid var(--bl)">
+          <div style="font-size:13px;font-weight:700;color:var(--dk);margin-bottom:5px">이슈조정 (4단계) 프로세스</div>
+          <div style="font-size:13px;color:var(--g5);line-height:1.7">
+            의사결정이 필요한 과제는 <b style="color:var(--dk)">이슈조정 단계</b>를 통해 조직별 그룹장과 협의합니다.<br>
+            Red Flag 과제 발생 시 Fast-Track으로 즉시 그룹장 이슈 조정 · Bi-weekly에서 공유 및 확정
+          </div>
         </div>
       </div>
     </div>
@@ -730,29 +860,47 @@ td:last-child{border-right:none}
   <div class="adj-card">
     <div class="adj-hdr">
       <span>Bi-weekly 우선순위 조정 과제</span>
-      <span style="font-size:12px;font-weight:400;opacity:.7">스크롤하여 전체 목록 확인</span>
+      <span style="font-size:12px;font-weight:400;opacity:.7">마우스 올리면 수정/삭제 버튼 표시</span>
     </div>
     <div style="padding:8px 14px;background:var(--bpa);font-size:12px;color:var(--g7);border-bottom:1px solid var(--g3)">
-      Bi-weekly 회의에서 우선순위 재조정이 필요하다고 논의된 과제입니다. 조정 결과를 선택하세요.
+      Bi-weekly 회의에서 우선순위 재조정이 필요하다고 논의된 과제입니다.
     </div>
-    <div class="adj-wrap">
-      <div class="adj-item" style="background:var(--rdb)">
-        <div><div class="adj-key">MPSP-009</div><span class="badge b-rd" style="margin-top:4px;display:inline-block;font-size:11px">하향 검토</span></div>
-        <div><div class="adj-name">과제명 BBB</div><div class="adj-reason">3개월 연속 달성률 30% 미만 · 목표 재설정 필요</div></div>
-        <div><span class="badge b-rd">의사결정 필요</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 논의</div></div>
-        <select style="width:100%;font-size:12px"><option>검토중</option><option>목표 하향 조정</option><option>리소스 추가</option><option>Hold</option><option>Drop</option></select>
+    <div class="adj-wrap" style="max-height:300px">
+      <div class="adj-row" id="adj-bbk">
+        <div class="adj-row-left">
+          <div><div class="adj-key">MPSP-009</div><span class="badge b-rd" style="margin-top:4px;display:inline-block;font-size:11px">하향 검토</span></div>
+          <div><div class="adj-name">과제명 BBB</div><div class="adj-reason">3개월 연속 달성률 30% 미만 · 목표 재설정 필요</div></div>
+          <div><span class="badge b-rd">의사결정 필요</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 논의</div></div>
+          <div class="adj-memo" id="adj-bbk-memo">목표 하향 조정 검토 중</div>
+        </div>
+        <div class="adj-row-btns">
+          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-bbk')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-bbk')">삭제</button>
+        </div>
       </div>
-      <div class="adj-item" style="background:var(--rdb)">
-        <div><div class="adj-key">MPSP-017</div><span class="badge b-rd" style="margin-top:4px;display:inline-block;font-size:11px">방향 전환</span></div>
-        <div><div class="adj-name">과제명 CCC</div><div class="adj-reason">DAU 목표 대비 10% · 3개월 개선 없음 · 타겟 전환 필요</div></div>
-        <div><span class="badge b-rd">의사결정 필요</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 논의</div></div>
-        <select style="width:100%;font-size:12px"><option>검토중</option><option>방향 전환</option><option>중단</option><option>목표 재설정</option></select>
+      <div class="adj-row" id="adj-ccc">
+        <div class="adj-row-left">
+          <div><div class="adj-key">MPSP-017</div><span class="badge b-rd" style="margin-top:4px;display:inline-block;font-size:11px">방향 전환</span></div>
+          <div><div class="adj-name">과제명 CCC</div><div class="adj-reason">DAU 목표 대비 10% · 3개월 개선 없음 · 타겟 전환 필요</div></div>
+          <div><span class="badge b-rd">의사결정 필요</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 논의</div></div>
+          <div class="adj-memo" id="adj-ccc-memo">방향 전환 또는 중단 검토 중</div>
+        </div>
+        <div class="adj-row-btns">
+          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-ccc')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-ccc')">삭제</button>
+        </div>
       </div>
-      <div class="adj-item">
-        <div><div class="adj-key">MPSP-011</div><span class="badge b-gray" style="margin-top:4px;display:inline-block;font-size:11px">KPI 대기</span></div>
-        <div><div class="adj-name">과제명 DDD</div><div class="adj-reason">정량지표 미설정 → 우선순위 산정 불가 · 입력 요청 예정</div></div>
-        <div><span class="badge b-gray">입력 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">다음 Bi-weekly</div></div>
-        <select style="width:100%;font-size:12px"><option>KPI 입력 대기</option><option>입력 완료</option></select>
+      <div class="adj-row" id="adj-ddd">
+        <div class="adj-row-left">
+          <div><div class="adj-key">MPSP-011</div><span class="badge b-gray" style="margin-top:4px;display:inline-block;font-size:11px">KPI 대기</span></div>
+          <div><div class="adj-name">과제명 DDD</div><div class="adj-reason">정량지표 미설정 → 우선순위 산정 불가 · 입력 요청 예정</div></div>
+          <div><span class="badge b-gray">입력 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">다음 Bi-weekly</div></div>
+          <div class="adj-memo" id="adj-ddd-memo">KPI 입력 요청 발송 예정</div>
+        </div>
+        <div class="adj-row-btns">
+          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-ddd')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-ddd')">삭제</button>
+        </div>
       </div>
     </div>
   </div>
@@ -760,14 +908,19 @@ td:last-child{border-right:none}
   <div class="adj-card">
     <div class="adj-hdr" style="background:#374151">
       <span>Hold / Drop 검토 과제</span>
-      <span style="font-size:12px;font-weight:400;opacity:.7">스크롤하여 전체 목록 확인</span>
     </div>
-    <div class="adj-wrap">
-      <div class="adj-item">
-        <div><div class="adj-key">MPSP-055</div><span class="badge b-gray" style="margin-top:4px;display:inline-block;font-size:11px">중단 완료</span></div>
-        <div><div class="adj-name">과제명 HHH</div><div class="adj-reason">4/14 운영 중단 결정 · 리소스 재배분 → 과제명 AAA 집중</div></div>
-        <div><span class="badge b-gray">중단 완료</span><div style="font-size:11px;color:var(--g5);margin-top:4px">4/14 결정</div></div>
-        <div style="font-size:12px;color:var(--g5)">조치 완료</div>
+    <div class="adj-wrap" style="max-height:300px">
+      <div class="adj-row" id="adj-hhh">
+        <div class="adj-row-left">
+          <div><div class="adj-key">MPSP-055</div><span class="badge b-gray" style="margin-top:4px;display:inline-block;font-size:11px">중단 완료</span></div>
+          <div><div class="adj-name">과제명 HHH</div><div class="adj-reason">4/14 운영 중단 결정 · 리소스 재배분 → 과제명 AAA 집중</div></div>
+          <div><span class="badge b-gray">중단 완료</span><div style="font-size:11px;color:var(--g5);margin-top:4px">4/14 결정</div></div>
+          <div class="adj-memo" id="adj-hhh-memo">조치 완료</div>
+        </div>
+        <div class="adj-row-btns">
+          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-hhh')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-hhh')">삭제</button>
+        </div>
       </div>
     </div>
   </div>
@@ -775,25 +928,52 @@ td:last-child{border-right:none}
   <div class="adj-card">
     <div class="adj-hdr" style="background:#1E4080">
       <span>신규 우선순위 배정 요청</span>
-      <span style="font-size:12px;font-weight:400;opacity:.7">스크롤하여 전체 목록 확인</span>
+      <span style="font-size:12px;font-weight:400;opacity:.7">마우스 올리면 수정/삭제 버튼 표시</span>
     </div>
-    <div class="adj-wrap">
-      <div class="adj-item">
-        <div><div class="adj-key">MPSP-367</div><span class="badge b-bl" style="margin-top:4px;display:inline-block;font-size:11px">신규</span></div>
-        <div><div class="adj-name">해외직구 Cat. 가송장 패널티</div><div class="adj-reason">하반기 적용 예정 · 우선순위 배정 후 담당자 배정 필요</div></div>
-        <div><span class="badge b-bl">배정 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 신규</div></div>
-        <select style="width:100%;font-size:12px"><option>배정 대기</option><option>A등급</option><option>B등급</option><option>C등급</option></select>
+    <div class="adj-wrap" style="max-height:300px">
+      <div class="adj-row" id="adj-367">
+        <div class="adj-row-left">
+          <div><div class="adj-key">MPSP-367</div><span class="badge b-bl" style="margin-top:4px;display:inline-block;font-size:11px">신규</span></div>
+          <div><div class="adj-name">해외직구 Cat. 가송장 패널티</div><div class="adj-reason">하반기 적용 예정 · 우선순위 배정 후 담당자 배정 필요</div></div>
+          <div><span class="badge b-bl">배정 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 신규</div></div>
+          <div class="adj-memo" id="adj-367-memo">배정 내용을 수정 버튼으로 입력하세요</div>
+        </div>
+        <div class="adj-row-btns">
+          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-367')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-367')">삭제</button>
+        </div>
       </div>
-      <div class="adj-item">
-        <div><div class="adj-key">MPSP-366</div><span class="badge b-bl" style="margin-top:4px;display:inline-block;font-size:11px">신규</span></div>
-        <div><div class="adj-name">PET 전문관 신설</div><div class="adj-reason">상반기: Pet정보 수집 구조설계 · 하반기 전문관 오픈 연계</div></div>
-        <div><span class="badge b-bl">배정 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 신규</div></div>
-        <select style="width:100%;font-size:12px"><option>배정 대기</option><option>A등급</option><option>B등급</option><option>C등급</option></select>
+      <div class="adj-row" id="adj-366">
+        <div class="adj-row-left">
+          <div><div class="adj-key">MPSP-366</div><span class="badge b-bl" style="margin-top:4px;display:inline-block;font-size:11px">신규</span></div>
+          <div><div class="adj-name">PET 전문관 신설</div><div class="adj-reason">상반기: Pet정보 수집 구조설계 · 하반기 전문관 오픈 연계</div></div>
+          <div><span class="badge b-bl">배정 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 신규</div></div>
+          <div class="adj-memo" id="adj-366-memo">배정 내용을 수정 버튼으로 입력하세요</div>
+        </div>
+        <div class="adj-row-btns">
+          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-366')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-366')">삭제</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+
+<!-- MODAL: 과제조정 메모 수정 -->
+<div class="modal-overlay" id="adj-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">조정 내용 수정</div>
+    <div class="form-row">
+      <label class="form-label">조정/배정 내용 (자유롭게 입력)</label>
+      <textarea id="adj-memo-input" style="height:100px;width:100%;font-size:13px;padding:8px 10px;border-radius:6px;font-family:var(--font)" placeholder="조정 내용, 결정 사항, 담당자 등을 자유롭게 입력하세요..."></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closeAdjModal()">취소</button>
+      <button class="btn btn-pr" onclick="saveAdjMemo()">저장</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL: 과제 편집 (가로 4열 그리드) -->
 <div class="modal-overlay" id="modal-edit">
@@ -1038,6 +1218,30 @@ function addWeeklyItem() {
   </div>`;
   document.getElementById('weekly-added').insertAdjacentHTML('afterbegin', html);
   ['wi-content','wi-mpsp','wi-fu'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ── 과제조정 수정/삭제 ───────────────────────────
+let currentAdjId = null;
+function editAdjItem(id) {
+  currentAdjId = id;
+  const memo = document.getElementById(id + '-memo');
+  document.getElementById('adj-memo-input').value = memo ? memo.textContent.trim() : '';
+  document.getElementById('adj-modal').classList.add('open');
+}
+function closeAdjModal() {
+  document.getElementById('adj-modal').classList.remove('open');
+  currentAdjId = null;
+}
+function saveAdjMemo() {
+  if (!currentAdjId) return;
+  const memo = document.getElementById(currentAdjId + '-memo');
+  if (memo) memo.textContent = document.getElementById('adj-memo-input').value;
+  closeAdjModal();
+}
+function deleteAdjItem(id) {
+  if (!confirm('이 항목을 삭제하시겠습니까?')) return;
+  const row = document.getElementById(id);
+  if (row) row.remove();
 }
 
 // 모달 외부 클릭 닫기
