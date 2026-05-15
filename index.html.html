@@ -82,7 +82,7 @@ select:focus,input:focus,textarea:focus{border-color:var(--bl)}
 .tbl-wrap::-webkit-scrollbar{height:5px}
 .tbl-wrap::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px}
 /* 테이블 헤더 고정 + tbody 스크롤 - 올바른 방식 */
-.tbl-outer{overflow-y:auto;max-height:555px;border:1px solid var(--g3)}
+.tbl-outer{overflow-y:auto;max-height:594px;border:1px solid var(--g3)}
 .tbl-outer::-webkit-scrollbar{width:6px}
 .tbl-outer::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px}
 .tbl-outer::-webkit-scrollbar-track{background:var(--g1)}
@@ -164,6 +164,13 @@ td:last-child{border-right:none}
 /* 달성률 바 */
 .ach-bar{height:6px;border-radius:3px;background:var(--g3);overflow:hidden;margin-top:3px;width:80px}
 .ach-fill{height:100%;border-radius:3px}
+/* 리포팅 MPSP 열 고정 */
+.rpt-sticky{position:sticky;left:0;background:#fff;z-index:2}
+/* 주요성과·의사결정 hover 버튼 */
+.perf-item:hover .perf-actions{opacity:1!important}
+.perf-item:hover{background:var(--bpa)}
+.dec-item:hover .dec-actions{opacity:1!important}
+.dec-item:hover{background:var(--bpa)}
 </style>
 </head>
 <body>
@@ -245,7 +252,7 @@ td:last-child{border-right:none}
       <span id="task-count" style="font-size:11px;color:var(--g5);white-space:nowrap;min-width:40px"></span>
     </div>
     <div class="tbl-wrap">
-      <div class="tbl-outer">
+      <div class="tbl-outer" id="task-tbl-outer" style="max-height:594px">
       <table>
         <thead><tr>
           <th style="width:50px">구분</th>
@@ -420,95 +427,120 @@ td:last-child{border-right:none}
   <div class="card">
     <div class="card-hdr">
       <div class="card-title" id="rpt-title">전체 과제 리포팅</div>
+      <button class="btn btn-pr btn-sm" onclick="openRptAddModal()">+ 행 추가</button>
     </div>
     <div class="tbl-wrap">
-      <div class="tbl-outer">
-      <table>
+      <div class="tbl-outer" style="max-height:480px">
+      <table style="min-width:1400px">
         <thead><tr>
-          <th style="width:90px">MPSP</th>
-          <th style="min-width:130px">과제명</th>
-          <th style="width:55px">구분</th>
-          <th style="min-width:110px">정량목표</th>
-          <th style="min-width:120px">현재 달성</th>
-          <th style="width:110px">달성률</th>
-          <th style="width:80px">판정</th>
+          <th style="width:85px;position:sticky;left:0;z-index:6;background:var(--dk)">MPSP</th>
+          <th style="min-width:120px">과제명</th>
+          <th style="width:50px">구분</th>
+          <th style="min-width:100px">정량목표</th>
+          <th style="width:52px">1월</th><th style="width:52px">2월</th><th style="width:52px">3월</th>
+          <th style="width:52px">4월</th><th style="width:52px">5월</th><th style="width:52px">6월</th>
+          <th style="width:52px">7월</th><th style="width:52px">8월</th><th style="width:52px">9월</th>
+          <th style="width:52px">10월</th><th style="width:52px">11월</th><th style="width:52px">12월</th>
+          <th style="width:90px">달성률</th>
+          <th style="width:72px">판정</th>
+          <th style="width:90px">편집</th>
         </tr></thead>
         <tbody id="rpt-tbody">
           <tr data-rpt="done">
-            <td class="td-key">MPSP-022</td>
+            <td class="td-key rpt-sticky">MPSP-022</td>
             <td class="td-name">과제명 AAA</td>
             <td><span class="badge b-core">핵심</span></td>
-            <td style="font-size:12px">CVR +2.5%</td>
-            <td style="font-size:12px;color:var(--ok);font-weight:600">+2.5% 달성</td>
-            <td>
-              <div style="font-size:12px;font-weight:700;color:var(--ok)">100%</div>
-              <div class="ach-bar"><div class="ach-fill" style="width:100%;background:var(--okm)"></div></div>
-            </td>
+            <td style="font-size:11px">CVR +2.5%</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--okm);font-weight:600">+2.5%</td>
+            <td style="font-size:11px;color:var(--okm);font-weight:600">+2.5%</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td><div style="font-size:12px;font-weight:700;color:var(--okm)">100%</div><div class="ach-bar"><div class="ach-fill" style="width:100%;background:var(--okm)"></div></div></td>
             <td><span class="badge b-ok">달성</span></td>
+            <td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>
           </tr>
           <tr data-rpt="decision">
-            <td class="td-key">MPSP-009</td>
+            <td class="td-key rpt-sticky">MPSP-009</td>
             <td class="td-name">과제명 BBB</td>
             <td><span class="badge b-core">핵심</span></td>
-            <td style="font-size:12px">연간 100억</td>
-            <td style="font-size:12px;color:var(--rd);font-weight:600">45억 (4월 누적)</td>
-            <td>
-              <div style="font-size:12px;font-weight:700;color:var(--rdm)">31%</div>
-              <div class="ach-bar"><div class="ach-fill" style="width:31%;background:var(--rdm)"></div></div>
-            </td>
+            <td style="font-size:11px">연간 100억</td>
+            <td style="font-size:11px;color:var(--rdm)">8억</td><td style="font-size:11px;color:var(--rdm)">10억</td>
+            <td style="font-size:11px;color:var(--rdm)">13억</td><td style="font-size:11px;color:var(--rdm)">14억</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td><div style="font-size:12px;font-weight:700;color:var(--rdm)">31%</div><div class="ach-bar"><div class="ach-fill" style="width:31%;background:var(--rdm)"></div></div></td>
             <td><span class="badge b-rd">목표조정</span></td>
+            <td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>
           </tr>
           <tr data-rpt="decision">
-            <td class="td-key">MPSP-017</td>
+            <td class="td-key rpt-sticky">MPSP-017</td>
             <td class="td-name">과제명 CCC</td>
             <td><span class="badge b-core">핵심</span></td>
-            <td style="font-size:12px">DAU 50,000명</td>
-            <td style="font-size:12px;color:var(--rd);font-weight:600">5,100명 (4월)</td>
-            <td>
-              <div style="font-size:12px;font-weight:700;color:var(--rdm)">10%</div>
-              <div class="ach-bar"><div class="ach-fill" style="width:10%;background:var(--rdm)"></div></div>
-            </td>
+            <td style="font-size:11px">DAU 50,000명</td>
+            <td style="font-size:11px;color:var(--rdm)">4,200</td><td style="font-size:11px;color:var(--rdm)">4,800</td>
+            <td style="font-size:11px;color:var(--rdm)">5,100</td><td style="font-size:11px;color:var(--rdm)">5,100</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td><div style="font-size:12px;font-weight:700;color:var(--rdm)">10%</div><div class="ach-bar"><div class="ach-fill" style="width:10%;background:var(--rdm)"></div></div></td>
             <td><span class="badge b-rd">의사결정</span></td>
+            <td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>
           </tr>
           <tr data-rpt="nokpi">
-            <td class="td-key">MPSP-011</td>
+            <td class="td-key rpt-sticky">MPSP-011</td>
             <td class="td-name">과제명 DDD</td>
             <td><span class="badge b-core">핵심</span></td>
-            <td style="font-size:12px;color:var(--rd)">KPI 미설정</td>
-            <td colspan="2" style="font-size:12px;color:var(--g5);text-align:center">정량목표 미입력 → 측정 불가</td>
+            <td style="font-size:11px;color:var(--rd)">KPI 미설정</td>
+            <td colspan="12" style="font-size:11px;color:var(--g5);text-align:center">정량목표 미입력 → 측정 불가</td>
             <td><span class="badge b-gray">입력요청</span></td>
+            <td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>
           </tr>
           <tr data-rpt="done">
-            <td class="td-key">MPSP-014</td>
+            <td class="td-key rpt-sticky">MPSP-014</td>
             <td class="td-name">과제명 FFF</td>
             <td><span class="badge b-mgmt">관리</span></td>
-            <td style="font-size:12px">자동화율 90%</td>
-            <td style="font-size:12px;color:var(--ok);font-weight:600">92% 달성</td>
-            <td>
-              <div style="font-size:12px;font-weight:700;color:var(--okm)">102%</div>
-              <div class="ach-bar"><div class="ach-fill" style="width:100%;background:var(--okm)"></div></div>
-            </td>
+            <td style="font-size:11px">자동화율 90%</td>
+            <td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--okm)">88%</td><td style="font-size:11px;color:var(--okm)">90%</td>
+            <td style="font-size:11px;color:var(--okm)">92%</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td><div style="font-size:12px;font-weight:700;color:var(--okm)">102%</div><div class="ach-bar"><div class="ach-fill" style="width:100%;background:var(--okm)"></div></div></td>
             <td><span class="badge b-ok">달성</span></td>
+            <td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>
           </tr>
           <tr data-rpt="done">
-            <td class="td-key">MPSP-043</td>
+            <td class="td-key rpt-sticky">MPSP-043</td>
             <td class="td-name">과제명 GGG</td>
             <td><span class="badge b-mgmt">관리</span></td>
-            <td style="font-size:12px">처리시간 -30%</td>
-            <td style="font-size:12px;color:var(--g7);font-weight:600">15% 단축 중</td>
-            <td>
-              <div style="font-size:12px;font-weight:700;color:var(--g5)">50%</div>
-              <div class="ach-bar"><div class="ach-fill" style="width:50%;background:var(--bl)"></div></div>
-            </td>
+            <td style="font-size:11px">처리시간 -30%</td>
+            <td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g7)">-10%</td><td style="font-size:11px;color:var(--g7)">-13%</td>
+            <td style="font-size:11px;color:var(--g7)">-15%</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td style="font-size:11px;color:var(--g5)">—</td><td style="font-size:11px;color:var(--g5)">—</td>
+            <td><div style="font-size:12px;font-weight:700;color:var(--g5)">50%</div><div class="ach-bar"><div class="ach-fill" style="width:50%;background:var(--bl)"></div></div></td>
             <td><span class="badge b-bl">모니터링</span></td>
+            <td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>
           </tr>
           <tr data-rpt="nokpi">
-            <td class="td-key">MPSP-031</td>
+            <td class="td-key rpt-sticky">MPSP-031</td>
             <td class="td-name">과제명 EEE</td>
             <td><span class="badge b-mgmt">관리</span></td>
-            <td style="font-size:12px;color:var(--g5)">수치 미입력</td>
-            <td colspan="2" style="font-size:12px;color:var(--g5);text-align:center">목표 수치 없음 · 담당자 미배정</td>
+            <td style="font-size:11px;color:var(--g5)">수치 미입력</td>
+            <td colspan="12" style="font-size:11px;color:var(--g5);text-align:center">목표 수치 없음 · 담당자 미배정</td>
             <td><span class="badge b-gray">입력요청</span></td>
+            <td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>
           </tr>
         </tbody>
       </table>
@@ -517,34 +549,140 @@ td:last-child{border-right:none}
   </div>
 
   <!-- 주요성과 & 의사결정 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-    <div class="card" style="margin-bottom:0">
-      <div class="card-hdr"><div class="card-title">주요 성과 (1분기)</div></div>
-      <table style="width:100%;border-collapse:collapse">
-        <tbody>
-          <tr style="border-bottom:1px solid var(--g3)"><td style="padding:9px 14px;font-size:13px;color:var(--g7)">과제명 AAA</td><td style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);text-align:right">+11.5%p</td></tr>
-          <tr style="border-bottom:1px solid var(--g3)"><td style="padding:9px 14px;font-size:13px;color:var(--g7)">과제명 BBB</td><td style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);text-align:right">8.62% → 9.05%</td></tr>
-          <tr style="border-bottom:1px solid var(--g3)"><td style="padding:9px 14px;font-size:13px;color:var(--g7)">과제명 CCC</td><td style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);text-align:right">1,000ms → 50ms</td></tr>
-          <tr style="border-bottom:1px solid var(--g3)"><td style="padding:9px 14px;font-size:13px;color:var(--g7)">과제명 DDD</td><td style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);text-align:right">25.7% (+55.9%)</td></tr>
-          <tr><td style="padding:9px 14px;font-size:13px;color:var(--g7)">과제명 EEE</td><td style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);text-align:right">91h → 74h (-23%)</td></tr>
-        </tbody>
-      </table>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0">
+
+    <!-- 주요 성과 - 분기별 -->
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="font-size:14px;font-weight:700;color:var(--dk)">주요 성과</div>
+        <button class="btn btn-pr btn-sm" onclick="openPerfSectionAdd()">+ 분기 추가</button>
+      </div>
+      <div id="perf-sections">
+
+        <!-- 1분기 -->
+        <div class="perf-section" style="background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px">
+          <div class="perf-sec-hdr" onclick="togglePerfSec(this)" style="background:var(--dk);color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none">
+            <span style="font-size:13px;font-weight:700;flex:1">▼ 2026년 1분기</span>
+            <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openPerfItemAdd(this)">+ 항목</button>
+            <button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deletePerfSection(this)">섹션 삭제</button>
+          </div>
+          <div class="perf-sec-body">
+            <div class="perf-item" style="display:flex;align-items:center;border-bottom:1px solid var(--g3)">
+              <div style="flex:1;padding:9px 14px;font-size:13px;color:var(--g7)" class="perf-label">과제명 AAA</div>
+              <div style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);white-space:nowrap" class="perf-value">+11.5%p</div>
+              <div class="perf-actions" style="display:flex;gap:4px;padding:0 8px;opacity:0;transition:opacity .15s;flex-shrink:0">
+                <button class="btn btn-out btn-sm" onclick="openPerfEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deletePerfItem(this)">삭제</button>
+              </div>
+            </div>
+            <div class="perf-item" style="display:flex;align-items:center;border-bottom:1px solid var(--g3)">
+              <div style="flex:1;padding:9px 14px;font-size:13px;color:var(--g7)" class="perf-label">과제명 BBB</div>
+              <div style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);white-space:nowrap" class="perf-value">8.62% → 9.05%</div>
+              <div class="perf-actions" style="display:flex;gap:4px;padding:0 8px;opacity:0;transition:opacity .15s;flex-shrink:0">
+                <button class="btn btn-out btn-sm" onclick="openPerfEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deletePerfItem(this)">삭제</button>
+              </div>
+            </div>
+            <div class="perf-item" style="display:flex;align-items:center;border-bottom:1px solid var(--g3)">
+              <div style="flex:1;padding:9px 14px;font-size:13px;color:var(--g7)" class="perf-label">과제명 CCC</div>
+              <div style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);white-space:nowrap" class="perf-value">1,000ms → 50ms</div>
+              <div class="perf-actions" style="display:flex;gap:4px;padding:0 8px;opacity:0;transition:opacity .15s;flex-shrink:0">
+                <button class="btn btn-out btn-sm" onclick="openPerfEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deletePerfItem(this)">삭제</button>
+              </div>
+            </div>
+            <div class="perf-item" style="display:flex;align-items:center;border-bottom:1px solid var(--g3)">
+              <div style="flex:1;padding:9px 14px;font-size:13px;color:var(--g7)" class="perf-label">과제명 DDD</div>
+              <div style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);white-space:nowrap" class="perf-value">25.7% (+55.9%)</div>
+              <div class="perf-actions" style="display:flex;gap:4px;padding:0 8px;opacity:0;transition:opacity .15s;flex-shrink:0">
+                <button class="btn btn-out btn-sm" onclick="openPerfEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deletePerfItem(this)">삭제</button>
+              </div>
+            </div>
+            <div class="perf-item" style="display:flex;align-items:center">
+              <div style="flex:1;padding:9px 14px;font-size:13px;color:var(--g7)" class="perf-label">과제명 EEE</div>
+              <div style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);white-space:nowrap" class="perf-value">91h → 74h (-23%)</div>
+              <div class="perf-actions" style="display:flex;gap:4px;padding:0 8px;opacity:0;transition:opacity .15s;flex-shrink:0">
+                <button class="btn btn-out btn-sm" onclick="openPerfEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deletePerfItem(this)">삭제</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2분기 (빈 섹션 예시) -->
+        <div class="perf-section" style="background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px">
+          <div class="perf-sec-hdr" onclick="togglePerfSec(this)" style="background:#374151;color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none">
+            <span style="font-size:13px;font-weight:700;flex:1">▶ 2026년 2분기 (클릭해서 펼치기)</span>
+            <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openPerfItemAdd(this)">+ 항목</button>
+            <button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deletePerfSection(this)">섹션 삭제</button>
+          </div>
+          <div class="perf-sec-body" style="display:none">
+            <div style="padding:16px 14px;font-size:13px;color:var(--g5);text-align:center">항목을 추가하세요</div>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="card" style="margin-bottom:0">
-      <div class="card-hdr" style="border-left:3px solid var(--rdm)"><div class="card-title" style="color:var(--rd)">의사결정 필요 건</div></div>
-      <div style="padding:12px 14px;border-bottom:1px solid var(--g3)">
-        <div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px">과제명 BBB — 목표 조정 필요</div>
-        <div style="font-size:12px;color:var(--g5);line-height:1.6">달성률 31% · 연간 100억 대비 추세 미달<br>목표 하향 조정 또는 리소스 추가 투입 결정 필요</div>
+
+    <!-- 의사결정 필요 - 분기별 -->
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="font-size:14px;font-weight:700;color:var(--rd)">의사결정 필요 건</div>
+        <button class="btn btn-pr btn-sm" onclick="openDecSectionAdd()">+ 분기 추가</button>
       </div>
-      <div style="padding:12px 14px;border-bottom:1px solid var(--g3)">
-        <div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px">과제명 CCC — 지속 여부 결정</div>
-        <div style="font-size:12px;color:var(--g5);line-height:1.6">DAU 10% · 3개월 연속 개선 없음<br>방향 전환 또는 서비스 중단 검토 필요</div>
-      </div>
-      <div style="padding:12px 14px">
-        <div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px">KPI 미설정 6건 — 입력 요청</div>
-        <div style="font-size:12px;color:var(--g5)">다음 Bi-weekly 안건으로 상정 예정</div>
+      <div id="dec-sections">
+
+        <!-- 1분기 -->
+        <div class="dec-section" style="background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px">
+          <div class="dec-sec-hdr" onclick="toggleDecSec(this)" style="background:var(--dk);color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none">
+            <span style="font-size:13px;font-weight:700;flex:1">▼ 2026년 1분기</span>
+            <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openDecItemAdd(this)">+ 항목</button>
+            <button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deleteDecSection(this)">섹션 삭제</button>
+          </div>
+          <div class="dec-sec-body">
+            <div class="dec-item" style="padding:12px 14px;border-bottom:1px solid var(--g3);position:relative">
+              <div class="dec-actions" style="position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity .15s">
+                <button class="btn btn-out btn-sm" onclick="openDecEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteDecItem(this)">삭제</button>
+              </div>
+              <div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px;padding-right:90px" class="dec-title">과제명 BBB — 목표 조정 필요</div>
+              <div style="font-size:12px;color:var(--g5);line-height:1.6" class="dec-desc">달성률 31% · 연간 100억 대비 추세 미달<br>목표 하향 조정 또는 리소스 추가 투입 결정 필요</div>
+            </div>
+            <div class="dec-item" style="padding:12px 14px;border-bottom:1px solid var(--g3);position:relative">
+              <div class="dec-actions" style="position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity .15s">
+                <button class="btn btn-out btn-sm" onclick="openDecEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteDecItem(this)">삭제</button>
+              </div>
+              <div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px;padding-right:90px" class="dec-title">과제명 CCC — 지속 여부 결정</div>
+              <div style="font-size:12px;color:var(--g5);line-height:1.6" class="dec-desc">DAU 10% · 3개월 연속 개선 없음<br>방향 전환 또는 서비스 중단 검토 필요</div>
+            </div>
+            <div class="dec-item" style="padding:12px 14px;position:relative">
+              <div class="dec-actions" style="position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity .15s">
+                <button class="btn btn-out btn-sm" onclick="openDecEdit(this)">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteDecItem(this)">삭제</button>
+              </div>
+              <div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px;padding-right:90px" class="dec-title">KPI 미설정 6건 — 입력 요청</div>
+              <div style="font-size:12px;color:var(--g5);line-height:1.6" class="dec-desc">다음 Bi-weekly 안건으로 상정 예정</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2분기 (빈 섹션 예시) -->
+        <div class="dec-section" style="background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px">
+          <div class="dec-sec-hdr" onclick="toggleDecSec(this)" style="background:#374151;color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none">
+            <span style="font-size:13px;font-weight:700;flex:1">▶ 2026년 2분기 (클릭해서 펼치기)</span>
+            <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openDecItemAdd(this)">+ 항목</button>
+            <button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deleteDecSection(this)">섹션 삭제</button>
+          </div>
+          <div class="dec-sec-body" style="display:none">
+            <div style="padding:16px 14px;font-size:13px;color:var(--g5);text-align:center">항목을 추가하세요</div>
+          </div>
+        </div>
+
       </div>
     </div>
+
   </div>
 </div>
 
@@ -740,141 +878,240 @@ td:last-child{border-right:none}
   <div class="pg-hdr">
     <div class="pg-bar"></div>
     <div class="pg-title">과제 조정 관리</div>
-    <div class="pg-sub">Bi-weekly 우선순위 조정 · Hold/Drop · 신규 우선순위 요청</div>
+    <div class="pg-sub">날짜별 조정 이력 누적 관리 · 클릭으로 접기/펼치기</div>
   </div>
 
-  <div class="adj-card">
-    <div class="adj-hdr">
-      <span>Bi-weekly 우선순위 조정 과제</span>
-      <span style="font-size:12px;font-weight:400;opacity:.7">마우스 올리면 수정/삭제 버튼 표시</span>
+  <!-- 신규 조정 이력 추가 -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-hdr">
+      <div class="card-title">신규 조정 이력 기록</div>
+      <button class="btn btn-pr btn-sm" onclick="addAdjHistory()">+ 이력 추가</button>
     </div>
-    <div style="padding:8px 14px;background:var(--bpa);font-size:12px;color:var(--g7);border-bottom:1px solid var(--g3)">
-      Bi-weekly 회의에서 우선순위 재조정이 필요하다고 논의된 과제입니다.
-    </div>
-    <div class="adj-wrap" style="max-height:300px">
-      <div class="adj-row" id="adj-bbk">
-        <div class="adj-row-left">
-          <div><div class="adj-key">MPSP-009</div><span class="badge b-rd" style="margin-top:4px;display:inline-block;font-size:11px">하향 검토</span></div>
-          <div><div class="adj-name">과제명 BBB</div><div class="adj-reason">3개월 연속 달성률 30% 미만 · 목표 재설정 필요</div></div>
-          <div><span class="badge b-rd">의사결정 필요</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 논의</div></div>
-          <div class="adj-memo" id="adj-bbk-memo">목표 하향 조정 검토 중</div>
-        </div>
-        <div class="adj-row-btns">
-          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-bbk')">수정</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-bbk')">삭제</button>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:130px 110px 120px 1fr;gap:8px;margin-bottom:8px">
+        <div><label class="form-label">날짜</label><input type="date" id="ah-date" style="width:100%"></div>
+        <div><label class="form-label">MPSP</label><input type="text" id="ah-mpsp" placeholder="MPSP-XXX" style="width:100%"></div>
+        <div><label class="form-label">과제명</label><input type="text" id="ah-name" placeholder="과제명 XXX" style="width:100%"></div>
+        <div><label class="form-label">조정 유형</label>
+          <select id="ah-type" style="width:100%">
+            <option>우선순위 조정</option><option>목표 조정</option><option>Hold</option><option>Drop/중단</option><option>신규 배정</option><option>방향 전환</option><option>KPI 입력 요청</option>
+          </select>
         </div>
       </div>
-      <div class="adj-row" id="adj-ccc">
-        <div class="adj-row-left">
-          <div><div class="adj-key">MPSP-017</div><span class="badge b-rd" style="margin-top:4px;display:inline-block;font-size:11px">방향 전환</span></div>
-          <div><div class="adj-name">과제명 CCC</div><div class="adj-reason">DAU 목표 대비 10% · 3개월 개선 없음 · 타겟 전환 필요</div></div>
-          <div><span class="badge b-rd">의사결정 필요</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 논의</div></div>
-          <div class="adj-memo" id="adj-ccc-memo">방향 전환 또는 중단 검토 중</div>
-        </div>
-        <div class="adj-row-btns">
-          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-ccc')">수정</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-ccc')">삭제</button>
-        </div>
-      </div>
-      <div class="adj-row" id="adj-ddd">
-        <div class="adj-row-left">
-          <div><div class="adj-key">MPSP-011</div><span class="badge b-gray" style="margin-top:4px;display:inline-block;font-size:11px">KPI 대기</span></div>
-          <div><div class="adj-name">과제명 DDD</div><div class="adj-reason">정량지표 미설정 → 우선순위 산정 불가 · 입력 요청 예정</div></div>
-          <div><span class="badge b-gray">입력 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">다음 Bi-weekly</div></div>
-          <div class="adj-memo" id="adj-ddd-memo">KPI 입력 요청 발송 예정</div>
-        </div>
-        <div class="adj-row-btns">
-          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-ddd')">수정</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-ddd')">삭제</button>
-        </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div><label class="form-label">조정 사유</label><input type="text" id="ah-reason" placeholder="조정 배경 및 사유" style="width:100%"></div>
+        <div><label class="form-label">결정 내용 / 후속 조치</label><input type="text" id="ah-action" placeholder="결정 사항 또는 F/U" style="width:100%"></div>
       </div>
     </div>
   </div>
 
-  <div class="adj-card">
-    <div class="adj-hdr" style="background:#374151">
-      <span>Hold / Drop 검토 과제</span>
-    </div>
-    <div class="adj-wrap" style="max-height:300px">
-      <div class="adj-row" id="adj-hhh">
-        <div class="adj-row-left">
-          <div><div class="adj-key">MPSP-055</div><span class="badge b-gray" style="margin-top:4px;display:inline-block;font-size:11px">중단 완료</span></div>
-          <div><div class="adj-name">과제명 HHH</div><div class="adj-reason">4/14 운영 중단 결정 · 리소스 재배분 → 과제명 AAA 집중</div></div>
-          <div><span class="badge b-gray">중단 완료</span><div style="font-size:11px;color:var(--g5);margin-top:4px">4/14 결정</div></div>
-          <div class="adj-memo" id="adj-hhh-memo">조치 완료</div>
-        </div>
-        <div class="adj-row-btns">
-          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-hhh')">수정</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-hhh')">삭제</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 이력 타임라인 -->
+  <div id="adj-history-wrap">
 
-  <div class="adj-card">
-    <div class="adj-hdr" style="background:#1E4080">
-      <span>신규 우선순위 배정 요청</span>
-      <span style="font-size:12px;font-weight:400;opacity:.7">마우스 올리면 수정/삭제 버튼 표시</span>
-    </div>
-    <div class="adj-wrap" style="max-height:300px">
-      <div class="adj-row" id="adj-367">
-        <div class="adj-row-left">
-          <div><div class="adj-key">MPSP-367</div><span class="badge b-bl" style="margin-top:4px;display:inline-block;font-size:11px">신규</span></div>
-          <div><div class="adj-name">과제명 FFF</div><div class="adj-reason">하반기 적용 예정 · 우선순위 배정 후 담당자 배정 필요</div></div>
-          <div><span class="badge b-bl">배정 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 신규</div></div>
-          <div class="adj-memo" id="adj-367-memo">배정 내용을 수정 버튼으로 입력하세요</div>
-        </div>
-        <div class="adj-row-btns">
-          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-367')">수정</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-367')">삭제</button>
-        </div>
+    <!-- 2026년 3월 이력 -->
+    <div class="adj-hist-section">
+      <div class="adj-hist-hdr" onclick="toggleAdjHist(this)" style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--dk);color:#fff;border-radius:8px 8px 0 0;cursor:pointer;user-select:none">
+        <span style="font-size:13px;font-weight:700;flex:1">▼ 2026년 3월</span>
+        <span style="font-size:12px;opacity:.6">3건</span>
       </div>
-      <div class="adj-row" id="adj-366">
-        <div class="adj-row-left">
-          <div><div class="adj-key">MPSP-366</div><span class="badge b-bl" style="margin-top:4px;display:inline-block;font-size:11px">신규</span></div>
-          <div><div class="adj-name">과제명 GGG</div><div class="adj-reason">상반기: Pet정보 수집 구조설계 · 하반기 전문관 오픈 연계</div></div>
-          <div><span class="badge b-bl">배정 대기</span><div style="font-size:11px;color:var(--g5);margin-top:4px">3/11 신규</div></div>
-          <div class="adj-memo" id="adj-366-memo">배정 내용을 수정 버튼으로 입력하세요</div>
+      <div class="adj-hist-body" style="border:1px solid var(--g3);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;margin-bottom:10px">
+
+        <div class="adj-hist-row" style="display:grid;grid-template-columns:90px 100px 130px 100px 1fr 1fr 120px;align-items:start;padding:10px 14px;border-bottom:1px solid var(--g3);gap:10px;transition:background .1s">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--g5)">2026-03-11</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--bl)">MPSP-009</div>
+          <div style="font-size:12px;font-weight:600;color:var(--g9)">과제명 BBB</div>
+          <div><span class="badge b-rd" style="font-size:10px">목표 조정</span></div>
+          <div style="font-size:12px;color:var(--g7)">3개월 연속 달성률 30% 미만 · 연간 목표 미달 추세</div>
+          <div style="font-size:12px;color:var(--g5)">목표 하향 조정 검토 중 · 다음 Bi-weekly 확정 예정</div>
+          <div style="display:flex;gap:4px;justify-content:flex-end">
+            <button class="btn btn-out btn-sm" onclick="editAdjHistRow(this)">수정</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAdjHistRow(this)">삭제</button>
+          </div>
         </div>
-        <div class="adj-row-btns">
-          <button class="btn btn-out btn-sm" onclick="editAdjItem('adj-366')">수정</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteAdjItem('adj-366')">삭제</button>
+
+        <div class="adj-hist-row" style="display:grid;grid-template-columns:90px 100px 130px 100px 1fr 1fr 120px;align-items:start;padding:10px 14px;border-bottom:1px solid var(--g3);gap:10px;transition:background .1s">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--g5)">2026-03-11</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--bl)">MPSP-017</div>
+          <div style="font-size:12px;font-weight:600;color:var(--g9)">과제명 CCC</div>
+          <div><span class="badge b-rd" style="font-size:10px">방향 전환</span></div>
+          <div style="font-size:12px;color:var(--g7)">DAU 목표 대비 10% · 3개월 연속 개선 없음</div>
+          <div style="font-size:12px;color:var(--g5)">방향 전환 또는 중단 검토 · 의사결정 필요 안건 상정</div>
+          <div style="display:flex;gap:4px;justify-content:flex-end">
+            <button class="btn btn-out btn-sm" onclick="editAdjHistRow(this)">수정</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAdjHistRow(this)">삭제</button>
+          </div>
         </div>
+
+        <div class="adj-hist-row" style="display:grid;grid-template-columns:90px 100px 130px 100px 1fr 1fr 120px;align-items:start;padding:10px 14px;gap:10px;transition:background .1s">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--g5)">2026-03-11</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--bl)">MPSP-011</div>
+          <div style="font-size:12px;font-weight:600;color:var(--g9)">과제명 DDD</div>
+          <div><span class="badge b-gray" style="font-size:10px">KPI 입력 요청</span></div>
+          <div style="font-size:12px;color:var(--g7)">정량지표 미설정 → 우선순위 산정 불가</div>
+          <div style="font-size:12px;color:var(--g5)">KPI 입력 요청 발송 예정 · 다음 Bi-weekly까지 입력 완료 요청</div>
+          <div style="display:flex;gap:4px;justify-content:flex-end">
+            <button class="btn btn-out btn-sm" onclick="editAdjHistRow(this)">수정</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAdjHistRow(this)">삭제</button>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <!-- 2026년 4월 이력 -->
+    <div class="adj-hist-section">
+      <div class="adj-hist-hdr" onclick="toggleAdjHist(this)" style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#374151;color:#fff;border-radius:8px 8px 0 0;cursor:pointer;user-select:none">
+        <span style="font-size:13px;font-weight:700;flex:1">▶ 2026년 4월 (클릭해서 펼치기)</span>
+        <span style="font-size:12px;opacity:.6">1건</span>
+      </div>
+      <div class="adj-hist-body" style="display:none;border:1px solid var(--g3);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;margin-bottom:10px">
+
+        <div class="adj-hist-row" style="display:grid;grid-template-columns:90px 100px 130px 100px 1fr 1fr 120px;align-items:start;padding:10px 14px;gap:10px;transition:background .1s">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--g5)">2026-04-14</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--bl)">MPSP-055</div>
+          <div style="font-size:12px;font-weight:600;color:var(--g9)">과제명 HHH</div>
+          <div><span class="badge b-gray" style="font-size:10px">Drop/중단</span></div>
+          <div style="font-size:12px;color:var(--g7)">우선순위 하락 · 기대 효과 미달</div>
+          <div style="font-size:12px;color:var(--g5)">4/14 운영 중단 결정 · 리소스 재배분 → 과제명 AAA 집중</div>
+          <div style="display:flex;gap:4px;justify-content:flex-end">
+            <button class="btn btn-out btn-sm" onclick="editAdjHistRow(this)">수정</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAdjHistRow(this)">삭제</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 신규 배정 대기 -->
+    <div class="adj-hist-section">
+      <div class="adj-hist-hdr" onclick="toggleAdjHist(this)" style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#1E4080;color:#fff;border-radius:8px 8px 0 0;cursor:pointer;user-select:none">
+        <span style="font-size:13px;font-weight:700;flex:1">▼ 신규 배정 대기</span>
+        <span style="font-size:12px;opacity:.6">2건</span>
+      </div>
+      <div class="adj-hist-body" style="border:1px solid var(--g3);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;margin-bottom:10px">
+
+        <div class="adj-hist-row" style="display:grid;grid-template-columns:90px 100px 130px 100px 1fr 1fr 120px;align-items:start;padding:10px 14px;border-bottom:1px solid var(--g3);gap:10px;transition:background .1s">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--g5)">2026-03-11</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--bl)">MPSP-367</div>
+          <div style="font-size:12px;font-weight:600;color:var(--g9)">과제명 FFF</div>
+          <div><span class="badge b-bl" style="font-size:10px">신규 배정</span></div>
+          <div style="font-size:12px;color:var(--g7)">하반기 적용 예정 · 우선순위 배정 필요</div>
+          <div style="font-size:12px;color:var(--g5)">우선순위 배정 후 담당자 배정 예정</div>
+          <div style="display:flex;gap:4px;justify-content:flex-end">
+            <button class="btn btn-out btn-sm" onclick="editAdjHistRow(this)">수정</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAdjHistRow(this)">삭제</button>
+          </div>
+        </div>
+
+        <div class="adj-hist-row" style="display:grid;grid-template-columns:90px 100px 130px 100px 1fr 1fr 120px;align-items:start;padding:10px 14px;gap:10px;transition:background .1s">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--g5)">2026-03-11</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--bl)">MPSP-366</div>
+          <div style="font-size:12px;font-weight:600;color:var(--g9)">과제명 GGG</div>
+          <div><span class="badge b-bl" style="font-size:10px">신규 배정</span></div>
+          <div style="font-size:12px;color:var(--g7)">상반기 구조 설계 · 하반기 오픈 연계</div>
+          <div style="font-size:12px;color:var(--g5)">편성팀 킥오프 일정 조율 후 배정 예정</div>
+          <div style="display:flex;gap:4px;justify-content:flex-end">
+            <button class="btn btn-out btn-sm" onclick="editAdjHistRow(this)">수정</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAdjHistRow(this)">삭제</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 
 
-<!-- MODAL: 과제조정 메모 수정 -->
-<div class="modal-overlay" id="adj-modal">
+<!-- MODAL: 주요성과 분기 추가 -->
+<div class="modal-overlay" id="perf-sec-modal">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-title">분기 섹션 추가</div>
+    <div class="form-row"><label class="form-label">분기명</label><input type="text" id="psm-title" placeholder="예: 2026년 3분기"></div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closePerfSecModal()">취소</button>
+      <button class="btn btn-pr" onclick="savePerfSecModal()">추가</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: 주요성과 항목 수정/추가 -->
+<div class="modal-overlay" id="perf-modal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-title" id="perf-modal-title">항목 추가</div>
+    <div class="form-row"><label class="form-label">과제명</label><input type="text" id="pm-label" placeholder="과제명 AAA"></div>
+    <div class="form-row"><label class="form-label">성과 수치</label><input type="text" id="pm-value" placeholder="예: +11.5%p, 91h → 74h"></div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closePerfModal()">취소</button>
+      <button class="btn btn-pr" onclick="savePerfModal()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: 의사결정 분기 추가 -->
+<div class="modal-overlay" id="dec-sec-modal">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-title">분기 섹션 추가</div>
+    <div class="form-row"><label class="form-label">분기명</label><input type="text" id="dsm-title" placeholder="예: 2026년 3분기"></div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closeDecSecModal()">취소</button>
+      <button class="btn btn-pr" onclick="saveDecSecModal()">추가</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: 의사결정 항목 수정/추가 -->
+<div class="modal-overlay" id="dec-modal">
   <div class="modal" style="max-width:480px">
-    <div class="modal-title">조정 내용 수정</div>
-    <div class="form-row">
-      <label class="form-label">조정/배정 내용 (자유롭게 입력)</label>
-      <textarea id="adj-memo-input" style="height:100px;width:100%;font-size:13px;padding:8px 10px;border-radius:6px;font-family:var(--font)" placeholder="조정 내용, 결정 사항, 담당자 등을 자유롭게 입력하세요..."></textarea>
+    <div class="modal-title" id="dec-modal-title">항목 추가</div>
+    <div class="form-row"><label class="form-label">제목</label><input type="text" id="dm-title" placeholder="과제명 BBB — 목표 조정 필요"></div>
+    <div class="form-row"><label class="form-label">내용</label><textarea id="dm-desc" style="height:80px" placeholder="상세 내용을 입력하세요"></textarea></div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closeDecModal()">취소</button>
+      <button class="btn btn-pr" onclick="saveDecModal()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: 조정 이력 행 수정 -->
+<div class="modal-overlay" id="adj-hist-modal">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-title">조정 이력 수정</div>
+    <div style="display:grid;grid-template-columns:130px 110px 140px 1fr;gap:8px;margin-bottom:10px">
+      <div class="form-row"><label class="form-label">날짜</label><input type="date" id="ahm-date" style="width:100%"></div>
+      <div class="form-row"><label class="form-label">MPSP</label><input type="text" id="ahm-mpsp" style="width:100%"></div>
+      <div class="form-row"><label class="form-label">과제명</label><input type="text" id="ahm-name" style="width:100%"></div>
+      <div class="form-row"><label class="form-label">조정 유형</label>
+        <select id="ahm-type" style="width:100%">
+          <option>우선순위 조정</option><option>목표 조정</option><option>Hold</option><option>Drop/중단</option><option>신규 배정</option><option>방향 전환</option><option>KPI 입력 요청</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg2">
+      <div class="form-row"><label class="form-label">조정 사유</label><textarea id="ahm-reason" style="height:60px"></textarea></div>
+      <div class="form-row"><label class="form-label">결정 내용 / 후속 조치</label><textarea id="ahm-action" style="height:60px"></textarea></div>
     </div>
     <div class="modal-btns">
-      <button class="btn btn-out" onclick="closeAdjModal()">취소</button>
-      <button class="btn btn-pr" onclick="saveAdjMemo()">저장</button>
+      <button class="btn btn-out" onclick="closeAdjHistModal()">취소</button>
+      <button class="btn btn-pr" onclick="saveAdjHistModal()">저장</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: 과제 편집 (가로 4열 그리드) -->
+<!-- MODAL: 과제 편집 -->
 <div class="modal-overlay" id="modal-edit">
   <div class="modal">
     <div class="modal-title">과제 편집</div>
     <div class="fg4" style="margin-bottom:10px">
       <div class="form-row"><label class="form-label">구분</label><select id="m-type"><option>핵심</option><option>관리</option></select></div>
       <div class="form-row"><label class="form-label">MPSP</label><input type="text" id="m-mpsp" placeholder="MPSP-XXX"></div>
-      <div class="form-row"><label class="form-label">상태</label><select id="m-status"><option>진행중</option><option>오픈완료</option><option>검토중</option><option>중단</option></select></div>
+      <div class="form-row"><label class="form-label">상태</label><select id="m-status"><option>진행중</option><option>오픈완료</option><option>검토중</option><option>중단</option><option>지연</option></select></div>
       <div class="form-row"><label class="form-label">오픈예정일</label><input type="date" id="m-date"></div>
     </div>
     <div class="form-row"><label class="form-label">과제명</label><input type="text" id="m-name" placeholder="과제명 입력"></div>
     <div class="fg2" style="margin-bottom:0">
-      <div class="form-row"><label class="form-label">발의부서</label><select id="m-from"><option>마케팅팀</option><option>편성팀</option><option>전략기획팀</option><option>라이브커머스팀</option><option>데이터분석팀</option><option>법무팀</option></select></div>
-      <div class="form-row"><label class="form-label">실행부서</label><select id="m-to"><option>백엔드서비스</option><option>전시서비스기획팀</option><option>백엔드서비스 / 전시서비스기획팀</option></select></div>
+      <div class="form-row"><label class="form-label">발의부서</label><input type="text" id="m-from" placeholder="발의부서"></div>
+      <div class="form-row"><label class="form-label">실행부서</label><input type="text" id="m-to" placeholder="실행부서"></div>
     </div>
     <div class="fg2" style="margin-bottom:0">
       <div class="form-row"><label class="form-label">기획담당자</label><input type="text" id="m-plan" placeholder="이름"></div>
@@ -885,7 +1122,6 @@ td:last-child{border-right:none}
       <div class="form-row"><label class="form-label">목표 수치</label><input type="text" id="m-kpi-val" placeholder="예: +2.5%, 50,000명"></div>
     </div>
     <div class="form-row"><label class="form-label">이슈사항</label><input type="text" id="m-issue" placeholder="이슈 내용"></div>
-    <div class="form-row"><label class="form-label">변경 메모</label><textarea id="m-memo" placeholder="변경 사유를 간략히 기록하세요."></textarea></div>
     <div class="modal-btns">
       <button class="btn btn-out" onclick="closeEditModal()">취소</button>
       <button class="btn btn-pr" onclick="saveEditModal()">저장</button>
@@ -898,16 +1134,16 @@ td:last-child{border-right:none}
   <div class="modal" style="max-width:480px">
     <div class="modal-title">운영 프로세스 편집</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <div class="form-row"><label class="form-label">1단계 이름</label><input type="text" id="e-f1n" value="MPSP 양식 제출"></div>
-      <div class="form-row"><label class="form-label">1단계 담당</label><input type="text" id="e-f1w" value="요청 부서 담당자"></div>
-      <div class="form-row"><label class="form-label">2단계 이름</label><input type="text" id="e-f2n" value="과제분류·우선순위"></div>
-      <div class="form-row"><label class="form-label">2단계 담당</label><input type="text" id="e-f2w" value="서비스기획 담당별 그룹장"></div>
-      <div class="form-row"><label class="form-label">3단계 이름</label><input type="text" id="e-f3n" value="실행"></div>
-      <div class="form-row"><label class="form-label">3단계 담당</label><input type="text" id="e-f3w" value="기획·디자인·개발"></div>
-      <div class="form-row"><label class="form-label">4단계 이름</label><input type="text" id="e-f4n" value="이슈조정"></div>
-      <div class="form-row"><label class="form-label">4단계 담당</label><input type="text" id="e-f4w" value="조직별 그룹장 (Fast-Track)"></div>
-      <div class="form-row"><label class="form-label">5단계 이름</label><input type="text" id="e-f5n" value="공유/개선"></div>
-      <div class="form-row"><label class="form-label">5단계 담당</label><input type="text" id="e-f5w" value="Bi-weekly 각 그룹별"></div>
+      <div class="form-row"><label class="form-label">1단계 이름</label><input type="text" id="e-f1n"></div>
+      <div class="form-row"><label class="form-label">1단계 담당</label><input type="text" id="e-f1w"></div>
+      <div class="form-row"><label class="form-label">2단계 이름</label><input type="text" id="e-f2n"></div>
+      <div class="form-row"><label class="form-label">2단계 담당</label><input type="text" id="e-f2w"></div>
+      <div class="form-row"><label class="form-label">3단계 이름</label><input type="text" id="e-f3n"></div>
+      <div class="form-row"><label class="form-label">3단계 담당</label><input type="text" id="e-f3w"></div>
+      <div class="form-row"><label class="form-label">4단계 이름</label><input type="text" id="e-f4n"></div>
+      <div class="form-row"><label class="form-label">4단계 담당</label><input type="text" id="e-f4w"></div>
+      <div class="form-row"><label class="form-label">5단계 이름</label><input type="text" id="e-f5n"></div>
+      <div class="form-row"><label class="form-label">5단계 담당</label><input type="text" id="e-f5w"></div>
     </div>
     <div class="modal-btns">
       <button class="btn btn-out" onclick="closeProcModal()">취소</button>
@@ -938,201 +1174,520 @@ td:last-child{border-right:none}
   </div>
 </div>
 
+<!-- MODAL: 주요성과 수정/추가 -->
+<div class="modal-overlay" id="perf-modal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-title" id="perf-modal-title">주요 성과 추가</div>
+    <div class="form-row"><label class="form-label">과제명</label><input type="text" id="pm-label" placeholder="과제명 AAA"></div>
+    <div class="form-row"><label class="form-label">성과 수치</label><input type="text" id="pm-value" placeholder="예: +11.5%p, 91h → 74h"></div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closePerfModal()">취소</button>
+      <button class="btn btn-pr" onclick="savePerfModal()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: 의사결정 수정/추가 -->
+<div class="modal-overlay" id="dec-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title" id="dec-modal-title">의사결정 항목 추가</div>
+    <div class="form-row"><label class="form-label">제목</label><input type="text" id="dm-title" placeholder="과제명 BBB — 목표 조정 필요"></div>
+    <div class="form-row"><label class="form-label">내용</label><textarea id="dm-desc" style="height:80px" placeholder="상세 내용을 입력하세요"></textarea></div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closeDecModal()">취소</button>
+      <button class="btn btn-pr" onclick="saveDecModal()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: 리포팅 수정/추가 공용 -->
+<div class="modal-overlay" id="rpt-modal">
+  <div class="modal" style="max-width:680px">
+    <div class="modal-title" id="rpt-modal-title">리포팅 수정</div>
+    <div class="fg4" style="margin-bottom:10px">
+      <div class="form-row"><label class="form-label">MPSP</label><input type="text" id="rm-mpsp"></div>
+      <div class="form-row"><label class="form-label">과제명</label><input type="text" id="rm-name"></div>
+      <div class="form-row"><label class="form-label">구분</label><select id="rm-type"><option>핵심</option><option>관리</option></select></div>
+      <div class="form-row"><label class="form-label">정량목표</label><input type="text" id="rm-target"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:10px">
+      <div class="form-row"><label class="form-label">1월</label><input type="text" id="rm-m1" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">2월</label><input type="text" id="rm-m2" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">3월</label><input type="text" id="rm-m3" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">4월</label><input type="text" id="rm-m4" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">5월</label><input type="text" id="rm-m5" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">6월</label><input type="text" id="rm-m6" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">7월</label><input type="text" id="rm-m7" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">8월</label><input type="text" id="rm-m8" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">9월</label><input type="text" id="rm-m9" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">10월</label><input type="text" id="rm-m10" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">11월</label><input type="text" id="rm-m11" placeholder="—"></div>
+      <div class="form-row"><label class="form-label">12월</label><input type="text" id="rm-m12" placeholder="—"></div>
+    </div>
+    <div class="fg4">
+      <div class="form-row"><label class="form-label">달성률 (%)</label><input type="text" id="rm-rate" placeholder="예: 100"></div>
+      <div class="form-row"><label class="form-label">판정</label>
+        <select id="rm-verdict"><option>달성</option><option>모니터링</option><option>목표조정</option><option>의사결정</option><option>입력요청</option></select>
+      </div>
+      <div class="form-row"><label class="form-label">필터분류</label>
+        <select id="rm-filter"><option value="done">달성</option><option value="decision">의사결정</option><option value="nokpi">KPI미설정</option></select>
+      </div>
+      <div></div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-out" onclick="closeRptModal()">취소</button>
+      <button class="btn btn-pr" onclick="saveRptModal()">저장</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ── 탭 전환 ───────────────────────────────────
-function go(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-  document.getElementById('pg-' + id).classList.add('on');
+// ══ 탭 전환 ══
+function go(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
   el.classList.add('on');
 }
 
-// ── 과제현황 — KPI카드 필터 ─────────────────────
-let taskKpiFilter = 'all';
-function setTaskFilter(type, el) {
-  taskKpiFilter = type;
-  document.querySelectorAll('#pg-tasks .kpi').forEach(k => k.classList.remove('active'));
+// ══ 과제현황 필터 ══
+let taskKpiFilter='all';
+function setTaskFilter(type,el){
+  taskKpiFilter=type;
+  document.querySelectorAll('#pg-tasks .kpi').forEach(k=>k.classList.remove('active'));
   el.classList.add('active');
-  const labels = {
-    all:'전체 과제 목록', open:'오픈 완료 과제',
-    progress:'오픈 예정 과제', decision:'의사결정 필요 과제', nokpi:'KPI 미설정 과제'
-  };
-  document.getElementById('task-tbl-label').textContent = labels[type];
+  const labels={all:'전체 과제 목록',open:'오픈 완료 과제',progress:'오픈 예정 과제',decision:'의사결정 필요 과제',nokpi:'KPI 미설정 과제'};
+  document.getElementById('task-tbl-label').textContent=labels[type];
   applyFilters();
 }
-
-function applyFilters() {
-  const type   = document.getElementById('f-type').value;
-  const domain = document.getElementById('f-domain').value;
-  const status = document.getElementById('f-status').value;
-  const kpi    = document.getElementById('f-kpi').value;
-  const search = document.getElementById('f-search').value.toLowerCase();
-  let count = 0;
-  document.querySelectorAll('#task-tbody tr').forEach(tr => {
-    let show = true;
-    if (type   && tr.dataset.type   !== type)   show = false;
-    if (domain && tr.dataset.domain !== domain) show = false;
-    if (status && tr.dataset.status !== status) show = false;
-    if (kpi    && tr.dataset.kpi    !== kpi)    show = false;
-    if (search && !tr.textContent.toLowerCase().includes(search)) show = false;
-    if (taskKpiFilter === 'open'     && tr.dataset.status !== '오픈완료') show = false;
-    if (taskKpiFilter === 'progress' && tr.dataset.status !== '진행중')   show = false;
-    if (taskKpiFilter === 'decision' && tr.dataset.flag   !== 'Y')       show = false;
-    if (taskKpiFilter === 'nokpi'    && tr.dataset.kpi    !== '미설정')   show = false;
-    tr.style.display = show ? '' : 'none';
-    if (show) count++;
+function applyFilters(){
+  const type=document.getElementById('f-type').value;
+  const domain=document.getElementById('f-domain').value;
+  const status=document.getElementById('f-status').value;
+  const kpi=document.getElementById('f-kpi').value;
+  const search=document.getElementById('f-search').value.toLowerCase();
+  let count=0;
+  document.querySelectorAll('#task-tbody tr').forEach(tr=>{
+    let show=true;
+    if(type&&tr.dataset.type!==type)show=false;
+    if(domain&&tr.dataset.domain!==domain)show=false;
+    if(status&&tr.dataset.status!==status)show=false;
+    if(kpi&&tr.dataset.kpi!==kpi)show=false;
+    if(search&&!tr.textContent.toLowerCase().includes(search))show=false;
+    if(taskKpiFilter==='open'&&tr.dataset.status!=='오픈완료')show=false;
+    if(taskKpiFilter==='progress'&&tr.dataset.status!=='진행중')show=false;
+    if(taskKpiFilter==='decision'&&tr.dataset.flag!=='Y')show=false;
+    if(taskKpiFilter==='nokpi'&&tr.dataset.kpi!=='미설정')show=false;
+    tr.style.display=show?'':'none';
+    if(show)count++;
   });
-  document.getElementById('task-count').textContent = count + '건';
+  document.getElementById('task-count').textContent=count+'건';
 }
+window.addEventListener('DOMContentLoaded',()=>applyFilters());
 
-window.addEventListener('DOMContentLoaded', () => { applyFilters(); });
+// ══ 과제현황 편집 ══
+let _editRow=null;
+const STATUS_BADGE={진행중:{cls:'b-bl',txt:'진행중'},오픈완료:{cls:'b-ok',txt:'오픈완료'},검토중:{cls:'b-gray',txt:'검토중'},중단:{cls:'b-gray',txt:'중단'},지연:{cls:'b-rd',txt:'지연'}};
+const TYPE_BADGE={핵심:{cls:'b-core',txt:'핵심'},관리:{cls:'b-mgmt',txt:'관리'}};
 
-// ── 데이터 리포팅 — 카드 필터 ────────────────────
-function setRptFilter(type, el) {
-  document.querySelectorAll('#pg-report .kpi').forEach(k => k.classList.remove('active'));
-  el.classList.add('active');
-  const labels = {
-    all:'전체 과제 리포팅', done:'목표 달성 과제',
-    decision:'의사결정 필요 과제', nokpi:'KPI 미설정 과제'
-  };
-  document.getElementById('rpt-title').textContent = labels[type];
-  document.querySelectorAll('#rpt-tbody tr').forEach(tr => {
-    tr.style.display = (type === 'all' || tr.dataset.rpt === type) ? '' : 'none';
-  });
-}
-
-// ── 과제 편집 모달 ────────────────────────────────
-function openEditModal(btn) {
+function openEditModal(btn){
+  _editRow=btn.closest('tr');
+  const tds=_editRow.querySelectorAll('td');
+  const setVal=(id,v)=>{document.getElementById(id).value=v||'';};
+  const setSel=(id,v)=>{const el=document.getElementById(id);[...el.options].forEach(o=>{if(o.value===v||o.textContent===v)el.value=o.value;});};
+  setSel('m-type',tds[0].querySelector('.badge')?.textContent.trim());
+  setVal('m-mpsp',tds[1].querySelector('a')?.textContent.trim()||tds[1].textContent.trim());
+  setVal('m-name',tds[2].textContent.trim());
+  setVal('m-from',tds[3].textContent.trim());
+  setVal('m-to',tds[4].textContent.trim());
+  setVal('m-plan',tds[5].textContent.trim());
+  setVal('m-dev',tds[6].textContent.trim());
+  const dRaw=tds[7].textContent.trim();
+  const dm=dRaw.match(/(\d{2})-(\d{2})-(\d{2})/);
+  setVal('m-date',dm?'20'+dm[1]+'-'+dm[2]+'-'+dm[3]:'');
+  setSel('m-status',tds[8].querySelector('.badge')?.textContent.trim());
+  const kpiRaw=tds[9].textContent.replace(/설정|미설정/g,'').trim();
+  const kpiP=kpiRaw.split(/\s+/);
+  setVal('m-kpi',kpiP[0]||'');
+  setVal('m-kpi-val',kpiP.slice(1).join(' '));
+  setVal('m-issue',tds[10].textContent.trim()==='—'?'':tds[10].textContent.trim());
   document.getElementById('modal-edit').classList.add('open');
 }
-function closeEditModal() { document.getElementById('modal-edit').classList.remove('open'); }
-function saveEditModal() {
-  alert('저장되었습니다.');
-  closeEditModal();
+function closeEditModal(){document.getElementById('modal-edit').classList.remove('open');_editRow=null;}
+function saveEditModal(){
+  if(!_editRow)return;
+  const tds=_editRow.querySelectorAll('td');
+  const g=id=>document.getElementById(id).value.trim();
+  const typeVal=g('m-type'),mpspVal=g('m-mpsp'),nameVal=g('m-name'),fromVal=g('m-from'),toVal=g('m-to');
+  const planVal=g('m-plan'),devVal=g('m-dev'),dateVal=g('m-date'),statusVal=g('m-status');
+  const kpiName=g('m-kpi'),kpiNum=g('m-kpi-val'),issueVal=g('m-issue');
+  const tb=TYPE_BADGE[typeVal]||TYPE_BADGE['핵심'];
+  const sb=STATUS_BADGE[statusVal]||{cls:'b-gray',txt:statusVal};
+  const hasKpi=kpiName.length>0;
+  const isStop=statusVal==='중단';
+  const dateDisp=dateVal?dateVal.replace(/^20/,''):'—';
+  tds[0].innerHTML=`<span class="badge ${tb.cls}">${tb.txt}</span>`;
+  tds[1].innerHTML=`<a href="https://11jira.11stcorp.com/browse/${mpspVal}" target="_blank" class="td-key" style="text-decoration:none">${mpspVal}</a>`;
+  tds[2].className='td-name';tds[2].style.textDecoration=isStop?'line-through':'';tds[2].style.color=isStop?'var(--g5)':'';tds[2].textContent=nameVal;
+  tds[3].textContent=fromVal;tds[3].style.fontSize='12px';
+  tds[4].textContent=toVal;tds[4].style.fontSize='12px';
+  tds[5].textContent=planVal;tds[5].style.fontSize='12px';
+  tds[6].textContent=devVal;tds[6].style.fontSize='12px';
+  tds[7].className='td-date';tds[7].textContent=dateDisp;tds[7].style.color=statusVal==='지연'?'var(--rdm)':'';
+  tds[8].innerHTML=`<span class="badge ${sb.cls}">${sb.txt}</span>`;
+  tds[9].style.fontSize='12px';
+  tds[9].innerHTML=hasKpi?`<span class="badge b-kpi-ok">설정</span> ${kpiName} ${kpiNum}`:`<span class="badge b-kpi-no">미설정</span>`;
+  tds[10].textContent=issueVal||'—';tds[10].style.fontSize='12px';tds[10].style.color=issueVal?'var(--g7)':'var(--g5)';
+  _editRow.dataset.type=typeVal;_editRow.dataset.status=statusVal;_editRow.dataset.kpi=hasKpi?'설정':'미설정';
+  closeEditModal();applyFilters();
 }
 
-// ── 프로세스 편집 모달 ────────────────────────────
-function openProcessEdit() { document.getElementById('proc-modal').classList.add('open'); }
-function closeProcModal()  { document.getElementById('proc-modal').classList.remove('open'); }
-function saveProcModal() {
-  ['f1','f2','f3','f4','f5'].forEach(f => {
-    document.getElementById(f+'-name').textContent = document.getElementById('e-'+f+'n').value;
-    document.getElementById(f+'-who').textContent  = document.getElementById('e-'+f+'w').value;
+// ══ 리포팅 필터 ══
+function setRptFilter(type,el){
+  document.querySelectorAll('#pg-report .kpi').forEach(k=>k.classList.remove('active'));
+  el.classList.add('active');
+  const labels={all:'전체 과제 리포팅',done:'목표 달성 과제',decision:'의사결정 필요 과제',nokpi:'KPI 미설정 과제'};
+  document.getElementById('rpt-title').textContent=labels[type];
+  document.querySelectorAll('#rpt-tbody tr').forEach(tr=>{tr.style.display=(type==='all'||tr.dataset.rpt===type)?'':'none';});
+}
+
+// ══ 리포팅 수정/추가 ══
+let _rptRow=null;
+const VERDICT_CLS={달성:'b-ok',모니터링:'b-bl',목표조정:'b-rd',의사결정:'b-rd',입력요청:'b-gray'};
+function openRptEdit(btn){
+  _rptRow=btn.closest('tr');
+  const tds=_rptRow.querySelectorAll('td');
+  document.getElementById('rpt-modal-title').textContent='리포팅 수정';
+  const g=(id,v)=>document.getElementById(id).value=v||'';
+  g('rm-mpsp',tds[0].textContent.trim());
+  g('rm-name',tds[1].textContent.trim());
+  const typeT=tds[2].querySelector('.badge')?.textContent.trim()||'핵심';
+  const tsel=document.getElementById('rm-type');[...tsel.options].forEach(o=>{if(o.textContent===typeT)tsel.value=o.value;});
+  g('rm-target',tds[3].textContent.trim());
+  for(let i=1;i<=12;i++){const td=tds[3+i];g('rm-m'+i,td&&td.getAttribute('colspan')?'':td?td.textContent.trim():'');}
+  const rateDiv=tds[16]?.querySelector('div');
+  g('rm-rate',rateDiv?rateDiv.textContent.replace('%','').trim():'');
+  const verdictT=tds[17]?.querySelector('.badge')?.textContent.trim()||'달성';
+  const vsel=document.getElementById('rm-verdict');[...vsel.options].forEach(o=>{if(o.textContent===verdictT)vsel.value=o.value;});
+  const fval=_rptRow.dataset.rpt||'done';
+  const fsel=document.getElementById('rm-filter');[...fsel.options].forEach(o=>{if(o.value===fval)fsel.value=o.value;});
+  document.getElementById('rpt-modal').classList.add('open');
+}
+function openRptAddModal(){
+  _rptRow=null;
+  document.getElementById('rpt-modal-title').textContent='리포팅 행 추가';
+  ['rm-mpsp','rm-name','rm-target','rm-rate'].forEach(id=>document.getElementById(id).value='');
+  for(let i=1;i<=12;i++)document.getElementById('rm-m'+i).value='';
+  document.getElementById('rpt-modal').classList.add('open');
+}
+function closeRptModal(){document.getElementById('rpt-modal').classList.remove('open');_rptRow=null;}
+function buildRptRow(mpsp,name,type,target,months,rate,verdict,filter){
+  const rateN=parseFloat(rate)||0,barW=Math.min(rateN,100);
+  const rc=rateN>=100?'var(--okm)':rateN>=70?'var(--bl)':'var(--rdm)';
+  const tb=TYPE_BADGE[type]||TYPE_BADGE['핵심'],vc=VERDICT_CLS[verdict]||'b-gray';
+  const mc=months.map(m=>`<td style="font-size:11px;color:${m&&m!=='—'?'var(--g7)':'var(--g5)'}">${m||'—'}</td>`).join('');
+  return `<td class="td-key rpt-sticky">${mpsp}</td><td class="td-name">${name}</td><td><span class="badge ${tb.cls}">${type}</span></td><td style="font-size:11px">${target}</td>${mc}<td><div style="font-size:12px;font-weight:700;color:${rc}">${rate}%</div><div class="ach-bar"><div class="ach-fill" style="width:${barW}%;background:${rc}"></div></div></td><td><span class="badge ${vc}">${verdict}</span></td><td><button class="btn btn-out btn-sm" onclick="openRptEdit(this)">수정</button> <button class="btn btn-danger btn-sm" onclick="deleteRptRow(this)">삭제</button></td>`;
+}
+function saveRptModal(){
+  const g=id=>document.getElementById(id).value.trim();
+  const mpsp=g('rm-mpsp'),name=g('rm-name'),type=g('rm-type'),target=g('rm-target'),rate=g('rm-rate'),verdict=g('rm-verdict'),filter=g('rm-filter');
+  const months=[];for(let i=1;i<=12;i++)months.push(g('rm-m'+i));
+  if(_rptRow){_rptRow.dataset.rpt=filter;_rptRow.innerHTML=buildRptRow(mpsp,name,type,target,months,rate,verdict,filter);}
+  else{if(!mpsp||!name){alert('MPSP와 과제명은 필수입니다.');return;}const tr=document.createElement('tr');tr.dataset.rpt=filter;tr.innerHTML=buildRptRow(mpsp,name,type,target,months,rate,verdict,filter);document.getElementById('rpt-tbody').appendChild(tr);}
+  closeRptModal();
+}
+function deleteRptRow(btn){if(!confirm('이 행을 삭제하시겠습니까?'))return;btn.closest('tr').remove();}
+
+// ══ 주요성과 — 분기 섹션 ══
+let _perfTargetSec=null;
+function togglePerfSec(hdr){
+  const body=hdr.nextElementSibling;
+  const hidden=body.style.display==='none';
+  body.style.display=hidden?'':'none';
+  const s=hdr.querySelector('span');
+  s.textContent=s.textContent.replace(hidden?'▶':'▼',hidden?'▼':'▶').replace(' (클릭해서 펼치기)','')+(hidden?'':' (클릭해서 펼치기)');
+  hdr.style.background=hidden?'var(--dk)':'#374151';
+}
+function openPerfSectionAdd(){document.getElementById('psm-title').value='';document.getElementById('perf-sec-modal').classList.add('open');}
+function closePerfSecModal(){document.getElementById('perf-sec-modal').classList.remove('open');}
+function savePerfSecModal(){
+  const title=document.getElementById('psm-title').value.trim();
+  if(!title){alert('분기명을 입력하세요');return;}
+  const sec=document.createElement('div');
+  sec.className='perf-section';
+  sec.style.cssText='background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px';
+  sec.innerHTML=`<div class="perf-sec-hdr" onclick="togglePerfSec(this)" style="background:#374151;color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none"><span style="font-size:13px;font-weight:700;flex:1">▶ ${title} (클릭해서 펼치기)</span><button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openPerfItemAdd(this)">+ 항목</button><button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deletePerfSection(this)">섹션 삭제</button></div><div class="perf-sec-body" style="display:none"><div style="padding:16px 14px;font-size:13px;color:var(--g5);text-align:center">항목을 추가하세요</div></div>`;
+  document.getElementById('perf-sections').appendChild(sec);
+  closePerfSecModal();
+}
+function deletePerfSection(btn){if(!confirm('이 분기 섹션을 삭제하시겠습니까?'))return;btn.closest('.perf-section').remove();}
+
+// 주요성과 — 항목
+let _perfItem=null,_perfSec=null;
+function openPerfItemAdd(btn){
+  _perfItem=null;_perfSec=btn.closest('.perf-section').querySelector('.perf-sec-body');
+  document.getElementById('perf-modal-title').textContent='항목 추가';
+  document.getElementById('pm-label').value='';document.getElementById('pm-value').value='';
+  document.getElementById('perf-modal').classList.add('open');
+}
+function openPerfEdit(btn){
+  _perfItem=btn.closest('.perf-item');_perfSec=null;
+  document.getElementById('perf-modal-title').textContent='항목 수정';
+  document.getElementById('pm-label').value=_perfItem.querySelector('.perf-label').textContent.trim();
+  document.getElementById('pm-value').value=_perfItem.querySelector('.perf-value').textContent.trim();
+  document.getElementById('perf-modal').classList.add('open');
+}
+function closePerfModal(){document.getElementById('perf-modal').classList.remove('open');_perfItem=null;_perfSec=null;}
+function savePerfModal(){
+  const label=document.getElementById('pm-label').value.trim();
+  const value=document.getElementById('pm-value').value.trim();
+  if(!label){alert('과제명을 입력하세요');return;}
+  if(_perfItem){
+    _perfItem.querySelector('.perf-label').textContent=label;
+    _perfItem.querySelector('.perf-value').textContent=value;
+  } else {
+    // 빈 안내 문구 제거
+    const empty=_perfSec.querySelector('div:only-child');
+    if(empty&&empty.textContent.includes('항목을 추가'))empty.remove();
+    const div=document.createElement('div');
+    div.className='perf-item';
+    div.style.cssText='display:flex;align-items:center;border-bottom:1px solid var(--g3)';
+    div.innerHTML=`<div style="flex:1;padding:9px 14px;font-size:13px;color:var(--g7)" class="perf-label">${label}</div><div style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);white-space:nowrap" class="perf-value">${value}</div><div class="perf-actions" style="display:flex;gap:4px;padding:0 8px;opacity:0;transition:opacity .15s;flex-shrink:0"><button class="btn btn-out btn-sm" onclick="openPerfEdit(this)">수정</button><button class="btn btn-danger btn-sm" onclick="deletePerfItem(this)">삭제</button></div>`;
+    _perfSec.appendChild(div);
+  }
+  closePerfModal();
+}
+function deletePerfItem(btn){if(!confirm('이 항목을 삭제하시겠습니까?'))return;btn.closest('.perf-item').remove();}
+
+// ══ 의사결정 — 분기 섹션 ══
+function toggleDecSec(hdr){
+  const body=hdr.nextElementSibling;
+  const hidden=body.style.display==='none';
+  body.style.display=hidden?'':'none';
+  const s=hdr.querySelector('span');
+  s.textContent=s.textContent.replace(hidden?'▶':'▼',hidden?'▼':'▶').replace(' (클릭해서 펼치기)','')+(hidden?'':' (클릭해서 펼치기)');
+  hdr.style.background=hidden?'var(--dk)':'#374151';
+}
+function openDecSectionAdd(){document.getElementById('dsm-title').value='';document.getElementById('dec-sec-modal').classList.add('open');}
+function closeDecSecModal(){document.getElementById('dec-sec-modal').classList.remove('open');}
+function saveDecSecModal(){
+  const title=document.getElementById('dsm-title').value.trim();
+  if(!title){alert('분기명을 입력하세요');return;}
+  const sec=document.createElement('div');
+  sec.className='dec-section';
+  sec.style.cssText='background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px';
+  sec.innerHTML=`<div class="dec-sec-hdr" onclick="toggleDecSec(this)" style="background:#374151;color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none"><span style="font-size:13px;font-weight:700;flex:1">▶ ${title} (클릭해서 펼치기)</span><button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openDecItemAdd(this)">+ 항목</button><button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deleteDecSection(this)">섹션 삭제</button></div><div class="dec-sec-body" style="display:none"><div style="padding:16px 14px;font-size:13px;color:var(--g5);text-align:center">항목을 추가하세요</div></div>`;
+  document.getElementById('dec-sections').appendChild(sec);
+  closeDecSecModal();
+}
+function deleteDecSection(btn){if(!confirm('이 분기 섹션을 삭제하시겠습니까?'))return;btn.closest('.dec-section').remove();}
+
+// 의사결정 — 항목
+let _decItem=null,_decSec=null;
+function openDecItemAdd(btn){
+  _decItem=null;_decSec=btn.closest('.dec-section').querySelector('.dec-sec-body');
+  document.getElementById('dec-modal-title').textContent='항목 추가';
+  document.getElementById('dm-title').value='';document.getElementById('dm-desc').value='';
+  document.getElementById('dec-modal').classList.add('open');
+}
+function openDecEdit(btn){
+  _decItem=btn.closest('.dec-item');_decSec=null;
+  document.getElementById('dec-modal-title').textContent='항목 수정';
+  document.getElementById('dm-title').value=_decItem.querySelector('.dec-title').textContent.trim();
+  document.getElementById('dm-desc').value=_decItem.querySelector('.dec-desc').innerText.trim();
+  document.getElementById('dec-modal').classList.add('open');
+}
+function closeDecModal(){document.getElementById('dec-modal').classList.remove('open');_decItem=null;_decSec=null;}
+function saveDecModal(){
+  const title=document.getElementById('dm-title').value.trim();
+  const desc=document.getElementById('dm-desc').value.trim();
+  if(!title){alert('제목을 입력하세요');return;}
+  if(_decItem){
+    _decItem.querySelector('.dec-title').textContent=title;
+    _decItem.querySelector('.dec-desc').innerText=desc;
+  } else {
+    const empty=_decSec.querySelector('div:only-child');
+    if(empty&&empty.textContent.includes('항목을 추가'))empty.remove();
+    const div=document.createElement('div');
+    div.className='dec-item';
+    div.style.cssText='padding:12px 14px;border-bottom:1px solid var(--g3);position:relative';
+    div.innerHTML=`<div class="dec-actions" style="position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity .15s"><button class="btn btn-out btn-sm" onclick="openDecEdit(this)">수정</button><button class="btn btn-danger btn-sm" onclick="deleteDecItem(this)">삭제</button></div><div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px;padding-right:90px" class="dec-title">${title}</div><div style="font-size:12px;color:var(--g5);line-height:1.6" class="dec-desc">${desc}</div>`;
+    _decSec.appendChild(div);
+  }
+  closeDecModal();
+}
+function deleteDecItem(btn){if(!confirm('이 항목을 삭제하시겠습니까?'))return;btn.closest('.dec-item').remove();}
+
+// ══ 과제조정 이력 ══
+const ADJ_TYPE_CLS={'우선순위 조정':'b-bl','목표 조정':'b-rd','Hold':'b-gray','Drop/중단':'b-gray','신규 배정':'b-bl','방향 전환':'b-rd','KPI 입력 요청':'b-gray'};
+
+function toggleAdjHist(hdr){
+  const body=hdr.nextElementSibling;
+  const hidden=body.style.display==='none';
+  body.style.display=hidden?'':'none';
+  const s=hdr.querySelector('span');
+  s.textContent=s.textContent.replace(hidden?'▶':'▼',hidden?'▼':'▶').replace(' (클릭해서 펼치기)','')+(hidden?'':' (클릭해서 펼치기)');
+  hdr.style.background=hidden?'var(--dk)':'#374151';
+}
+
+function addAdjHistory(){
+  const g=id=>document.getElementById(id).value.trim();
+  const date=g('ah-date'),mpsp=g('ah-mpsp'),name=g('ah-name'),type=g('ah-type'),reason=g('ah-reason'),action=g('ah-action');
+  if(!date||!mpsp||!name){alert('날짜, MPSP, 과제명은 필수입니다.');return;}
+  const ym=date.substring(0,7);// "2026-03"
+  const label=date.substring(0,4)+'년 '+parseInt(date.substring(5,7))+'월';
+
+  // 같은 월 섹션 찾기
+  let sec=null;
+  document.querySelectorAll('.adj-hist-section').forEach(s=>{
+    const hdrSpan=s.querySelector('.adj-hist-hdr span');
+    if(hdrSpan&&hdrSpan.textContent.includes(label.replace(' (클릭해서 펼치기)','')))sec=s;
+  });
+
+  const rowHTML=buildAdjHistRow(date,mpsp,name,type,reason,action);
+
+  if(sec){
+    const body=sec.querySelector('.adj-hist-body');
+    body.style.display='';
+    const div=document.createElement('div');div.innerHTML=rowHTML;
+    body.appendChild(div.firstElementChild);
+    // 건수 업데이트
+    const cnt=body.querySelectorAll('.adj-hist-row').length;
+    sec.querySelector('.adj-hist-hdr span:last-child').textContent=cnt+'건';
+  } else {
+    // 새 월 섹션 생성 (신규 배정 대기 섹션 앞에)
+    const wrap=document.getElementById('adj-history-wrap');
+    const newSec=document.createElement('div');
+    newSec.className='adj-hist-section';
+    newSec.innerHTML=`<div class="adj-hist-hdr" onclick="toggleAdjHist(this)" style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--dk);color:#fff;border-radius:8px 8px 0 0;cursor:pointer;user-select:none"><span style="font-size:13px;font-weight:700;flex:1">▼ ${label}</span><span style="font-size:12px;opacity:.6">1건</span></div><div class="adj-hist-body" style="border:1px solid var(--g3);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;margin-bottom:10px">${rowHTML}</div>`;
+    // 신규 배정 대기 섹션 앞에 삽입
+    const lastSec=wrap.querySelector('.adj-hist-section:last-child');
+    if(lastSec)wrap.insertBefore(newSec,lastSec);
+    else wrap.appendChild(newSec);
+  }
+  ['ah-date','ah-mpsp','ah-name','ah-reason','ah-action'].forEach(id=>document.getElementById(id).value='');
+}
+
+function buildAdjHistRow(date,mpsp,name,type,reason,action){
+  const cls=ADJ_TYPE_CLS[type]||'b-gray';
+  return `<div class="adj-hist-row" style="display:grid;grid-template-columns:90px 100px 130px 100px 1fr 1fr 120px;align-items:start;padding:10px 14px;border-bottom:1px solid var(--g3);gap:10px;transition:background .1s"><div style="font-family:var(--mono);font-size:11px;color:var(--g5)">${date}</div><div style="font-family:var(--mono);font-size:11px;color:var(--bl)">${mpsp}</div><div style="font-size:12px;font-weight:600;color:var(--g9)">${name}</div><div><span class="badge ${cls}" style="font-size:10px">${type}</span></div><div style="font-size:12px;color:var(--g7)">${reason}</div><div style="font-size:12px;color:var(--g5)">${action}</div><div style="display:flex;gap:4px;justify-content:flex-end"><button class="btn btn-out btn-sm" onclick="editAdjHistRow(this)">수정</button><button class="btn btn-danger btn-sm" onclick="deleteAdjHistRow(this)">삭제</button></div></div>`;
+}
+
+let _adjHistRow=null;
+function editAdjHistRow(btn){
+  _adjHistRow=btn.closest('.adj-hist-row');
+  const cells=_adjHistRow.querySelectorAll('div');
+  document.getElementById('ahm-date').value=cells[0].textContent.trim();
+  document.getElementById('ahm-mpsp').value=cells[1].textContent.trim();
+  document.getElementById('ahm-name').value=cells[2].textContent.trim();
+  const typeT=cells[3].querySelector('.badge')?.textContent.trim()||'우선순위 조정';
+  const tsel=document.getElementById('ahm-type');[...tsel.options].forEach(o=>{if(o.textContent===typeT)tsel.value=o.value;});
+  document.getElementById('ahm-reason').value=cells[4].textContent.trim();
+  document.getElementById('ahm-action').value=cells[5].textContent.trim();
+  document.getElementById('adj-hist-modal').classList.add('open');
+}
+function closeAdjHistModal(){document.getElementById('adj-hist-modal').classList.remove('open');_adjHistRow=null;}
+function saveAdjHistModal(){
+  if(!_adjHistRow)return;
+  const g=id=>document.getElementById(id).value.trim();
+  const date=g('ahm-date'),mpsp=g('ahm-mpsp'),name=g('ahm-name'),type=g('ahm-type'),reason=g('ahm-reason'),action=g('ahm-action');
+  const cls=ADJ_TYPE_CLS[type]||'b-gray';
+  const cells=_adjHistRow.querySelectorAll(':scope>div');
+  cells[0].textContent=date;
+  cells[1].textContent=mpsp;
+  cells[2].textContent=name;
+  cells[3].innerHTML=`<span class="badge ${cls}" style="font-size:10px">${type}</span>`;
+  cells[4].textContent=reason;
+  cells[5].textContent=action;
+  closeAdjHistModal();
+}
+function deleteAdjHistRow(btn){
+  if(!confirm('이 이력을 삭제하시겠습니까?'))return;
+  const row=btn.closest('.adj-hist-row');
+  const body=row.closest('.adj-hist-body');
+  row.remove();
+  const cnt=body.querySelectorAll('.adj-hist-row').length;
+  const hdr=body.previousElementSibling;
+  if(hdr)hdr.querySelector('span:last-child').textContent=cnt+'건';
+}
+
+// ══ 운영 프로세스 ══
+function openProcessEdit(){
+  ['f1','f2','f3','f4','f5'].forEach(f=>{
+    document.getElementById('e-'+f+'n').value=document.getElementById(f+'-name').textContent;
+    document.getElementById('e-'+f+'w').value=document.getElementById(f+'-who').textContent;
+  });
+  document.getElementById('proc-modal').classList.add('open');
+}
+function closeProcModal(){document.getElementById('proc-modal').classList.remove('open');}
+function saveProcModal(){
+  ['f1','f2','f3','f4','f5'].forEach(f=>{
+    document.getElementById(f+'-name').textContent=document.getElementById('e-'+f+'n').value;
+    document.getElementById(f+'-who').textContent=document.getElementById('e-'+f+'w').value;
   });
   closeProcModal();
 }
 
-// ── Bi-weekly ─────────────────────────────────────
-function toggleWk(id) {
-  const el  = document.getElementById(id);
-  const hdr = el.previousElementSibling;
-  const isHidden = el.style.display === 'none';
-  el.style.display = isHidden ? 'block' : 'none';
-  const s = hdr.querySelector('span');
-  s.textContent = s.textContent.replace(isHidden?'▶':'▼', isHidden?'▼':'▶');
+// ══ Bi-weekly ══
+function toggleWk(id){
+  const el=document.getElementById(id),hdr=el.previousElementSibling;
+  const hidden=el.style.display==='none';
+  el.style.display=hidden?'block':'none';
+  const s=hdr.querySelector('span');
+  s.textContent=s.textContent.replace(hidden?'▶':'▼',hidden?'▼':'▶');
 }
-
-let currentWkItem = null;
-
-function editWkItem(btn) {
-  currentWkItem = btn.closest('.wk-item');
-  const mpspEl    = currentWkItem.querySelector('.wk-mpsp');
-  const contentEl = currentWkItem.querySelector('.wk-content');
-  const fuEl      = currentWkItem.querySelector('.wk-fu-input');
-  document.getElementById('wk-mpsp-edit').value    = mpspEl    ? mpspEl.innerText    : '';
-  document.getElementById('wk-content-edit').value = contentEl ? contentEl.innerText : '';
-  document.getElementById('wk-fu-edit').value      = fuEl      ? fuEl.value          : '';
+let _wkItem=null;
+function editWkItem(btn){
+  _wkItem=btn.closest('.wk-item');
+  const mpspEl=_wkItem.querySelector('.wk-mpsp'),contEl=_wkItem.querySelector('.wk-content');
+  const fuInp=_wkItem.querySelector('.wk-fu-input'),fuSta=_wkItem.querySelector('.wk-fu');
+  document.getElementById('wk-mpsp-edit').value=mpspEl?mpspEl.textContent.trim():'';
+  document.getElementById('wk-content-edit').value=contEl?contEl.innerText.trim():'';
+  document.getElementById('wk-fu-edit').value=fuInp?fuInp.value.trim():(fuSta?fuSta.textContent.trim():'');
   document.getElementById('wk-modal').classList.add('open');
 }
-function closeWkModal() {
-  document.getElementById('wk-modal').classList.remove('open');
-  currentWkItem = null;
-}
-function saveWkEdit() {
-  if (!currentWkItem) return;
-  const mpspEl    = currentWkItem.querySelector('.wk-mpsp');
-  const contentEl = currentWkItem.querySelector('.wk-content');
-  const fuEl      = currentWkItem.querySelector('.wk-fu-input');
-  if (mpspEl)    mpspEl.textContent    = document.getElementById('wk-mpsp-edit').value;
-  if (contentEl) contentEl.textContent = document.getElementById('wk-content-edit').value;
-  if (fuEl)      fuEl.value            = document.getElementById('wk-fu-edit').value;
+function closeWkModal(){document.getElementById('wk-modal').classList.remove('open');_wkItem=null;}
+function saveWkEdit(){
+  if(!_wkItem)return;
+  const mpspNew=document.getElementById('wk-mpsp-edit').value.trim();
+  const contNew=document.getElementById('wk-content-edit').value.trim();
+  const fuNew=document.getElementById('wk-fu-edit').value.trim();
+  let mpspEl=_wkItem.querySelector('.wk-mpsp');
+  if(mpspNew){if(!mpspEl){mpspEl=document.createElement('div');mpspEl.className='wk-mpsp';_wkItem.querySelector('.wk-content').before(mpspEl);}mpspEl.textContent=mpspNew;}
+  else if(mpspEl)mpspEl.remove();
+  const contEl=_wkItem.querySelector('.wk-content');
+  if(contEl)contEl.innerText=contNew;
+  const fuInp=_wkItem.querySelector('.wk-fu-input');
+  if(fuInp)fuInp.value=fuNew;
+  else{const fuSta=_wkItem.querySelector('.wk-fu');if(fuSta)fuSta.textContent=fuNew;}
   closeWkModal();
 }
-
-function deleteWkItem(btn) {
-  if (!confirm('이 안건을 삭제하시겠습니까?')) return;
-  btn.closest('.wk-item').remove();
+function deleteWkItem(btn){
+  if(!confirm('이 안건을 삭제하시겠습니까?'))return;
+  const item=btn.closest('.wk-item');
+  // weekly-added 내 신규 추가 항목은 섹션 전체 삭제
+  const sec=btn.closest('.wk-section');
+  if(sec&&sec.closest('#weekly-added')){
+    sec.remove();
+  } else {
+    item.remove();
+  }
+}
+function addWeeklyItem(){
+  const group=document.getElementById('wi-group').value,type=document.getElementById('wi-type').value;
+  const content=document.getElementById('wi-content').value.trim(),mpsp=document.getElementById('wi-mpsp').value.trim();
+  const fu=document.getElementById('wi-fu').value.trim(),dateVal=document.getElementById('wi-date').value;
+  if(!content){alert('내용을 입력하세요');return;}
+  const dateStr=dateVal?new Date(dateVal).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'}):new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+  const id='wk-a-'+Date.now();
+  const html=`<div class="wk-section"><div class="wk-date-hdr" onclick="toggleWk('${id}')"><span>▼ ${dateStr} — 추가 안건</span><span class="badge b-bl" style="margin-left:8px">신규</span></div><div class="wk-body" id="${id}"><div class="wk-group"><div class="wk-group-hdr">${type} [${group}]</div><div class="wk-item"><div class="wk-actions"><button class="btn btn-out btn-sm" onclick="editWkItem(this)">수정</button><button class="btn btn-danger btn-sm" onclick="deleteWkItem(this)">삭제</button></div><div class="wk-item-grid"><div>${mpsp?`<div class="wk-mpsp">${mpsp}</div>`:''}<div class="wk-content">${content}</div></div><div class="wk-fu-wrap"><textarea class="wk-fu-input" placeholder="F/U 추가...">${fu}</textarea></div></div></div></div></div></div>`;
+  document.getElementById('weekly-added').insertAdjacentHTML('afterbegin',html);
+  ['wi-content','wi-mpsp','wi-fu'].forEach(id=>document.getElementById(id).value='');
 }
 
-function addWeeklyItem() {
-  const group   = document.getElementById('wi-group').value;
-  const type    = document.getElementById('wi-type').value;
-  const content = document.getElementById('wi-content').value.trim();
-  const mpsp    = document.getElementById('wi-mpsp').value.trim();
-  const fu      = document.getElementById('wi-fu').value.trim();
-  const dateVal = document.getElementById('wi-date').value;
-  if (!content) { alert('내용을 입력하세요'); return; }
-  const dateStr = dateVal
-    ? new Date(dateVal).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'})
-    : new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
-  const id = 'wk-a-' + Date.now();
-  const html = `<div class="wk-section">
-    <div class="wk-date-hdr" onclick="toggleWk('${id}')">
-      <span>▼ ${dateStr} — 추가 안건</span>
-      <span class="badge b-bl" style="margin-left:8px">신규</span>
-    </div>
-    <div class="wk-body" id="${id}">
-      <div class="wk-group">
-        <div class="wk-group-hdr">${type} [${group}]</div>
-        <div class="wk-item">
-          <div class="wk-actions">
-            <button class="btn btn-out btn-sm" onclick="editWkItem(this)">수정</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteWkItem(this)">삭제</button>
-          </div>
-          <div class="wk-item-grid">
-            <div>
-              ${mpsp?`<div class="wk-mpsp">${mpsp}</div>`:''}
-              <div class="wk-content">${content}</div>
-            </div>
-            <div class="wk-fu-wrap">
-              <textarea class="wk-fu-input" placeholder="F/U 추가...">${fu}</textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>`;
-  document.getElementById('weekly-added').insertAdjacentHTML('afterbegin', html);
-  ['wi-content','wi-mpsp','wi-fu'].forEach(id => document.getElementById(id).value = '');
-}
-
-// ── 과제조정 수정/삭제 ───────────────────────────
-let currentAdjId = null;
-function editAdjItem(id) {
-  currentAdjId = id;
-  const memo = document.getElementById(id + '-memo');
-  document.getElementById('adj-memo-input').value = memo ? memo.textContent.trim() : '';
-  document.getElementById('adj-modal').classList.add('open');
-}
-function closeAdjModal() {
-  document.getElementById('adj-modal').classList.remove('open');
-  currentAdjId = null;
-}
-function saveAdjMemo() {
-  if (!currentAdjId) return;
-  const memo = document.getElementById(currentAdjId + '-memo');
-  if (memo) memo.textContent = document.getElementById('adj-memo-input').value;
-  closeAdjModal();
-}
-function deleteAdjItem(id) {
-  if (!confirm('이 항목을 삭제하시겠습니까?')) return;
-  const row = document.getElementById(id);
-  if (row) row.remove();
-}
-
-// 모달 외부 클릭 닫기
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+// ══ 모달 외부 클릭 닫기 ══
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
 });
 </script>
 </body>
