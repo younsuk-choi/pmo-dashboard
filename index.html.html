@@ -202,8 +202,8 @@ td:last-child{border-right:none}
   <div class="kpi-row" style="grid-template-columns:repeat(5,1fr)">
     <div class="kpi c-bl active" id="kpi-all" onclick="setTaskFilter('all',this)">
       <div class="kpi-lbl">전체 진행 과제</div>
-      <div class="kpi-val c-bl">87</div>
-      <div class="kpi-sub">핵심 32 / 관리 55</div>
+      <div class="kpi-val c-bl">180</div>
+      <div class="kpi-sub">핵심 70 / 관리 110</div>
     </div>
     <div class="kpi c-ok" id="kpi-open" onclick="setTaskFilter('open',this)">
       <div class="kpi-lbl">오픈 완료</div>
@@ -252,7 +252,7 @@ td:last-child{border-right:none}
       <span id="task-count" style="font-size:11px;color:var(--g5);white-space:nowrap;min-width:40px"></span>
     </div>
     <div class="tbl-wrap">
-      <div class="tbl-outer" id="task-tbl-outer" style="max-height:594px">
+      <div class="tbl-outer" id="task-tbl-outer" style="max-height:593px">
       <table>
         <thead><tr>
           <th style="width:50px">구분</th>
@@ -379,6 +379,104 @@ td:last-child{border-right:none}
             <td><span class="badge b-gray">중단</span></td>
             <td style="font-size:12px"><span class="badge b-kpi-no">미설정</span></td>
             <td style="font-size:12px;color:var(--g5)">4/14 운영 중단</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="핵심" data-domain="영업" data-status="진행중" data-kpi="설정" data-flag="">
+            <td><span class="badge b-core">핵심</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-061" target="_blank" class="td-key" style="text-decoration:none">MPSP-061</a></td>
+            <td class="td-name">과제명 III</td>
+            <td style="font-size:12px">마케팅팀</td>
+            <td style="font-size:12px">백엔드서비스</td>
+            <td style="font-size:12px">박OO</td>
+            <td style="font-size:12px">최OO</td>
+            <td class="td-date">26-07-15</td>
+            <td><span class="badge b-bl">진행중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 전환율 +3%</td>
+            <td style="font-size:12px;color:var(--g5)">—</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="관리" data-domain="데이터" data-status="진행중" data-kpi="설정" data-flag="">
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-062" target="_blank" class="td-key" style="text-decoration:none">MPSP-062</a></td>
+            <td class="td-name">과제명 JJJ</td>
+            <td style="font-size:12px">편성팀</td>
+            <td style="font-size:12px">데이터팀</td>
+            <td style="font-size:12px">송OO</td>
+            <td style="font-size:12px">윤OO</td>
+            <td class="td-date">26-06-30</td>
+            <td><span class="badge b-bl">진행중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 분석 자동화 80%</td>
+            <td style="font-size:12px;color:var(--g5)">—</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="핵심" data-domain="서비스기획" data-status="검토중" data-kpi="미설정" data-flag="">
+            <td><span class="badge b-core">핵심</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-063" target="_blank" class="td-key" style="text-decoration:none">MPSP-063</a></td>
+            <td class="td-name">과제명 KKK</td>
+            <td style="font-size:12px">전략기획팀</td>
+            <td style="font-size:12px">전시서비스기획팀</td>
+            <td style="font-size:12px">홍OO</td>
+            <td style="font-size:12px">장OO</td>
+            <td class="td-date">26-08-01</td>
+            <td><span class="badge b-gray">검토중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-no">미설정</span></td>
+            <td style="font-size:12px;color:var(--g5)">KPI 미입력</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="관리" data-domain="영업" data-status="진행중" data-kpi="설정" data-flag="">
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-064" target="_blank" class="td-key" style="text-decoration:none">MPSP-064</a></td>
+            <td class="td-name">과제명 LLL</td>
+            <td style="font-size:12px">마케팅팀</td>
+            <td style="font-size:12px">백엔드서비스</td>
+            <td style="font-size:12px">권OO</td>
+            <td style="font-size:12px">오OO</td>
+            <td class="td-date">26-07-30</td>
+            <td><span class="badge b-bl">진행중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 매출 +15%</td>
+            <td style="font-size:12px;color:var(--g5)">—</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="핵심" data-domain="전략" data-status="진행중" data-kpi="설정" data-flag="Y">
+            <td><span class="badge b-core">핵심</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-065" target="_blank" class="td-key" style="text-decoration:none">MPSP-065</a></td>
+            <td class="td-name">과제명 MMM</td>
+            <td style="font-size:12px">전략기획팀</td>
+            <td style="font-size:12px">전시서비스기획팀</td>
+            <td style="font-size:12px">나OO</td>
+            <td style="font-size:12px">강OO</td>
+            <td class="td-date" style="color:var(--rdm)">26-05-01</td>
+            <td><span class="badge b-rd">지연</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> NPS +10점</td>
+            <td style="font-size:12px;color:var(--rdm)">일정 지연 · 리소스 부족</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="관리" data-domain="서비스기획" data-status="오픈완료" data-kpi="설정" data-flag="">
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-066" target="_blank" class="td-key" style="text-decoration:none">MPSP-066</a></td>
+            <td class="td-name">과제명 NNN</td>
+            <td style="font-size:12px">편성팀</td>
+            <td style="font-size:12px">백엔드서비스</td>
+            <td style="font-size:12px">하OO</td>
+            <td style="font-size:12px">이OO</td>
+            <td class="td-date">26-04-20</td>
+            <td><span class="badge b-ok">오픈완료</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-ok">설정</span> 페이지 속도 -40%</td>
+            <td style="font-size:12px;color:var(--g5)">성과 측정 중</td>
+            <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
+          </tr>
+          <tr data-type="관리" data-domain="데이터" data-status="진행중" data-kpi="미설정" data-flag="">
+            <td><span class="badge b-mgmt">관리</span></td>
+            <td><a href="https://11jira.11stcorp.com/browse/MPSP-067" target="_blank" class="td-key" style="text-decoration:none">MPSP-067</a></td>
+            <td class="td-name">과제명 OOO</td>
+            <td style="font-size:12px">마케팅팀</td>
+            <td style="font-size:12px">데이터팀</td>
+            <td style="font-size:12px">구OO</td>
+            <td style="font-size:12px;color:var(--rdm)">미배정</td>
+            <td class="td-date">26-08-15</td>
+            <td><span class="badge b-bl">진행중</span></td>
+            <td style="font-size:12px"><span class="badge b-kpi-no">미설정</span></td>
+            <td style="font-size:12px;color:var(--g5)">담당자 미배정</td>
             <td><button class="btn btn-out btn-edit" onclick="openEditModal(this)">편집</button></td>
           </tr>
         </tbody>
@@ -1393,7 +1491,7 @@ function saveRptModal(){
   const mpsp=g('rm-mpsp'),name=g('rm-name'),type=g('rm-type'),target=g('rm-target'),rate=g('rm-rate'),verdict=g('rm-verdict'),filter=g('rm-filter');
   const months=[];for(let i=1;i<=12;i++)months.push(g('rm-m'+i));
   if(_rptRow){_rptRow.dataset.rpt=filter;_rptRow.innerHTML=buildRptRow(mpsp,name,type,target,months,rate,verdict,filter);}
-  else{if(!mpsp||!name){alert('MPSP와 과제명은 필수입니다.');return;}const tr=document.createElement('tr');tr.dataset.rpt=filter;tr.innerHTML=buildRptRow(mpsp,name,type,target,months,rate,verdict,filter);document.getElementById('rpt-tbody').appendChild(tr);}
+  else{if(!mpsp||!name){alert('MPSP와 과제명은 필수입니다.');return;}const tr=document.createElement('tr');tr.dataset.rpt=filter;tr.innerHTML=buildRptRow(mpsp,name,type,target,months,rate,verdict,filter);const tbody=document.getElementById('rpt-tbody');tbody.insertBefore(tr,tbody.firstChild);}
   closeRptModal();
 }
 function deleteRptRow(btn){if(!confirm('이 행을 삭제하시겠습니까?'))return;btn.closest('tr').remove();}
@@ -1417,7 +1515,7 @@ function savePerfSecModal(){
   sec.className='perf-section';
   sec.style.cssText='background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px';
   sec.innerHTML=`<div class="perf-sec-hdr" onclick="togglePerfSec(this)" style="background:#374151;color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none"><span style="font-size:13px;font-weight:700;flex:1">▶ ${title} (클릭해서 펼치기)</span><button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openPerfItemAdd(this)">+ 항목</button><button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deletePerfSection(this)">섹션 삭제</button></div><div class="perf-sec-body" style="display:none"><div style="padding:16px 14px;font-size:13px;color:var(--g5);text-align:center">항목을 추가하세요</div></div>`;
-  document.getElementById('perf-sections').appendChild(sec);
+  document.getElementById('perf-sections').prepend(sec);
   closePerfSecModal();
 }
 function deletePerfSection(btn){if(!confirm('이 분기 섹션을 삭제하시겠습니까?'))return;btn.closest('.perf-section').remove();}
@@ -1453,7 +1551,7 @@ function savePerfModal(){
     div.className='perf-item';
     div.style.cssText='display:flex;align-items:center;border-bottom:1px solid var(--g3)';
     div.innerHTML=`<div style="flex:1;padding:9px 14px;font-size:13px;color:var(--g7)" class="perf-label">${label}</div><div style="padding:9px 14px;font-size:13px;font-weight:700;color:var(--okm);white-space:nowrap" class="perf-value">${value}</div><div class="perf-actions" style="display:flex;gap:4px;padding:0 8px;opacity:0;transition:opacity .15s;flex-shrink:0"><button class="btn btn-out btn-sm" onclick="openPerfEdit(this)">수정</button><button class="btn btn-danger btn-sm" onclick="deletePerfItem(this)">삭제</button></div>`;
-    _perfSec.appendChild(div);
+    _perfSec.prepend(div);
   }
   closePerfModal();
 }
@@ -1477,7 +1575,7 @@ function saveDecSecModal(){
   sec.className='dec-section';
   sec.style.cssText='background:var(--wh);border:1px solid var(--g3);border-radius:8px;overflow:hidden;margin-bottom:8px';
   sec.innerHTML=`<div class="dec-sec-hdr" onclick="toggleDecSec(this)" style="background:#374151;color:#fff;padding:9px 14px;display:flex;align-items:center;cursor:pointer;user-select:none"><span style="font-size:13px;font-weight:700;flex:1">▶ ${title} (클릭해서 펼치기)</span><button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:none;margin-right:6px" onclick="event.stopPropagation();openDecItemAdd(this)">+ 항목</button><button class="btn btn-sm btn-danger" style="opacity:.7" onclick="event.stopPropagation();deleteDecSection(this)">섹션 삭제</button></div><div class="dec-sec-body" style="display:none"><div style="padding:16px 14px;font-size:13px;color:var(--g5);text-align:center">항목을 추가하세요</div></div>`;
-  document.getElementById('dec-sections').appendChild(sec);
+  document.getElementById('dec-sections').prepend(sec);
   closeDecSecModal();
 }
 function deleteDecSection(btn){if(!confirm('이 분기 섹션을 삭제하시겠습니까?'))return;btn.closest('.dec-section').remove();}
@@ -1512,7 +1610,7 @@ function saveDecModal(){
     div.className='dec-item';
     div.style.cssText='padding:12px 14px;border-bottom:1px solid var(--g3);position:relative';
     div.innerHTML=`<div class="dec-actions" style="position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity .15s"><button class="btn btn-out btn-sm" onclick="openDecEdit(this)">수정</button><button class="btn btn-danger btn-sm" onclick="deleteDecItem(this)">삭제</button></div><div style="font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px;padding-right:90px" class="dec-title">${title}</div><div style="font-size:12px;color:var(--g5);line-height:1.6" class="dec-desc">${desc}</div>`;
-    _decSec.appendChild(div);
+    _decSec.prepend(div);
   }
   closeDecModal();
 }
@@ -1550,20 +1648,17 @@ function addAdjHistory(){
     const body=sec.querySelector('.adj-hist-body');
     body.style.display='';
     const div=document.createElement('div');div.innerHTML=rowHTML;
-    body.appendChild(div.firstElementChild);
+    body.prepend(div.firstElementChild);
     // 건수 업데이트
     const cnt=body.querySelectorAll('.adj-hist-row').length;
     sec.querySelector('.adj-hist-hdr span:last-child').textContent=cnt+'건';
   } else {
-    // 새 월 섹션 생성 (신규 배정 대기 섹션 앞에)
+    // 새 월 섹션 생성 — 항상 맨 위에 추가
     const wrap=document.getElementById('adj-history-wrap');
     const newSec=document.createElement('div');
     newSec.className='adj-hist-section';
     newSec.innerHTML=`<div class="adj-hist-hdr" onclick="toggleAdjHist(this)" style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--dk);color:#fff;border-radius:8px 8px 0 0;cursor:pointer;user-select:none"><span style="font-size:13px;font-weight:700;flex:1">▼ ${label}</span><span style="font-size:12px;opacity:.6">1건</span></div><div class="adj-hist-body" style="border:1px solid var(--g3);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;margin-bottom:10px">${rowHTML}</div>`;
-    // 신규 배정 대기 섹션 앞에 삽입
-    const lastSec=wrap.querySelector('.adj-hist-section:last-child');
-    if(lastSec)wrap.insertBefore(newSec,lastSec);
-    else wrap.appendChild(newSec);
+    wrap.prepend(newSec);
   }
   ['ah-date','ah-mpsp','ah-name','ah-reason','ah-action'].forEach(id=>document.getElementById(id).value='');
 }
